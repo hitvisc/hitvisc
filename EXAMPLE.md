@@ -5,7 +5,7 @@
 Установка back-end производится из директории [install](install) с предварительной настройкой параметров системы, как описано в файле [README](README.md).
 
 Для установки back-end выполняется следующий набор скриптов:
-```bash
+```
 ansible-playbook hitvisc-install.yml
 ansible-playbook hitvisc-main-install.yml
 ansible-playbook boinc-install.yml
@@ -16,14 +16,17 @@ ansible-playbook third-party-install.yml
 ```
 
 Соответствующий набор скриптов используется для удаления всех компонент:
-•	ansible-playbook third-party-remove.yml
-•	ansible-playbook registry-remove.yml
-•	ansible-playbook postgresql-remove.yml
-•	ansible-playbook boinc-remove.yml
-•	ansible-playbook hitvisc-main-remove.yml
-•	ansible-playbook hitvisc-remove.yml
+```
+ansible-playbook third-party-remove.yml
+ansible-playbook registry-remove.yml
+ansible-playbook postgresql-remove.yml
+ansible-playbook boinc-remove.yml
+ansible-playbook hitvisc-main-remove.yml
+ansible-playbook hitvisc-remove.yml
+```
 
 Front-end реализован с использование фреймворка Nuxt3, для его установки, генерации образа установки и образа развертывания конечной системы используются следующие команды.
+```
 # npm
 npm install
 # pnpm
@@ -51,6 +54,7 @@ pnpm run build
 yarn build
 # bun
 bun run build
+```
 
 Работа сервиса HiTViSc обеспечивается контейнером Docker со следующими настройками:
 version: '3.1'
