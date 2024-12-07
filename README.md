@@ -23,6 +23,10 @@ The high-performance distributed computing system for drug development HiTViSc i
 :pill: prediction of molecule properties.
 ____
 
+Минимальные аппаратные и операционные технические требования для запуска и использования системы:
+
+
+____
 Установка системы производится на удаленном сервере. Перед началом работы убедитесь в наличии актуальных настроек в следующих файлах:
 
 :key: файл install/group_vars/TargetServers содержит настройки подключения к удаленному серверу;
