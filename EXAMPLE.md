@@ -1,5 +1,113 @@
 # Примеры новых вариантов использования кода системы HiTViSc
 
+## Установка системы
+
+Установка back-end производится из директории [install](install) с предварительной настройкой параметров системы, как описано в файле [README](README.md).
+
+Для установки back-end выполняется следующий набор скриптов:
+•	ansible-playbook hitvisc-install.yml
+•	ansible-playbook hitvisc-main-install.yml
+•	ansible-playbook boinc-install.yml
+•	ansible-playbook hitvisc-boinc-install.yml
+•	ansible-playbook postgresql-install.yml
+•	ansible-playbook registry-install.yml
+•	ansible-playbook third-party-install.yml
+
+Соответствующий набор скриптов используется для удаления всех компонент:
+•	ansible-playbook third-party-remove.yml
+•	ansible-playbook registry-remove.yml
+•	ansible-playbook postgresql-remove.yml
+•	ansible-playbook boinc-remove.yml
+•	ansible-playbook hitvisc-main-remove.yml
+•	ansible-playbook hitvisc-remove.yml
+
+Front-end реализован с использование фреймворка Nuxt3, для его установки, генерации образа установки и образа развертывания конечной системы используются следующие команды.
+# npm
+npm install
+# pnpm
+pnpm install
+# yarn
+yarn install
+# bun
+bun install
+
+# npm
+npm run dev
+
+# pnpm
+pnpm run dev
+# yarn
+yarn dev
+# bun
+bun run dev
+
+# npm
+npm run build
+# pnpm
+pnpm run build
+# yarn
+yarn build
+# bun
+bun run build
+
+Работа сервиса HiTViSc обеспечивается контейнером Docker со следующими настройками:
+version: '3.1'
+services:
+
+  client:
+#    image: registry.inforika.ru/kukushkin/boincaas2:main-client
+    build:
+      context: .
+      dockerfile: Dockerfile.client.prod
+    hostname: boincaas2-vue_client
+    container_name: boincaas2-vue_client
+    depends_on:
+      - server
+    ports:
+      - 9080:80
+    environment:
+      HOST: 0.0.0.0
+      PORT: 80
+      NUXT_PUBLIC_API_BOINCAAS_BASE_URL: http://localhost:9090/
+
+  server:
+#    image: registry.inforika.ru/kukushkin/boincaas2:main-server
+    build:
+      context: .
+      dockerfile: Dockerfile.server.prod
+    hostname: boincaas2-vue_server
+    container_name: boincaas2-vue_server
+    depends_on:
+      - db
+    ports:
+      - 9090:80
+    env_file:
+      - backend/src/.env
+    volumes:
+      - ./baas:/usr/sysdir
+    environment:
+      HITVISC_DATA_DIR: /usr/sysdir
+      EMAIL_CONFIRMATION_URL: http://localhost:9080/confirmation
+      NEW_PASSWORD_URL: http://localhost:9080/new-password
+      LOGIN_URL: http://localhost:9080/auth
+      DB_URL: postgresql://postgres:password@boincaas2-db:5432/hitvsc?schema=registry
+      CORS_ORIGIN_HOSTS: http://localhost:9080
+
+  db:
+    image: postgres:15-alpine
+    hostname: boincaas2-db
+    container_name: boincaas2-db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: hitvisc
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+volumes:
+  postgres:
+
 
 ## Пример 1: виртуальный скрининг с использованием программы молекулярного докинга AutoDock Vina
 
