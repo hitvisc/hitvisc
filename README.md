@@ -12,17 +12,22 @@
 
 ____
 
-The high-performance distributed computing system for drug development HiTViSc is designed to perform structure-based virtual screening and can be used to solve applied problems in the following areas:
+Минимальные аппаратные и операционные технические требования для запуска и использования системы:
+- Для работы конечного пользователя рекомендуется использовать персональный компьютер со следующими характеристиками:
+процессор с двумя или более ядрами и тактовой частотой 2ГГц или выше;
+оперативная память 4Гб или выше;
+канал Интернет пропускной способностью 10 Мбит;
+ОС Windows, Linux или MacOS со стандартным набором системного программного обеспечения;
+веб-браузер Mozilla Firefox версии 96 или новее или Яндекс-браузер версии 22 или новее.
+- Для работы серверной части системы рекомендуется использовать сервер со следующими характеристиками:
+процессор с двумя или более ядрами и тактовой частотой 2ГГц или выше;
+оперативная память 4Гб или выше;
+два жестких диска 1Тб, объединенных в RAID0;
+канал Интернет пропускной способностью 100 Мбит;
+ОС на базе ядра Linux версии 6.4, установленным Docker 24.0.5 и Ansible 2.10.8.
 
-:pill: development of new drugs;
 
-:pill: optimization of existing drugs;
-
-:pill: development and optimization of materials and other molecules with specified properties;
-
-:pill: prediction of molecule properties.
 ____
-
 Установка системы производится на удаленном сервере. Перед началом работы убедитесь в наличии актуальных настроек в следующих файлах:
 
 :key: файл install/group_vars/TargetServers содержит настройки подключения к удаленному серверу;
