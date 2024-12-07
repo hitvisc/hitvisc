@@ -37,23 +37,25 @@
 **Мишень:** основная протеаза коронавируса SARS-CoV-2 (3CLpro), PDB ID: [6Y7M](https://www.rcsb.org/structure/6Y7M). Это одна из протеаз, имеющих важное функциональное значение в жизненном цикле коронавируса при отсутствии близких гомологов у человека, что делает ее перспективной мишенью в поисках противовирусных препаратов с минимальной токсичностью для клеток человеческого организма. Подготовленная экспертом 3D-структура белка в формате PDB и параметры молекулярного докинга были получены из исходных данных проекта добровольных вычислений SiDock@home.
 
 
+
+
 Входные файлы примеров и выходные файлы с результатами представлены в репозитории в папке [example](example). Содержание файлов следующее:
-1.	Файлы описания мишени для AutoDock Vina:
--	[example/hitvisc.target.autodockvina.example.pdbqt](example/hitvisc.target.autodockvina.example.pdbqt) – описание мишени RORα в формате для молекулярного докинга;
--	hitvisc.target.autodockvina.example.refligand.pdbqt – описание справочного лиганда в формате для молекулярного докинга;
--	hitvisc.target.autodockvina.example.refligand_out.pdbqt – результат молекулярного докинга справочного лиганда;
--	hitvisc.docker_protocol.autodockvina.example.txt – протокол молекулярного докинга;
-2.	Файлы описания мишени для CmDock:
--	hitvisc.target.cmdock.example.mol2 – описание мишени 3CLpro в формате для молекулярного докинга;
--	corona_3CLpro_v3.prm, corona_3CLpro_v3.as, htvs.ptc – тройка файлов, задающих протокол молекулярного докинга в формате CmDock;
-3.	Файл библиотеки лигандов:
--	lib_sidock_20000_ligands.zip – исходный архив библиотеки лигандов;
-4.	Файлы результатов виртуального скрининга для AutoDock Vina:
--	example_autodockvina_hits_all.zip – все полученные хиты;
--	example_autodockvina_hits_div.zip – таблица химического разнообразия;   
--	example_autodockvina_hits_viz.zip – визуализация;  
-5.	Файлы результатов виртуального скрининга для CmDock:
--	example_cmdock_hits_all.zip – все полученные хиты;       
--	example_cmdock_hits_div.zip – таблица химического разнообразия;   
--	example_cmdock_hits_viz.zip – визуализация.
+1.  Файлы описания мишени для AutoDock Vina:
+-  [example/hitvisc.target.autodockvina.example.pdbqt](example/hitvisc.target.autodockvina.example.pdbqt) – описание мишени RORα в формате для молекулярного докинга;
+-  [example/hitvisc.target.autodockvina.example.refligand.pdbqt](example/hitvisc.target.autodockvina.example.refligand.pdbqt) – описание справочного лиганда в формате для молекулярного докинга;
+-  [example/hitvisc.target.autodockvina.example.refligand_out.pdbqt](example/hitvisc.target.autodockvina.example.refligand_out.pdbqt) – результат молекулярного докинга справочного лиганда;
+-  [example/hitvisc.docker_protocol.autodockvina.example.txt](example/hitvisc.docker_protocol.autodockvina.example.txt) – протокол молекулярного докинга;
+2.  Файлы описания мишени для CmDock:
+-  [example/hitvisc.target.cmdock.example.mol2](example/hitvisc.target.cmdock.example.mol2) – описание мишени 3CLpro в формате для молекулярного докинга;
+-  [example/corona_3CLpro_v3.prm](example/corona_3CLpro_v3.prm), [example/corona_3CLpro_v3.as](example/corona_3CLpro_v3.as), [example/htvs.ptc](example/htvs.ptc) – тройка файлов, задающих протокол молекулярного докинга в формате CmDock;
+3.  Файл библиотеки лигандов:
+-  [example/lib_sidock_20000_ligands.zip](example/lib_sidock_20000_ligands.zip) – исходный архив библиотеки лигандов;
+4.  Файлы результатов виртуального скрининга для AutoDock Vina:
+-  [example/example_autodockvina_hits_all.zip](example/example_autodockvina_hits_all.zip) – все полученные хиты;
+-  [example/example_autodockvina_hits_div.zip](example/example_autodockvina_hits_div.zip) – таблица химического разнообразия;
+-  [example/example_autodockvina_hits_viz.zip](example/example_autodockvina_hits_viz.zip) – визуализация;
+5.  Файлы результатов виртуального скрининга для CmDock:
+-  [example/example_cmdock_hits_all.zip](example/example_cmdock_hits_all.zip) – все полученные хиты;
+-  [example/example_cmdock_hits_div.zip](example/example_cmdock_hits_div.zip) – таблица химического разнообразия;
+-  [example/example_cmdock_hits_viz.zip](example/example_cmdock_hits_viz.zip) – визуализация.
 
