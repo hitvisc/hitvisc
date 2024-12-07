@@ -1,0 +1,28 @@
+---
+- name: Removing HiTViSc software at root level
+  hosts: TargetServers
+
+  tasks:
+  - name: Delete global application directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}"
+      state: absent
+
+  - name: Delete HiTViSc user - hitviscadm
+    become: yes
+    become_user: root
+    become_method: sudo
+    user:
+      name: "{{ hitvisc_user_name }}"
+      state: absent
+
+  - name: Delete HiTViSc group - hitvisc
+    become: yes
+    become_user: root
+    become_method: sudo
+    group:
+      name: "{{ hitvisc_group_name }}"
+      state: absent

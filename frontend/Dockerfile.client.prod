@@ -1,0 +1,19 @@
+# Build frontend
+FROM node:18-alpine As frontend
+
+WORKDIR /usr/app
+
+COPY nuxt-client/src/package.json .
+RUN npm install
+
+COPY nuxt-client/src/ .
+RUN npm run build
+
+# Production
+FROM node:18-alpine As production
+
+EXPOSE 80
+
+COPY --from=frontend /usr/app/.output ./.output
+
+ENTRYPOINT [ "node", ".output/server/index.mjs"]

@@ -1,0 +1,59 @@
+---
+- name: Rolling HiTViSc software
+  hosts: TargetServers
+
+  tasks:
+  - name: Installing packages
+    become: yes
+    become_user: root
+    become_method: sudo
+    apt:
+      name:
+      - acl
+      - pkg-config
+      - libzstd-dev
+      - libreadline-dev
+      - zlib1g-dev
+      - libxml2
+      - libxml2-dev
+      - libsystemd-dev
+      - python3-dev
+      - openssl
+      - libssl-dev
+      - libossp-uuid-dev
+      - r-base-core
+      - dos2unix
+      state: present
+
+  # Create HiTViSc group and user
+  - name: Create HiTViSc group - hitvisc
+    become: yes
+    become_user: root
+    become_method: sudo
+    group:
+      name: "{{ hitvisc_group_name }}"
+      state: present
+
+  - name: Create HiTViSc user - hitviscadm
+    become: yes
+    become_user: root
+    become_method: sudo
+    user:
+      name: "{{ hitvisc_user_name }}"
+      state: present
+      group: "{{ hitvisc_group_name }}"
+      groups: [ '{{ hitvisc_group_name }}', 'sudo', 'www-data' ]
+      shell: /bin/bash
+      system: true
+      password: "{{ hitvisc_user_password | password_hash('sha512') }}"
+
+  # Create HiTViSc and related components directories
+  - name: Create global application directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}"
+      state: directory
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"

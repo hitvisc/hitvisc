@@ -1,0 +1,118 @@
+---
+- name: Prepare HiTViSc main scripts
+  hosts: TargetServers
+
+  tasks:
+  # Create HiTViSc main directory
+  - name: Create HiTViSc main directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/hitvisc/main"
+      state: directory
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+
+  # Copy HiTViSc main scripts
+  - name: Copy HiTViSc main scripts
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    copy:
+      src: ./source/hitvisc/main/ 
+      dest: "/{{ app_base_directory }}/hitvisc/main/"
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+      mode: preserve
+  
+  # Copy HiTViSc-specific project_prefs.xml
+  - name: Copy HiTViSc-specific project_prefs.xml
+    become: yes
+    become_user: root
+    become_method: sudo
+    copy:
+      src: ./source/hitvisc/main/hitvisc_project_prefs.xml
+      dest: "/var/lib/mysql-files/"
+      owner: root
+      group: root
+      mode: preserve 
+
+  # Create HiTViSc API directory
+  - name: Create HiTViSc API directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/hitvisc/api"
+      state: directory
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+
+  # Copy HiTViSc API scripts
+  - name: Copy HiTViSc API scripts
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    copy:
+      src: ./source/hitvisc/api/ 
+      dest: "/{{ app_base_directory }}/hitvisc/api/"
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+      mode: preserve
+
+  # Create HiTViSc bio directory
+  - name: Create HiTViSc bio directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/hitvisc/bio"
+      state: directory
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+
+  # Copy HiTViSc bio scripts
+  - name: Copy HiTViSc bio scripts
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    copy:
+      src: ./source/hitvisc/bio/
+      dest: "/{{ app_base_directory }}/hitvisc/bio/"
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+      mode: preserve
+
+  # Create HiTViSc tmp directory
+  - name: Create HiTViSc tmp directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/hitvisc/tmp"
+      state: directory
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+
+  # Create HiTViSc log directory
+  - name: Create HiTViSc log directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/hitvisc/log"
+      state: directory
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+
+  # Create cron entry to run quantum.sh every 1 minute
+  - name: Create cron entry "*/1 * * * * (cd /app/hitvisc/main && ./quantum.sh) >> /app/hitvisc/log/cron.log 2>&1"
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    cron:
+      name: "synchronize hosts and workunits"
+      minute: "*/1"
+      job: "(cd /app/hitvisc/main && ./quantum.sh) >> /app/hitvisc/log/cron.log 2>&1"
+

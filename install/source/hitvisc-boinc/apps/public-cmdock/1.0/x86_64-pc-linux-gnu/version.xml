@@ -1,0 +1,26 @@
+<version>
+   <file>
+      <physical_name>public-cmdock_wrapper_1.0_x86_64-pc-linux-gnu</physical_name>
+      <main_program/>
+   </file>
+   <file>
+      <physical_name>public-cmdock_0.2.0_1.0_x86_64-pc-linux-gnu</physical_name>
+      <logical_name>public-cmdock</logical_name>
+      <copy_file/>
+   </file>
+   <file>
+      <physical_name>public-cmdock_job_1.0_x86_64-pc-linux-gnu.xml</physical_name>
+      <logical_name>job.xml</logical_name>
+      <copy_file/>
+   </file>
+   <file>
+      <physical_name>public-cmdock_docking_out_1.0_x86_64-pc-linux-gnu</physical_name>
+      <logical_name>docking_out</logical_name>
+      <copy_file/>
+   </file>
+   <file>
+      <physical_name>public-cmdock_0.2.0_1.0_x86_64-pc-linux-gnu.zip</physical_name>
+      <logical_name>CmDock.zip</logical_name>
+   </file>
+   <is_wrapper/>
+</version>

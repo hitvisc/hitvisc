@@ -1,0 +1,39 @@
+<project_preferences>
+<resource_share>100</resource_share>
+<no_cpu>1</no_cpu>
+<project_specific>
+<apps_selected>
+</apps_selected>
+</project_specific>
+<venue name="home">
+<resource_share>100</resource_share>
+<no_cpu>0</no_cpu>
+<project_specific>
+<apps_selected>
+<app_id>3</app_id>
+<app_id>7</app_id>
+</apps_selected>
+</project_specific>
+</venue>
+<venue name="work">
+<resource_share>100</resource_share>
+<no_cpu>0</no_cpu>
+<project_specific>
+<apps_selected>
+<app_id>2</app_id>
+<app_id>6</app_id>
+</apps_selected>
+</project_specific>
+</venue>
+<venue name="school">
+<resource_share>100</resource_share>
+<no_cpu>0</no_cpu>
+<project_specific>
+<apps_selected>
+<app_id>4</app_id>
+<app_id>8</app_id>
+</apps_selected>
+</project_specific>
+</venue>
+</project_preferences>
+

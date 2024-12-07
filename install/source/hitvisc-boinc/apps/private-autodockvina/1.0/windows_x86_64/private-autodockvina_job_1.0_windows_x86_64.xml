@@ -1,0 +1,14 @@
+<job_desc>
+    <task>
+        <application>run_private-autodockvina.cmd</application>
+        <append_cmdline_args/> 
+    </task>
+    <unzip_input>
+        <zipfilename>ligands.zip</zipfilename>
+    </unzip_input>
+    <zip_output>
+        <zipfilename>result.zip</zipfilename>
+        <filename>.*_out.pdbqt</filename>
+        <filename>.*_out.txt</filename>
+    </zip_output>
+</job_desc>

@@ -1,0 +1,3 @@
+[TargetServers]
+[ANSIBLE_HOSTNAME] ansible_host=[ANSIBLE_IP]
+

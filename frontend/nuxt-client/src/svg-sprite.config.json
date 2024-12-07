@@ -1,0 +1,8 @@
+{
+  "dest": ".",
+  "mode": {
+    "symbol": {
+      "dest": "public/assets"
+    }
+  }
+}

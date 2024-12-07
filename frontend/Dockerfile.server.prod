@@ -1,0 +1,25 @@
+# Build backend
+FROM node:18-alpine As backend
+
+WORKDIR /usr/app
+
+COPY backend/src/package.json .
+RUN npm install
+
+COPY backend/src/ .
+RUN npm run build
+
+ENV NODE_ENV production
+
+RUN npm ci --only=production && npm cache clean --force
+
+
+# Production
+FROM node:18-alpine As production
+
+EXPOSE 80
+
+COPY --from=backend /usr/app/node_modules ./node_modules
+COPY --from=backend /usr/app/dist ./dist
+
+CMD [ "node", "./dist/src/main.js" ]

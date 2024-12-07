@@ -1,0 +1,35 @@
+    <app>
+        <name>cmdock</name>
+        <user_friendly_name>CurieMarieDock 0.2.0 on BOINC</user_friendly_name>
+    </app>
+    <app>
+        <name>test-cmdock</name>
+        <user_friendly_name>CurieMarieDock 0.2.0 on BOINC (test resources)</user_friendly_name>
+    </app>
+    <app>
+        <name>private-cmdock</name>
+        <user_friendly_name>CurieMarieDock 0.2.0 on BOINC (private resources)</user_friendly_name>
+    </app>
+    <app>
+        <name>public-cmdock</name>
+        <user_friendly_name>CurieMarieDock 0.2.0 on BOINC (public resources)</user_friendly_name>
+    </app>
+
+    <app>
+        <name>autodockvina</name>
+        <user_friendly_name>AutoDockVina 1.2.5 on BOINC</user_friendly_name>
+    </app>
+    <app>
+        <name>test-autodockvina</name>
+        <user_friendly_name>AutoDockVina 1.2.5 on BOINC (test resources)</user_friendly_name>
+    </app>
+    <app>
+        <name>private-autodockvina</name>
+        <user_friendly_name>AutoDockVina 1.2.5 on BOINC (private resources)</user_friendly_name>
+    </app>
+    <app>
+        <name>public-autodockvina</name>
+        <user_friendly_name>AutoDockVina 1.2.5 on BOINC (public resources)</user_friendly_name>
+    </app>
+
+

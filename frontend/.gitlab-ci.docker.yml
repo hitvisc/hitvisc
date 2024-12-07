@@ -1,0 +1,29 @@
+image: docker.io/tmaier/docker-compose:latest
+
+services:
+  - docker.io/docker:dind
+
+stages:
+  - build
+
+build-server:
+  stage: build
+  only:
+    - /^v.*$/
+    - main
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+  script:
+    - docker build -f Dockerfile.server.prod -t $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME-server .
+    - docker push $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME-server
+
+build-client:
+  stage: build
+  only:
+    - /^v.*$/
+    - main
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+  script:
+    - docker build -f Dockerfile.client.prod -t $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME-client .
+    - docker push $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME-client

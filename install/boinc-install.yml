@@ -1,0 +1,199 @@
+---
+- name: BOINC Server rolling
+  hosts: TargetServers
+
+  tasks:
+  - name: Installing packages
+    become: yes
+    become_user: root
+    become_method: sudo
+    apt:
+      name:
+      - acl
+      - mc
+      - apache2
+      - git
+      - make
+      - m4
+      - libtool
+      - autoconf
+      - automake
+      - pkg-config
+      - dh-autoreconf
+      - gcc
+      - g++
+      - pkg-config
+      - python3
+      - mysql-server
+      - mysql-client
+      - openssl
+      - php
+      - libssl-dev
+      - libcurl4-openssl-dev
+      - libmysqlclient-dev
+      - python3-mysqldb
+      - php-mysql
+      - php-gd
+      - php-xml
+      - libapache2-mod-php
+      - libapache2-mod-fcgid
+      - libnotify-dev
+      state: present
+
+  # Check and correct system environment
+  - name: Create symbolic link /usr/bin/python
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      src: "/usr/bin/python3"
+      dest: "/usr/bin/python"
+      state: link
+
+  - name: Add apache user (www-data) into HiTViSc group
+    become: yes
+    become_user: root
+    become_method: sudo
+    user:
+      name: www-data
+      groups: '{{ hitvisc_group_name }}'
+      append: yes
+
+  # Clean the system from previous installation
+  - name: Stop BOINC server processes
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./bin/stop
+    args:
+      chdir: "/{{ app_base_directory }}/{{ boinc_project_home }}"
+      executable: /bin/bash
+    ignore_errors: true
+
+  - name: Stop apache2
+    become: yes
+    become_user: root
+    become_method: sudo
+    systemd:
+      name: apache2
+      state: stopped
+      enabled: true
+
+  - name: Delete BOINC server home directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/{{ boinc_project_home }}"
+      state: absent
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+    ignore_errors: true
+
+  - name: Drop project database if exists
+    become: yes
+    become_user: root
+    become_method: sudo
+    shell: echo "DROP DATABASE IF EXISTS {{ boinc_db_name }};" | mysql
+    args:
+      executable: /bin/bash
+
+  - name: Delete BOINC server source code directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/{{ source_root }}/boinc"
+      state: absent
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+
+  # Copying new version sources
+  - name: Copy directory with BOINC server source code
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    copy:
+      src: ./source/boinc
+      dest: "/{{ app_base_directory }}/{{ source_root }}/"
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+      mode: preserve
+
+  - name: Create MySQL user
+    become: yes
+    become_user: root
+    become_method: sudo
+    shell: echo "DROP USER IF EXISTS {{ boinc_db_user }}; CREATE USER {{ boinc_db_user }} IDENTIFIED BY '{{ boinc_db_password }}'; GRANT ALL PRIVILEGES ON *.* TO {{ boinc_db_user }};" | mysql
+    args:
+      executable: /bin/bash
+
+  - name: Run build script
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./boinc_build.sh boinc-server_release-1.4-1.4.2.tar.gz '{{ boinc_project_host }}' '{{ boinc_url_base }}' '/{{ app_base_directory }}/{{ boinc_project_home }}' '{{ boinc_db_host }}' '{{ boinc_db_name }}' '{{ boinc_db_user }}' '{{ boinc_db_password }}' '{{ boinc_project_name }}' '{{ boinc_project_caption }}' > ./boinc_build.log
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/boinc"
+      executable: /bin/bash
+
+  - name: Remove BOINC server directories from apache2 configuration file
+    become: yes
+    become_user: root
+    become_method: sudo
+    shell: LINE_NUMBER=$(grep -n "## Settings for BOINC project" /etc/apache2/apache2.conf | awk -F ':' '{ print($1 - 1); }') ; if [ -n "$LINE_NUMBER" ] ; then cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.bak ; head -n $LINE_NUMBER /etc/apache2/apache2.conf > /tmp/apache2.conf ; cat /tmp/apache2.conf > /etc/apache2/apache2.conf ; rm /tmp/apache2.conf ; fi
+    args:
+      executable: /bin/bash
+
+  - name: Add BOINC server directories into apache2 configuration file
+    become: yes
+    become_user: root
+    become_method: sudo
+    shell: cat "{{ boinc_project_name }}".httpd.conf >> /etc/apache2/apache2.conf
+    args:
+      chdir: "/{{ app_base_directory }}/{{ boinc_project_home }}"
+      executable: /bin/bash
+
+  - name: Increasing request body sizes and add ServerName variable
+    become: yes
+    become_user: root
+    become_method: sudo
+    shell: echo "LimitXMLRequestBody 134217728" >> /etc/apache2/apache2.conf ; echo "LimitRequestBody 134217728" >> /etc/apache2/apache2.conf ; echo "ServerName {{ boinc_project_host }}" >> /etc/apache2/apache2.conf
+    args:
+      chdir: "/{{ app_base_directory }}/{{ boinc_project_home }}"
+      executable: /bin/bash
+
+  - name: Enable cgi 
+    become: yes
+    become_user: root
+    become_method: sudo
+    shell: a2enmod cgi  
+    args:
+      executable: /bin/bash
+
+  - name: Start apache2
+    become: yes
+    become_user: root
+    become_method: sudo
+    systemd:
+      name: apache2
+      state: started
+
+  - name: Start BOINC server processes
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./bin/start
+    args:
+      chdir: "/{{ app_base_directory }}/{{ boinc_project_home }}"
+      executable: /bin/bash
+
+  - name: Set permissions on the log folder
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/{{ boinc_project_home }}/log_{{ boinc_project_host }}"
+      mode: 0775
+      recurse: no
+

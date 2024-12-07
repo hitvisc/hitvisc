@@ -1,0 +1,309 @@
+{
+  "section": "Раздел",
+  "features": {
+    "news": "Новости",
+    "resources": "Ресурсы",
+    "projects": "Проекты",
+    "library": "Библиотека",
+    "notifications": "Уведомления",
+    "settings": "Настройки"
+  },
+  "confirmationEmail": {
+    "title": "Успех!",
+    "confirmEmail": "подтвердить почту",
+    "text": "Успешное подтверждение.",
+    "login": "Войти"
+  },
+  "login": {
+    "title": "Войдите в аккаунт",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "passwordPlaceholder": "Ваш пароль",
+    "submitBtn": "Войти",
+    "langBtn": "Язык",
+    "forgotPassword": "Забыли свой пароль?",
+    "haveAccount": "У меня уже есть аккаунт.",
+    "login": "Войти",
+    "notAccount": "У вас еще нет аккаунта?",
+    "register": "Зарегистрироваться"
+  },
+  "resetPassword": {
+    "title": "Сброс пароля аккаунта",
+    "newPasswordTitle": "Установка нового пароля",
+    "email": "Электронная почта",
+    "submitBtn": "Сбросить пароль",
+    "langBtn": "Язык",
+    "passwordChanged": "Пароль установлен!",
+    "newPassword": "Новый пароль",
+    "newPasswordPlaceholder": "Ваш новый пароль",
+    "confirmPassword": "Подтверждение пароля",
+    "confirmPasswordPlaceholder": "Подтвердите свой пароль",
+    "invalidPasswordPattern": "Пароль должен содержать хотя бы одну строчную и заглавную букву, цифру и специальный символ (!{'@'}#$%^&*=+-_) длинной от 8 до 16",
+    "invalidConfirmPasswords": "Пароли не совпадают!"
+  },
+  "common": {
+    "download": "Скачать"
+  },
+  "main": {
+    "menuBtnAriaLabel": "Меню навигации",
+    "langBtn": "Язык",
+    "logout": "Выход"
+  },
+  "error": {
+    "unauthorized": "Отсутствует авторизация",
+    "404": {
+      "name": "Что-то пошло не так... Ничего не найдено",
+      "message": "Извините! Страница, которую вы ищите не найдена."
+    },
+    "403": {
+      "name": "Что-то пошло не так... Доступ запрещен",
+      "message": "У вас нет прав на просмотр этой страницы."
+    },
+    "takeMeHomeBtn": "Вернуться на главную"
+  },
+  "shared": {
+    "copyText": {
+      "copied": "Текст скопирован в буфер",
+      "click": "Нажмите для копирования в буфер"
+    }
+  },
+  "registration": {
+    "title": "Создание нового аккаунта",
+    "email": "Электронная почта",
+    "username": "Имя",
+    "usernamePlaceholder": "Иван Петров",
+    "password": "Пароль",
+    "passwordPlaceholder": "Ваш пароль",
+    "confirmPassword": "Подтверждение пароля",
+    "confirmPasswordPlaceholder": "Подтвердите свой пароль",
+    "checkPersonalData": "Согласие на обработку персональных данных",
+    "invalidPasswordPattern": "Пароль должен содержать хотя бы одну строчную и заглавную букву, цифру и специальный символ (!{'@'}#$%^&*=+-_) длинной от 8 до 16",
+    "invalidConfirmPasswords": "Пароли не совпадают!",
+    "invalidCheckPersonalData": "Необходимо согласиться на обработку персональных данных",
+    "submitBtn": "Регистрация",
+    "langBtn": "Язык"
+  },
+  "sentConfirmationEmail": {
+    "title": "Проверьте электронную почту",
+    "text": "Мы отправили вам специальную ссылку на {email}.",
+    "clickText": "Пожалуйста, нажмите на ссылку, чтобы подтвердить свой адрес электронной почты"
+  },
+  "sentResetPasswordEmail": {
+    "title": "Проверьте электронную почту",
+    "text": "Мы отправили вам специальную ссылку на {email}.",
+    "clickText": "Пожалуйста, нажмите на ссылку, чтобы сбросить свой пароль"
+  },
+  "inWork": {
+    "title": "Модуль в разработке!",
+    "description": "На данный момент модуль находится в активной стадии разработки и совсем скоро будет доступен."
+  },
+  "pagination": {
+    "next": "След.",
+    "prev": "Пред.",
+    "of": "из"
+  },
+  "projects": {
+    "addBtn": "Добавить",
+    "card": {
+      "edit": "Редактировать проект",
+      "delete": "Удалить проект"
+    },
+    "results": "Результаты",
+    "allHits": "Все хиты",
+    "divHits": "Химически разнообразные хиты",
+    "visHits": "Визуализация множества хитов",
+    "resultsNotFoundError": "Результаты проекта не доступны для скачивания. Пожалуйста, обратитесь к администратору системы.",
+    "typeOfUseLabel": "Режим доступа",
+    "typeOfUse": {
+      "R": "Закрытый",
+      "P": "Частный",
+      "O": "Общий"
+    },
+    "createdBy": "Создатель",
+    "creator": {
+      "next": "Далее",
+      "back": "Назад",
+      "start": "Запуск",
+      "save": "Сохранить",
+      "step1": "Шаг 1: Описание",
+      "step2": "Шаг 2: Расчетное приложение",
+      "step3": "Шаг 3: Параметры эксперимента",
+      "step4": "Шаг 4: Запуск",
+      "name": "Название",
+      "description": "Описание",
+      "target": "Мишень",
+      "author": "автор",
+      "application": "Приложение",
+      "applications": {
+        "autodockvina": "AutoDock Vina",
+        "cmdock": "CmDock"
+      },
+      "ligandsLibrary": "Библиотека лигандов",
+      "molecularDockingConfiguration": "Настройка протокола молекулярного докинга",
+      "enterManually": "Ввести вручную",
+      "loadFile": "Загрузить файл",
+      "loadFiles": "Загрузить файлы",
+      "enterManually2Sphere": "Внести вручную – две сферы",
+      "enterManuallyReferenceLigand": "Внести вручную – справочный лиганд",
+      "centerOfGridSpace": "Центр сайта связывания",
+      "dimensionsOfGridSpace": "Размер области докинга, Å",
+      "exhaustiveness": "Полнота",
+      "numberOfModes": "Число режимов",
+      "energyRange": "Диапазон энергии",
+      "cavityMappingRegion": "Область поиска",
+      "radius": "Радиус области поиска",
+      "smallSphereRadius": "Радиус малой сферы",
+      "maximumCavities": "Количество углублений",
+      "minimalVolume": "Минимальный объем",
+      "volumeIncrement": "Шаг изменения объема",
+      "center": "Центр",
+      "largeSphereRadius": "Радиус большой сферы",
+      "gridStep": "Шаг сетки",
+      "selectReferenceLigand": "Выбрать справочный лиганд",
+      "uploadReferenceLigand": "Загрузить справочный лиганд",
+      "cmDockSystemDefinitionFile": "Параметры системы",
+      "cmDockSiteParamsFile": "Параметры области докинга",
+      "cmDockFilterParamsFile": "Параметры фильтрации",
+      "hitSelectionCriterion": "Критерий отбора хитов",
+      "bindingEnergy": "Энергия связывания",
+      "ligandEfficiency": "Эффективность лиганда",
+      "stoppingCriterion": "Критерий остановки",
+      "percentOfCheckedLigands": "% проверенных лигандов",
+      "numberOfFoundHits": "Число найденных хитов",
+      "percentOfHitsAmongLigands": "% хитов от числа лигандов",
+      "notifyMeOfFoundHits": "Оповестить меня о найденных хитах",
+      "notifyMeCompletionOf": "Оповестить меня об обработке",
+      "percentLigands": "% лигандов",
+      "computationalResources": "Вычислительные ресурсы",
+      "resourcesNumberOfNodes": "{type} ресурсы ({count} вычислительных узлов)",
+      "resourcesType": {
+        "T": "Тестовые",
+        "R": "Частные",
+        "P": "Общедоступные"
+      }
+    }
+  },
+  "resources": {
+    "addBtn": "Добавить",
+    "name": "Имя узла",
+    "lastRequestAt": "Последнее обращение",
+    "tasksInProgress": "Текущие задания",
+    "tasksCompleted": "Завершено заданий",
+    "accessMode": "Режим доступа",
+    "notFound": "Информации о ресурсах не найдено!",
+    "sections": {
+      "public": "Общиe",
+      "private": "Частныe",
+      "test": "Тестовыe"
+    },
+    "accessModes": {
+      "P": "Общий",
+      "R": "Частный",
+      "T": "Тестовый"
+    },
+    "editor": {
+      "title": "Редактирование вычислительного узла",
+      "submitBtn": "Сохранить"
+    },
+    "creator": {
+      "title": "Подключение нового вычислительного узла",
+      "description": "На компьютере, который Вы хотите подключить",
+      "1": "Скачайте и установите",
+      "boincClient": "клиент BOINC",
+      "2": "Запустите клиент BOINC и откройте пункт меню «Сервис» → «Добавить проект».",
+      "3": "Введите в форму адрес проекта",
+      "4": "и нажмите «Далее».",
+      "5": "Выберите вариант «Да, уже зарегистрирован» и введите данные",
+      "email": "Адрес электронной почты:",
+      "password": "Пароль:",
+      "6": "Нажмите «Далее».",
+      "7": "Ждите подключения.",
+      "8": "Понятно",
+      "errorDuringLoadingParams": "Ошибка при получении параметров подключения"
+    }
+  },
+  "target": {
+    "feature": "Мишени",
+    "addBtn": "Добавить",
+    "name": "Название",
+    "description": "Описание",
+    "authors": "Автор(ы)",
+    "source": "Источник",
+    "pdbId": "PDB ID",
+    "referenceLigands": "Справочный лиганд(ы)",
+    "pdbSourceLabel": "Источник PDB",
+    "pdbSource": {
+      "file": "PDB файл",
+      "id": "PDB ID"
+    },
+    "card": {
+      "edit": "Редактировать мишень",
+      "delete": "Удалить мишень"
+    },
+    "creator": {
+      "title": "Добавление новой мишени",
+      "extractAutomatically": "извлечь автоматически",
+      "submitBtn": "Добавить мишень"
+    }
+  },
+  "ligand": {
+    "feature": "Лиганды",
+    "addBtn": "Добавить",
+    "name": "Название",
+    "description": "Описание",
+    "authors": "Автор(ы)",
+    "source": "Источник",
+    "fileSourceLabel": "Источник",
+    "fileSource": {
+      "file": "загрузить файл(ы)",
+      "url": "ссылка на файл"
+    },
+    "card": {
+      "edit": "Редактировать коллекцию лигандов",
+      "delete": "Удалить коллекцию лигандов"
+    },
+    "creator": {
+      "title": "Добавление коллекции лигандов",
+      "submitBtn": "Добавить коллекцию лигандов"
+    }
+  },
+  "library": {
+    "sections": {
+      "targets": "Мишени",
+      "ligands": "Лиганды"
+    },
+    "typeOfUseLabel": "Режим доступа",
+    "typeOfUse": {
+      "R": "Закрытая",
+      "P": "Частная",
+      "O": "Общая"
+    },
+    "author": "автор",
+    "creator": "Создатель"
+  },
+  "entity": {
+    "state": {
+      "P": "создается",
+      "U": "доступен(а)",
+      "L": "заблокирован(а)",
+      "A": "архивирован(а)"
+    }
+  },
+  "files": {
+    "errorCode": {
+      "files:exceedMaxSize": "Превышен максимально допустимый размер файла",
+      "files:invalidFormat": "Неверный формат файла",
+      "unknownUploadError": "Неизвестная ошибка при загрузке файла"
+    }
+  },
+  "validation": {
+    "required": "Поле обязательно",
+    "invalidEmail": "Некорректный адрес электронной почты",
+    "invalidFormat": "Некорректный формат",
+    "integerOnly": "Поле должно содержать целое число",
+    "max": "Поле должно быть не более {max}",
+    "min": "Поле должно быть не менее {min}",
+    "maxLength": "Поле должно содержать меньше {maxLength} знаков",
+    "minLength": "Поле должно содержать не менее {minLength} знаков"
+  }
+}

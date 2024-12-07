@@ -1,0 +1,50 @@
+---
+- name: Removing HiTViSc PostgreSQL RDBMS software
+  hosts: TargetServers
+
+  tasks:
+  # Clean system from previous releases
+  - name: Stopping HiTViSc PostgreSQL service
+    become: yes
+    become_user: root
+    become_method: sudo
+    systemd:
+      name: hitvisc-postgresql
+      state: stopped
+      enabled: false
+    ignore_errors: true
+
+  - name: Remove HiTViSc PostgreSQL service unit file from systemd directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: /etc/systemd/system/hitvisc-postgresql.service
+      state: absent
+
+  - name: Delete PostgreSQL directories
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    file:
+      path: "{{ item.path }}"
+      state: "{{ item.state }}"
+      owner: "{{ item.owner }}"
+      group: "{{ item.group }}"
+    loop:
+      - { path: "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_environment }}", owner: "{{ hitvisc_user_name }}", group: "{{ hitvisc_group_name }}", state: absent }
+      - { path: "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_database }}",    owner: "{{ hitvisc_user_name }}", group: "{{ hitvisc_group_name }}", state: absent }
+      - { path: "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_home }}",        owner: "{{ hitvisc_user_name }}", group: "{{ hitvisc_group_name }}", state: absent }
+      - { path: "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_serverlog }}",   owner: "{{ hitvisc_user_name }}", group: "{{ hitvisc_group_name }}", state: absent }
+      - { path: "/{{ app_base_directory }}/{{ postgresql_base }}", owner: "{{ hitvisc_user_name }}", group: "{{ hitvisc_group_name }}", state: absent }
+
+
+  - name: Delete directory with PostgreSQL source code
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/{{ source_root }}/postgresql"
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+      state: absent

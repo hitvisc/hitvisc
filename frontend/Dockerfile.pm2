@@ -1,0 +1,69 @@
+FROM ubuntu:22.04
+
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+# update the repository sources list
+# and install dependencies
+RUN apt-get update \
+    && apt-get install -y curl \
+    && apt-get -y autoclean
+
+# nvm environment variables
+ENV NVM_DIR /usr/local/nvm
+ENV NODE_VERSION 18.19.0
+
+RUN mkdir -p /usr/local/nvm
+
+# install nvm
+# https://github.com/creationix/nvm#install-script
+# там же есть ansible task
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+# install node and npm
+RUN source $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default
+
+# add node and npm to path so the commands are available
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
+# install pm2
+RUN npm install --global pm2
+
+ENV NODE_ENV production
+
+# client port
+EXPOSE 8080
+# api port
+EXPOSE 9090
+
+WORKDIR /app/boincaas2
+
+RUN mkdir -p /app/boincaas2/api
+RUN mkdir -p /app/boincaas2/client
+
+# install api dependencies
+COPY backend/src/package.json /app/boincaas2/api
+WORKDIR /app/boincaas2/api
+RUN npm install
+# copy built api
+COPY backend/src/dist ./dist
+
+# install client dependencies
+COPY nuxt-client/src/package.json /app/boincaas2/client
+WORKDIR /app/boincaas2/client
+RUN npm install
+
+# copy built client
+COPY nuxt-client/src/.output ./.output
+
+# copy pm2 config
+COPY pm2.config.js /app/boincaas2
+
+# launch in background
+# CMD [ "pm2", "start", "/app/boincaas2/pm2.config.js" ]
+
+# launch in foreground
+CMD [ "pm2-runtime", "/app/boincaas2/pm2.config.js" ]

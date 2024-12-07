@@ -1,0 +1,108 @@
+image: node:18-alpine
+
+variables:
+  NODE_JS_VERSION: '18'
+  NODE_JS_IMAGE: 'node:$NODE_JS_VERSION-alpine'
+
+stages:
+  - deps
+  - build
+
+.deps_cache_server:
+  cache:
+    key:
+      files:
+        - backend/src/yarn.lock
+    policy: pull
+    paths:
+      - backend/src/node_modules/
+      - backend/src/.yarn-cache/
+
+.deps_cache_client:
+  cache:
+    key:
+      files:
+        - nuxt-client/src/yarn.lock
+    policy: pull
+    paths:
+      - nuxt-client/src/node_modules/
+      - nuxt-client/src/.yarn-cache/
+      - nuxt-client/src/.nuxt
+
+deps-server:
+  stage: deps
+  extends: .deps_cache_server
+  image: $NODE_JS_IMAGE
+  cache:
+    policy: pull-push
+  only:
+    - /^v.*$/
+    - main
+  script:
+    - cd backend/src
+    - echo 'yarn-offline-mirror ".yarn-cache/"' >> .yarnrc
+    - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
+    - yarn install --frozen-lockfile --no-progress
+  artifacts:
+    expire_in: 1h
+    paths:
+      - backend/src/node_modules
+
+# временно отключим cache
+
+#deps-client:
+#  stage: deps
+#  extends: .deps_cache_client
+#  image: $NODE_JS_IMAGE
+#  cache:
+#    policy: pull-push
+#  only:
+#    - /^v.*$/
+#    - main
+#  script:
+#    - cd nuxt-client/src
+#    - echo 'yarn-offline-mirror ".yarn-cache/"' >> .yarnrc
+#    - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
+#    - yarn install --frozen-lockfile --no-progress
+#  artifacts:
+#    expire_in: 1h
+#    paths:
+#      - nuxt-client/src/node_modules
+#      - nuxt-client/src/.nuxt
+
+build-server:
+  stage: build
+  needs:
+    - job: deps-server
+      artifacts: true
+  image: $NODE_JS_IMAGE
+  only:
+    - /^v.*$/
+    - main
+  script:
+    - cd backend/src
+    - yarn build
+  artifacts:
+    when: always
+    expire_in: 1h
+    paths:
+      - backend/src/dist
+
+build-client:
+  stage: build
+#  needs:
+#    - job: deps-client
+#      artifacts: true
+  image: $NODE_JS_IMAGE
+  only:
+    - /^v.*$/
+    - main
+  script:
+    - cd nuxt-client/src
+    - yarn install --frozen-lockfile --no-progress
+    - yarn build
+  artifacts:
+    when: always
+    expire_in: 1h
+    paths:
+      - nuxt-client/src/.output

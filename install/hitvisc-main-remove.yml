@@ -1,0 +1,29 @@
+---
+- name: Removing HiTViSc scripts
+  hosts: TargetServers
+
+  tasks:
+  - name: Delete HiTViSc API directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/hitvisc/api"
+      state: absent
+
+  - name: Delete HiTViSc main scripts directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/hitvisc/main"
+      state: absent
+
+  - name: Delete HiTViSc bio directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/hitvisc/bio"
+      state: absent
+

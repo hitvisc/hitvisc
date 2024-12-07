@@ -1,0 +1,39 @@
+/*
+ * Глобальные миксины\функции\константы
+ */
+
+.library-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  align-items: start;
+}
+
+.description {
+  white-space: pre-wrap;
+
+  &--scroll {
+    max-height: 160px;
+    overflow-y: scroll;
+  }
+}
+
+.auth-change-lang-btn {
+  max-width: 30px;
+  position: absolute;
+  right: 10px;
+  text-transform: uppercase;
+  top: 10px;
+}
+
+@media (max-width: 1400px) {
+  .library-items {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 960px) {
+  .library-items {
+    grid-template-columns: 1fr;
+  }
+}
