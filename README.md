@@ -12,17 +12,6 @@
 
 ____
 
-The high-performance distributed computing system for drug development HiTViSc is designed to perform structure-based virtual screening and can be used to solve applied problems in the following areas:
-
-:pill: development of new drugs;
-
-:pill: optimization of existing drugs;
-
-:pill: development and optimization of materials and other molecules with specified properties;
-
-:pill: prediction of molecule properties.
-____
-
 Минимальные аппаратные и операционные технические требования для запуска и использования системы:
 - Для работы конечного пользователя рекомендуется использовать персональный компьютер со следующими характеристиками:
 процессор с двумя или более ядрами и тактовой частотой 2ГГц или выше;
