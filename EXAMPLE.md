@@ -5,13 +5,15 @@
 Установка back-end производится из директории [install](install) с предварительной настройкой параметров системы, как описано в файле [README](README.md).
 
 Для установки back-end выполняется следующий набор скриптов:
-•	ansible-playbook hitvisc-install.yml
-•	ansible-playbook hitvisc-main-install.yml
-•	ansible-playbook boinc-install.yml
-•	ansible-playbook hitvisc-boinc-install.yml
-•	ansible-playbook postgresql-install.yml
-•	ansible-playbook registry-install.yml
-•	ansible-playbook third-party-install.yml
+```bash
+ansible-playbook hitvisc-install.yml
+ansible-playbook hitvisc-main-install.yml
+ansible-playbook boinc-install.yml
+ansible-playbook hitvisc-boinc-install.yml
+ansible-playbook postgresql-install.yml
+ansible-playbook registry-install.yml
+ansible-playbook third-party-install.yml
+```
 
 Соответствующий набор скриптов используется для удаления всех компонент:
 •	ansible-playbook third-party-remove.yml
