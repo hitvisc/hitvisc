@@ -56,63 +56,9 @@ yarn build
 bun run build
 ```
 
-Работа сервиса HiTViSc обеспечивается контейнером Docker со следующими настройками:
-version: '3.1'
-services:
+Работа сервиса HiTViSc обеспечивается контейнером Docker с настройками, указанными в файле [frontend/docker-compose.staging.yml](frontend/docker-compose.staging.yml).
 
-  client:
-#    image: registry.inforika.ru/kukushkin/boincaas2:main-client
-    build:
-      context: .
-      dockerfile: Dockerfile.client.prod
-    hostname: boincaas2-vue_client
-    container_name: boincaas2-vue_client
-    depends_on:
-      - server
-    ports:
-      - 9080:80
-    environment:
-      HOST: 0.0.0.0
-      PORT: 80
-      NUXT_PUBLIC_API_BOINCAAS_BASE_URL: http://localhost:9090/
 
-  server:
-#    image: registry.inforika.ru/kukushkin/boincaas2:main-server
-    build:
-      context: .
-      dockerfile: Dockerfile.server.prod
-    hostname: boincaas2-vue_server
-    container_name: boincaas2-vue_server
-    depends_on:
-      - db
-    ports:
-      - 9090:80
-    env_file:
-      - backend/src/.env
-    volumes:
-      - ./baas:/usr/sysdir
-    environment:
-      HITVISC_DATA_DIR: /usr/sysdir
-      EMAIL_CONFIRMATION_URL: http://localhost:9080/confirmation
-      NEW_PASSWORD_URL: http://localhost:9080/new-password
-      LOGIN_URL: http://localhost:9080/auth
-      DB_URL: postgresql://postgres:password@boincaas2-db:5432/hitvsc?schema=registry
-      CORS_ORIGIN_HOSTS: http://localhost:9080
-
-  db:
-    image: postgres:15-alpine
-    hostname: boincaas2-db
-    container_name: boincaas2-db
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: hitvisc
-    volumes:
-      - postgres:/var/lib/postgresql/data
-
-volumes:
-  postgres:
 
 
 ## Пример 1: виртуальный скрининг с использованием программы молекулярного докинга AutoDock Vina
