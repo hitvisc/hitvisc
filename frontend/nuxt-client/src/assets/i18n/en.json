@@ -1,0 +1,309 @@
+{
+  "section": "Section",
+  "features": {
+    "news": "News",
+    "resources": "Resources",
+    "projects": "Projects",
+    "library": "Library",
+    "notifications": "Notifications",
+    "settings": "Settings"
+  },
+  "confirmationEmail": {
+    "title": "Success!",
+    "confirmEmail": "confirm email",
+    "text": "Success confirm.",
+    "login": "Login"
+  },
+  "login": {
+    "title": "Login to your account",
+    "email": "Email",
+    "password": "Password",
+    "passwordPlaceholder": "Your password",
+    "submitBtn": "Sign in",
+    "langBtn": "Language",
+    "forgotPassword": "Forgot your password?",
+    "haveAccount": "I already have account.",
+    "login": "Sign in",
+    "notAccount": "Don't have account yet?",
+    "register": "Register"
+  },
+  "resetPassword": {
+    "title": "Reset account password",
+    "newPasswordTitle": "Set new password",
+    "email": "Email",
+    "submitBtn": "Reset password",
+    "langBtn": "Language",
+    "passwordChanged": "Password changed!",
+    "newPassword": "New password",
+    "newPasswordPlaceholder": "Your new password",
+    "confirmPassword": "Confirm password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "invalidPasswordPattern": "The password must be more than 8 and less than 16 characters, contain more than one uppercase and lowercase letter, a number and a special character (!{'@'}#$%^&*=+-_)",
+    "invalidConfirmPasswords": "Passwords did not match"
+  },
+  "common": {
+    "download": "Download"
+  },
+  "main": {
+    "menuBtnAriaLabel": "Toggle navigation",
+    "langBtn": "Language",
+    "logout": "Logout"
+  },
+  "error": {
+    "unauthorized": "Unauthorized",
+    "404": {
+      "name": "Oops... You just found an error page",
+      "message": "We are sorry but the page you are looking for was not found."
+    },
+    "403": {
+      "name": "Oops... Access denied",
+      "message": "You dont have permission to view this page."
+    },
+    "takeMeHomeBtn": "Take me home"
+  },
+  "shared": {
+    "copyText": {
+      "copid": "Text copied",
+      "click": "Click to copy text"
+    }
+  },
+  "registration": {
+    "title": "Register a new account",
+    "email": "Email address",
+    "username": "Name",
+    "usernamePlaceholder": "John Smith",
+    "password": "Password",
+    "passwordPlaceholder": "Your password",
+    "confirmPassword": "Confirm password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "checkPersonalData": "Consent to the processing of personal data",
+    "invalidPasswordPattern": "The password must be more than 8 and less than 16 characters, contain more than one uppercase and lowercase letter, a number and a special character (!{'@'}#$%^&*=+-_)",
+    "invalidConfirmPasswords": "Passwords did not match",
+    "invalidCheckPersonalData": "You must agree to the processing of personal data",
+    "submitBtn": "Register",
+    "langBtn": "Language"
+  },
+  "sentConfirmationEmail": {
+    "title": "Check your email inbox",
+    "text": "We've sent you a magic link to {email}.",
+    "clickText": "Please click the link to confirm your email."
+  },
+  "sentResetPasswordEmail": {
+    "title": "Check your email inbox",
+    "text": "We've sent you a magic link to {email}.",
+    "clickText": "Please click the link to reset your password."
+  },
+  "inWork": {
+    "title": "Module under development!",
+    "description": "At the moment, the module is under active development and will be available very soon."
+  },
+  "pagination": {
+    "next": "Next",
+    "prev": "Prev",
+    "of": "of"
+  },
+  "projects": {
+    "addBtn": "Add",
+    "card": {
+      "edit": "Edit project",
+      "delete": "Delete project"
+    },
+    "results": "Results",
+    "allHits": "Все хиты",
+    "divHits": "Химически разнообразные хиты",
+    "visHits": "Визуализация множества хитов",
+    "resultsNotFoundError": "Результаты проекта не доступны для скачивания. Пожалуйста, обратитесь к администратору системы.",
+    "typeOfUseLabel": "Type of use",
+    "typeOfUse": {
+      "R": "Restricted",
+      "P": "Private",
+      "O": "Public"
+    },
+    "createdBy": "Creator",
+    "creator": {
+      "next": "Next",
+      "back": "Back",
+      "start": "Start",
+      "save": "Save",
+      "step1": "Step 1: Description",
+      "step2": "Step 2: Docking application",
+      "step3": "Step 3: Experiment parameters",
+      "step4": "Step 4: Start",
+      "name": "Name",
+      "description": "Description",
+      "target": "Target",
+      "author": "author",
+      "application": "Application",
+      "applications": {
+        "autodockvina": "AutoDock Vina",
+        "cmdock": "CmDock"
+      },
+      "ligandsLibrary": "Ligands library",
+      "molecularDockingConfiguration": "Molecular docking configuration",
+      "enterManually": "Enter manually",
+      "loadFile": "Load file",
+      "loadFiles": "Load files",
+      "enterManually2Sphere": "Enter manually – two sphere",
+      "enterManuallyReferenceLigand": "Enter manually – reference ligand",
+      "centerOfGridSpace": "Center of the grid space",
+      "dimensionsOfGridSpace": "Dimensions of the grid space, Å",
+      "exhaustiveness": "Exhaustiveness",
+      "numberOfModes": "Number of modes",
+      "energyRange": "Energy range",
+      "cavityMappingRegion": "Cavity mapping region",
+      "radius": "Radius",
+      "smallSphereRadius": "Small sphere radius",
+      "maximumCavities": "Maximum cavities",
+      "minimalVolume": "Minimal volume",
+      "volumeIncrement": "Volume increment",
+      "center": "Center",
+      "largeSphereRadius": "Large sphere radius",
+      "gridStep": "Grid step",
+      "selectReferenceLigand": "Select reference ligand",
+      "uploadReferenceLigand": "Upload reference ligand",
+      "cmDockSystemDefinitionFile": "System definition",
+      "cmDockSiteParamsFile": "Docking site parameters",
+      "cmDockFilterParamsFile": "Filter parameters",
+      "hitSelectionCriterion": "Hit selection criterion",
+      "bindingEnergy": "Binding energy",
+      "ligandEfficiency": "Ligand Efficiency",
+      "stoppingCriterion": "Stopping criterion",
+      "percentOfCheckedLigands": "% of the checked ligands",
+      "numberOfFoundHits": "Number of the found hits",
+      "percentOfHitsAmongLigands": "% of hits among the ligands",
+      "notifyMeOfFoundHits": "Notify me of the found hits",
+      "notifyMeCompletionOf": "Notify me of the completion of",
+      "percentLigands": "% ligands",
+      "computationalResources": "Computational resources",
+      "resourcesNumberOfNodes": "{type} resources ({count} computational nodes)",
+      "resourcesType": {
+        "T": "Test",
+        "R": "Private",
+        "P": "Public"
+      }
+    }
+  },
+  "resources": {
+    "addBtn": "Add",
+    "name": "Node name",
+    "lastRequestAt": "Last used",
+    "tasksInProgress": "Task in progress",
+    "tasksCompleted": "Completed tasks",
+    "accessMode": "Access mode",
+    "notFound": "No resource information found!",
+    "sections": {
+      "public": "Public",
+      "private": "Private",
+      "test": "Test"
+    },
+    "accessModes": {
+      "P": "Public",
+      "R": "Private",
+      "T": "Test"
+    },
+    "editor": {
+      "title": "Update compute node",
+      "submitBtn": "Save"
+    },
+    "creator": {
+      "title": "Connecting a new compute node",
+      "description": "On the computer You want to connect",
+      "1": "Download and install",
+      "boincClient": "BOINC client",
+      "2": "Launch the BOINC client and open the menu item «Service» → «Add Project».",
+      "3": "Enter the project address in the form",
+      "4": "and click «Next».",
+      "5": "Select the «Yes, already registered» option and enter your",
+      "email": "E-mail address:",
+      "password": "Password:",
+      "6": "Click «Next».",
+      "7": "Wait for connection.",
+      "8": "Ok",
+      "errorDuringLoadingParams": "Error during loading connection params"
+    }
+  },
+  "target": {
+    "feature": "Targets",
+    "addBtn": "Add",
+    "name": "Name",
+    "description": "Description",
+    "authors": "Author(s)",
+    "source": "Source",
+    "pdbId": "PDB ID",
+    "referenceLigands": "Reference ligand(s)",
+    "pdbSourceLabel": "PDB source",
+    "pdbSource": {
+      "file": "PDB file",
+      "id": "PDB ID"
+    },
+    "card": {
+      "edit": "Edit target",
+      "delete": "Delete target"
+    },
+    "creator": {
+      "title": "Adding a new target",
+      "extractAutomatically": "extract automatically",
+      "submitBtn": "Add a new target"
+    }
+  },
+  "ligand": {
+    "feature": "Ligands",
+    "addBtn": "Add",
+    "name": "Name",
+    "description": "Description",
+    "authors": "Author(s)",
+    "source": "Source",
+    "fileSourceLabel": "File source",
+    "fileSource": {
+      "file": "upload file(s)",
+      "url": "link to file"
+    },
+    "card": {
+      "edit": "Edit ligand collection",
+      "delete": "Delete ligand collection"
+    },
+    "creator": {
+      "title": "Adding a new ligand collection",
+      "submitBtn": "Add a new ligand collection"
+    }
+  },
+  "library": {
+    "sections": {
+      "targets": "Targets",
+      "ligands": "Ligands"
+    },
+    "typeOfUseLabel": "Type of use",
+    "typeOfUse": {
+      "R": "Restricted",
+      "P": "Private",
+      "O": "Public"
+    },
+    "author": "author",
+    "creator": "Creator"
+  },
+  "entity": {
+    "state": {
+      "P": "preparing",
+      "U": "ready",
+      "L": "locked",
+      "A": "archived"
+    }
+  },
+  "files": {
+    "errorCode": {
+      "files:exceedMaxSize": "Maximum file size exceeded",
+      "files:invalidFormat": "Invalid file format",
+      "unknownUploadError": "Unknown error during file uploading"
+    }
+  },
+  "validation": {
+    "required": "Required",
+    "invalidEmail": "Email is not correct",
+    "invalidFormat": "Invalid format",
+    "integerOnly": "Must be integer",
+    "max": "Must be not greater than {max}",
+    "min": "Name must be not less than {min}",
+    "maxLength": "Must be less than {maxLength} chars",
+    "minLength": "Name must have {minLength} chars or more"
+  }
+}

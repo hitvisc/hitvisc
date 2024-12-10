@@ -1,0 +1,20 @@
+<job_desc>
+    <task>
+        <application>test-cmdock</application>
+        <stdout_filename>docking_log</stdout_filename>
+        <command_line>-c -j 1 -r target.prm -p "$PWD/data/scripts/dock.prm" -i ligands.sdf -o docking_out -n 1</command_line>
+        <checkpoint_filename>docking_out.chk</checkpoint_filename>
+        <fraction_done_filename>docking_out.progress</fraction_done_filename>
+        <setenv>CMDOCK_ROOT=$PWD</setenv>
+        <setenv>LD_LIBRARY_PATH=$PWD/lib:$LD_LIBRARY_PATH</setenv>
+        <setenv>PERL5LIB=$PWD/lib:$PERL5LIB</setenv>
+    </task>
+    <unzip_input>
+        <zipfilename>CmDock.zip</zipfilename>
+        <zipfilename>ligands.zip</zipfilename>
+    </unzip_input>
+    <zip_output>
+        <zipfilename>result.zip</zipfilename>
+        <filename>docking_out.*</filename>
+    </zip_output>
+</job_desc>

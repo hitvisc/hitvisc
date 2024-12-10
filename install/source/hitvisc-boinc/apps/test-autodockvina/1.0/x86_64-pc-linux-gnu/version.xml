@@ -1,0 +1,22 @@
+<version>
+   <file>
+      <physical_name>test-autodockvina_wrapper_x86_64-pc-linux-gnu</physical_name>
+      <main_program/>
+   </file>
+   <file>
+      <physical_name>run_test-autodockvina_1.0_x86_64-pc-linux-gnu.sh</physical_name>
+      <copy_file/>
+      <logical_name>run_test-autodockvina</logical_name>
+   </file>
+   <file>
+      <physical_name>test-autodockvina_1.2.5_1.0_x86_64-pc-linux-gnu</physical_name>
+      <copy_file/>
+      <logical_name>test-autodockvina</logical_name>
+   </file>
+   <file>
+      <physical_name>test-autodockvina_job_1.0_x86_64-pc-linux-gnu.xml</physical_name>
+      <copy_file/>
+      <logical_name>job.xml</logical_name>
+   </file>
+   <is_wrapper/>
+</version>

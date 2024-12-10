@@ -1,0 +1,12 @@
+---
+- name: Removing third-party bioinformatics tools
+  hosts: TargetServers
+
+  tasks:
+  - name: Delete third-party directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/third-party"
+      state: absent

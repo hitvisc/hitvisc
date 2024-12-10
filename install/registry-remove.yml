@@ -1,0 +1,24 @@
+---
+- name: Rolling HiTViSc PostgreSQL RDBMS software
+  hosts: TargetServers
+
+  tasks:
+  # Clean system from previous releases
+  - name: Drop HiTViSc registry database, user and owner role
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./registry_drop.sh "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_environment }}" HiTViSc > registry_drop.log
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/registry"
+      executable: /bin/bash
+
+  - name: Delete directory with HiTViSc registry source code
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/{{ source_root }}/registry"
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+      state: absent

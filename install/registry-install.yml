@@ -1,0 +1,60 @@
+---
+- name: Rolling HiTViSc PostgreSQL RDBMS software
+  hosts: TargetServers
+
+  tasks:
+  # Clean system from previous releases
+  - name: Delete directory with HiTViSc registry source code
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/{{ source_root }}/registry"
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+      state: absent
+
+  # Deploy HiTViSc registry
+  - name: Copy directory with HiTViSc registry scripts
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    copy:
+      src: ./source/registry
+      dest: "/{{ app_base_directory }}/{{ source_root }}/"
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+      mode: preserve
+
+#  Create HiTViSc registry
+  - name: Run HiTViSc registry create script
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./registry_build.sh "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_environment }}" HiTViSc > registry_build.log
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/registry"
+      executable: /bin/bash
+
+  # Create HiTViSc example data directory
+  - name: Create HiTViSc example data directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/hitvisc/data"
+      state: directory
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+
+  # Copy HiTViSc example data
+  - name: Copy HiTViSc example data
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    copy:
+      src: ./source/hitvisc/data/
+      dest: "/{{ app_base_directory }}/hitvisc/data/"
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+      mode: preserve

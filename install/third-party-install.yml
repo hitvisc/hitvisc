@@ -1,0 +1,46 @@
+---
+- name: Prepare third-party bioinformatics tools
+  hosts: TargetServers
+
+  tasks:
+  # Create a directory for third-party tools
+  - name: Create a directory for third-party tools
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/third-party"
+      state: directory
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+
+  # Install Anaconda package manager to use third-party bioinformatics tools
+  - name: Install Anaconda package manager to use third-party bioinformatics tools
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./install_conda.sh
+    args:
+      chdir: "/{{ app_base_directory }}/hitvisc/bio"
+      executable: /bin/bash
+
+  # Setup conda
+  - name: Setup conda 
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./setup_conda.sh
+    args:
+      chdir: "/{{ app_base_directory }}/hitvisc/bio"
+      executable: /bin/bash
+
+  # Setup hitvisc-bio conda environment
+  - name: Setup hitvisc-bio conda environment
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./setup_hitvisc-bio_env.sh
+    args:
+      chdir: "/{{ app_base_directory }}/hitvisc/bio"
+      executable: /bin/bash
+

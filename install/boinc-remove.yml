@@ -1,0 +1,70 @@
+---
+- name: Removing BOINC Server
+  hosts: TargetServers
+
+  tasks:
+  # Clean the system from previous installation
+  - name: Stop BOINC server processes
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./bin/stop
+    args:
+      chdir: "/{{ app_base_directory }}/{{ boinc_project_home }}"
+      executable: /bin/bash
+    ignore_errors: true
+
+  - name: Stop apache2
+    become: yes
+    become_user: root
+    become_method: sudo
+    systemd:
+      name: apache2
+      state: stopped
+      enabled: true
+
+  - name: Delete BOINC server home directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/{{ boinc_project_home }}"
+      state: absent
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+    ignore_errors: true
+
+  - name: Drop project database if exists
+    become: yes
+    become_user: root
+    become_method: sudo
+    shell: echo "DROP DATABASE IF EXISTS {{ boinc_db_name }};" | mysql
+    args:
+      executable: /bin/bash
+
+  - name: Delete BOINC server source code directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/{{ source_root }}/boinc"
+      state: absent
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+    ignore_errors: true
+
+  - name: Drop MySQL user
+    become: yes
+    become_user: root
+    become_method: sudo
+    shell: echo "DROP USER IF EXISTS {{ boinc_db_user }};" | mysql
+    args:
+      executable: /bin/bash
+
+  - name: Remove BOINC server directories from apache2 configuration file
+    become: yes
+    become_user: root
+    become_method: sudo
+    shell: LINE_NUMBER=$(grep -n "## Settings for BOINC project" /etc/apache2/apache2.conf | awk -F ':' '{ print($1 - 1); }') ; if [ -n "$LINE_NUMBER" ] ; then cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.bak ; head -n $LINE_NUMBER /etc/apache2/apache2.conf > /tmp/apache2.conf ; cat /tmp/apache2.conf > /etc/apache2/apache2.conf ; rm /tmp/apache2.conf ; fi
+    args:
+      executable: /bin/bash

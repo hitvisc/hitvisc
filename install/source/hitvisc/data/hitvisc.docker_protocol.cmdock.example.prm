@@ -1,0 +1,35 @@
+RBT_PARAMETER_FILE_V1.00
+TITLE corona_3CLpro_v3
+#corona vs attempt 2
+#no htvs opt atm!
+
+RECEPTOR_FILE corona_3CLpro_v3.mol2
+#no flex !
+
+#------------------------------
+#cavitiy iz ref liganda
+SECTION MAPPER
+   SITE_MAPPER RbtLigandSiteMapper
+   REF_MOL TARGET_REF_1.sdf
+   RADIUS 7.0
+   SMALL_SPHERE 1.0
+   MIN_VOLUME 100
+   MAX_CAVITIES 1
+   VOL_INCR 0.0
+   GRIDSTEP 0.5
+END_SECTION
+#end cav def###########
+
+#------------------------------
+#da ne uide ligand
+#restraint
+SECTION CAVITY
+   SCORING_FUNCTION RbtCavityGridSF
+   WEIGHT 1.0
+END_SECTION
+#end restraint
+
+#------------------------------
+#no waters atm !
+
+#end prm file definition

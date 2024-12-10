@@ -1,0 +1,50 @@
+        <daemon>
+            <cmd>cmdock_assimilator -d 1 --app cmdock</cmd>
+        </daemon>
+        <daemon>
+            <cmd>cmdock_validator --app cmdock</cmd>
+        </daemon>
+        <daemon>
+            <cmd>test-cmdock_assimilator -d 1 --app test-cmdock</cmd>
+        </daemon>
+        <daemon>
+            <cmd>test-cmdock_validator --app test-cmdock</cmd>
+        </daemon>
+        <daemon>
+            <cmd>private-cmdock_assimilator -d 1 --app private-cmdock</cmd>
+        </daemon>
+        <daemon>
+            <cmd>private-cmdock_validator --app private-cmdock</cmd>
+        </daemon>
+        <daemon>
+            <cmd>public-cmdock_assimilator -d 1 --app public-cmdock</cmd>
+        </daemon>
+        <daemon>
+            <cmd>public-cmdock_validator --app public-cmdock</cmd>
+        </daemon>
+
+        <daemon>
+            <cmd>autodockvina_assimilator -d 1 --app autodockvina</cmd>
+        </daemon>
+        <daemon>
+            <cmd>autodockvina_validator --app autodockvina</cmd>
+        </daemon>
+        <daemon>
+            <cmd>test-autodockvina_assimilator -d 1 --app test-autodockvina</cmd>
+        </daemon>
+        <daemon>
+            <cmd>test-autodockvina_validator --app test-autodockvina</cmd>
+        </daemon>
+        <daemon>
+            <cmd>private-autodockvina_assimilator -d 1 --app private-autodockvina</cmd>
+        </daemon>
+        <daemon>
+            <cmd>private-autodockvina_validator --app private-autodockvina</cmd>
+        </daemon>
+        <daemon>
+            <cmd>public-autodockvina_assimilator -d 1 --app public-autodockvina</cmd>
+        </daemon>
+        <daemon>
+            <cmd>public-autodockvina_validator --app public-autodockvina</cmd>
+        </daemon>
+

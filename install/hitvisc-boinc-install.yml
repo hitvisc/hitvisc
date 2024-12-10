@@ -1,0 +1,112 @@
+---
+- name: Prepare the BOINC project for HiTViSc 
+  hosts: TargetServers
+
+  tasks:
+  - name: Installing packages
+    become: yes
+    become_user: root
+    become_method: sudo
+    apt:
+      name:
+      - zip
+      - unzip
+      state: present
+
+  # Deleting old version sources (if present)
+  - name: Delete old directory with HiTViSc files for the BOINC project
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc"
+      state: absent
+
+  # Copying new version sources
+  - name: Copy directory with HiTViSc files for the BOINC project
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    copy:
+      src: ./source/hitvisc-boinc
+      dest: "/{{ app_base_directory }}/{{ source_root }}/"
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+      mode: preserve
+
+  # Stopping BOINC server
+  - name: Stop BOINC server daemons to copy HiTViSc-related files and settings
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./bin/stop
+    args:
+      chdir: "/{{ app_base_directory }}/{{ boinc_project_home }}"
+      executable: /bin/bash
+
+  #  Add HiTViSc-specific files and settings to the BOINC project
+  - name: Run HiTViSc script for the BOINC project update
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./update_boinc_project.sh "/{{ app_base_directory }}/{{ boinc_project_home }}" > update_boinc_project.log
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc"
+      executable: /bin/bash
+
+  #  Add HiTViSc-specific EXAMPLE files to the BOINC project
+  - name: Run HiTViSc script for the BOINC project update - add EXAMPLE files for testing
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./update_boinc_project_EXAMPLE.sh "/{{ app_base_directory }}/{{ boinc_project_home }}" > update_boinc_project_EXAMPLE.log
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc"
+      executable: /bin/bash
+
+  - name: Run BOINC's script xadd to register HiTViSc applications 
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./bin/xadd
+    args:
+      chdir: "/{{ app_base_directory }}/{{ boinc_project_home }}"
+      executable: /bin/bash
+
+  - name: Run BOINC's script update_versions to register application versions
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: yes | ./bin/update_versions
+    args:
+      chdir: "/{{ app_base_directory }}/{{ boinc_project_home }}"
+      executable: /bin/bash
+
+  - name: Start BOINC server daemons to run HiTViSc-related programs
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./bin/start
+    args:
+      chdir: "/{{ app_base_directory }}/{{ boinc_project_home }}"
+      executable: /bin/bash
+
+  - name: Add initial BOINC user
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./add_boinc_user.sh
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc"
+      executable: /bin/bash
+
+  - name: Create a cron entry "*/5 * * * * /app/hitboinc/bin/start --cron"
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    cron:
+      name: "start BOINC project"
+      minute: "*/5"
+      job: "/app/hitboinc/bin/start --cron"
+
+

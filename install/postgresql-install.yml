@@ -1,0 +1,137 @@
+---
+- name: Rolling HiTViSc PostgreSQL RDBMS software
+  hosts: TargetServers
+
+  tasks:
+  - name: Installing packages
+    become: yes
+    become_user: root
+    become_method: sudo
+    apt:
+      name:
+      - acl
+      - pkg-config
+      - libzstd-dev
+      - libreadline-dev
+      - zlib1g-dev
+      - libxml2
+      - libxml2-dev
+      - libsystemd-dev
+      - python3-dev
+      - openssl
+      - libssl-dev
+      - libossp-uuid-dev
+      state: present
+
+  # Clean system from previous releases
+  - name: Stopping HiTViSc PostgreSQL service
+    become: yes
+    become_user: root
+    become_method: sudo
+    systemd:
+      name: hitvisc-postgresql
+      state: stopped
+      enabled: false
+    ignore_errors: true
+
+  - name: Remove HiTViSc PostgreSQL service unit file from systemd directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: /etc/systemd/system/hitvisc-postgresql.service
+      state: absent
+
+  - name: Delete PostgreSQL directories
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    file:
+      path: "{{ item.path }}"
+      state: "{{ item.state }}"
+      owner: "{{ item.owner }}"
+      group: "{{ item.group }}"
+    loop:
+      - { path: "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_environment }}", owner: "{{ hitvisc_user_name }}", group: "{{ hitvisc_group_name }}", state: absent }
+      - { path: "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_database }}",    owner: "{{ hitvisc_user_name }}", group: "{{ hitvisc_group_name }}", state: absent }
+      - { path: "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_home }}",        owner: "{{ hitvisc_user_name }}", group: "{{ hitvisc_group_name }}", state: absent }
+      - { path: "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_serverlog }}",   owner: "{{ hitvisc_user_name }}", group: "{{ hitvisc_group_name }}", state: absent }
+      - { path: "/{{ app_base_directory }}/{{ postgresql_base }}", owner: "{{ hitvisc_user_name }}", group: "{{ hitvisc_group_name }}", state: absent }
+
+
+  - name: Delete directory with PostgreSQL source code
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/{{ source_root }}/postgresql"
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+      state: absent
+
+  # Deploy HiTViSc PostgreSQL RDBMS
+  - name: Create PostgreSQL directories
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    file:
+      path: "{{ item.path }}"
+      state: "{{ item.state }}"
+      owner: "{{ item.owner }}"
+      group: "{{ item.group }}"
+    loop:
+      - { path: "/{{ app_base_directory }}/{{ postgresql_base }}", owner: "{{ hitvisc_user_name }}", group: "{{ hitvisc_group_name }}", state: directory }
+      - { path: "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_environment }}", owner: "{{ hitvisc_user_name }}", group: "{{ hitvisc_group_name }}", state: directory }
+      - { path: "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_database }}",    owner: "{{ hitvisc_user_name }}", group: "{{ hitvisc_group_name }}", state: directory }
+      - { path: "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_home }}",        owner: "{{ hitvisc_user_name }}", group: "{{ hitvisc_group_name }}", state: directory }
+      - { path: "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_serverlog }}",   owner: "{{ hitvisc_user_name }}", group: "{{ hitvisc_group_name }}", state: directory }
+
+  - name: Copy directory with PostgreSQL source code
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    copy:
+      src: ./source/postgresql
+      dest: "/{{ app_base_directory }}/{{ source_root }}/"
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+      mode: preserve
+
+  - name: Run build script
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./postgresql_build.sh postgresql-15.3.tar.gz "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_environment }}" "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_database }}" "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_home }}" "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_serverlog }}" "{{ hitvisc_user_name }}" > ./postgresql_build.log
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/postgresql/"
+      executable: /bin/bash
+
+  # Make and start HiTViSc PostgreSQL service
+  - name: Copy HiTViSc PostgreSQL service unit file from source into systemd directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    shell: cp hitvisc-postgresql.service /etc/systemd/system/
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/postgresql/config"
+      executable: /bin/bash
+
+  - name: Reload systemd units and start HiTViSc PostgreSQL service
+    become: yes
+    become_user: root
+    become_method: sudo
+    systemd:
+      daemon_reload: true
+      name: hitvisc-postgresql
+      enabled: true
+      state: started
+
+#  # Create HiTViSc registry database
+#  - name: Run HiTViSc registry create script
+#    become: yes
+#    become_user: "{{ hitvisc_user_name }}"
+#    become_method: sudo
+#    shell: ./build_registry.sh "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_environment }}" HiTViSc > build_registry.log
+#    args:
+#      chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc/hitvisc_registry/Scripts"
+#      executable: /bin/bash

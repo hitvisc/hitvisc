@@ -1,0 +1,17 @@
+[Unit]
+Description=HiTViSc PostgreSQL database server
+Documentation=man:postgres(1)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+User={PostgreSQL_user}
+ExecStart={PostgreSQL_home}/bin/postgres -D {PostgreSQL_Database}
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=mixed
+KillSignal=SIGINT
+TimeoutSec=infinity
+
+[Install]
+WantedBy=multi-user.target

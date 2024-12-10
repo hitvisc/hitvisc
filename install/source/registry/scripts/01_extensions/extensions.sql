@@ -1,0 +1,3 @@
+CREATE EXTENSION "uuid-ossp";
+CREATE EXTENSION file_fdw;
+GRANT USAGE ON FOREIGN DATA WRAPPER file_fdw TO hitvisc_owner;

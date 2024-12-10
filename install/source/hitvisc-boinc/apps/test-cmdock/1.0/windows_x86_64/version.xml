@@ -1,0 +1,21 @@
+<version>
+   <file>
+      <physical_name>test-cmdock_wrapper_1.0_windows_x86_64.exe</physical_name>
+      <main_program/>
+   </file>
+   <file>
+      <physical_name>test-cmdock_job_1.0_windows_x86_64.xml</physical_name>
+      <logical_name>job.xml</logical_name>
+      <copy_file/>
+   </file>
+   <file>
+      <physical_name>test-cmdock_docking_out_1.0_windows_x86_64</physical_name>
+      <logical_name>docking_out</logical_name>
+      <copy_file/>
+   </file>
+   <file>
+      <physical_name>test-cmdock_0.2.0_1.0_windows_x86_64.zip</physical_name>
+      <logical_name>CmDock_windows_x86_64.zip</logical_name>
+   </file>
+   <is_wrapper/>
+</version>
