@@ -20,9 +20,22 @@
 ### :key: Приватный ключ OPENSSH удаленного сервера
 
 ### :key: Системные настройки системы HiTViSc
- 
+
+Следующая группа параметров описывает основные системные настройки системы HiTViSc, и их рекомендуется оставить неизменными.
+
 ```
 registry_database        = hitvisc
+hitvisc_api_dir          = /app/hitvisc/api
+hitvisc_main_dir         = /app/hitvisc/main
+hitvisc_data_dir         = /app/hitvisc/data
+hitvisc_bio_dir          = /app/hitvisc/bio
+hitvisc_log_dir          = /app/hitvisc/log
+hitvisc_tmp_dir          = /app/hitvisc/tmp
+```
+
+Настройки, связанные с BOINC-проектом, функционирующим внутри системы HiTViSc, можно выбрать по своему усмотрению. 
+ 
+```
 project_database         = hitboinc
 project_user             = hitviscadm
 project_password         = passBOINC_2024
@@ -32,13 +45,6 @@ boinc_user_email         =
 boinc_user_name          = 
 boinc_user_passwd_hash   = 
 boinc_user_authenticator = 
-hitvisc_api_dir          = /app/hitvisc/api
-hitvisc_main_dir         = /app/hitvisc/main
-hitvisc_data_dir         = /app/hitvisc/data
-hitvisc_bio_dir          = /app/hitvisc/bio
-hitvisc_log_dir          = /app/hitvisc/log
-hitvisc_tmp_dir          = /app/hitvisc/tmp
-
 ```
 
 
