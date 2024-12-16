@@ -21,10 +21,25 @@
 
 ### :key: Системные настройки системы HiTViSc
  
+```
+registry_database        = hitvisc
+project_database         = hitboinc
+project_user             = hitviscadm
+project_password         = passBOINC_2024
+project_directory        = /app/hitboinc
+boinc_results_dir        = /app/hitboinc/sample_results
+boinc_user_email         = 
+boinc_user_name          = 
+boinc_user_passwd_hash   = 
+boinc_user_authenticator = 
+hitvisc_api_dir          = /app/hitvisc/api
+hitvisc_main_dir         = /app/hitvisc/main
+hitvisc_data_dir         = /app/hitvisc/data
+hitvisc_bio_dir          = /app/hitvisc/bio
+hitvisc_log_dir          = /app/hitvisc/log
+hitvisc_tmp_dir          = /app/hitvisc/tmp
 
-
-
-
+```
 
 
 ## Общий интерфейс системы
