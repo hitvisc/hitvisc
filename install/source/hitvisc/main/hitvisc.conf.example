@@ -1,0 +1,16 @@
+registry_database        = hitvisc
+project_database         = hitboinc
+project_user             = hitviscadm
+project_password         = hitviscadmPasswd 
+project_directory        = /app/hitboinc
+boinc_results_dir        = /app/hitboinc/sample_results
+boinc_user_email         = adm.hitvisc@yandex.ru
+boinc_user_name          = Administrator
+boinc_user_passwd_hash   = $2y$10$Ld4BA0HRdNEhcMWq/h6A.ebKV1.pIV9Sf596FPlukuN9Prr9oiFN2
+boinc_user_authenticator = 589f3b592c15558d947a2b902c3b640e
+hitvisc_api_dir          = /app/hitvisc/api
+hitvisc_main_dir         = /app/hitvisc/main
+hitvisc_data_dir         = /app/hitvisc/data
+hitvisc_bio_dir          = /app/hitvisc/bio
+hitvisc_log_dir          = /app/hitvisc/log
+hitvisc_tmp_dir          = /app/hitvisc/tmp
