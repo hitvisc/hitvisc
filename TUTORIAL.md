@@ -28,7 +28,7 @@ cp group_vars/TargetServers.example group_vars/TargetServers
 vim group_vars/TargetServers #(установить в файле group_vars/TargetServers актуальные параметры boinc_project_host, boinc_url_base и boinc_db_host, используя имя хоста и внешний ip-адрес удаленного сервера [IP address])
 cp source/hitvisc/main/hitvisc.conf.example source/hitvisc/main/hitvisc.conf 
 ```
-
+При желании установить собственные значения параметров в файлах group_vars/TargetServers и source/hitvisc/main/hitvisc.conf.
 
 
 Развертывание системы происходит на удаленном сервере. Настройки подключения к удаленному серверу необходимо внести в следующие 4 файла:
