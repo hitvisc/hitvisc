@@ -103,10 +103,13 @@ cp /home/ansible/hitvisc/frontend/pm2.config.js /app/hitvisc/front/pm2.config.pr
 vim /app/hitvisc/front/pm2.config.production.js #(установить актуальные настройки)
 exit #(вернуться под пользователем root)
 chown -R hitviscadm:hitvisc /app/
+```
+
+
+```
 su hitviscadm
 
 ```
-
 
 
 ## Общий интерфейс системы
