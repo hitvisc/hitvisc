@@ -2,31 +2,45 @@
 
 Рабочий компьютер - компьютер администратора системы, с которого производится предварительная настройка системы HiTViSc и отправка команд по развертыванию системы на удаленный сервер. Удаленный сервер - компьютер, на котором будет непосредственно развернута система HiTViSc, включая все ее компоненты, базы данных и веб-интерфейс конечного пользователя.
 
-1. Скачать исходный код на рабочий компьютер:
+1. Скачать исходный код и подготовить рабочий компьютер:
 
 ```
 git clone git@github.com:hitvisc/hitvisc.git
 cd hitvisc/install
+ssh-keygen #(3 раза нажать Enter для установки директории с ключами по умолчанию и пустого пароля)
+cat ~/.ssh/id_rsa > keys/ansible.key
+cat ~/.ssh/id_rsa.pub #(скопировать содержимое публичного ключа для шага 2)
+sudo apt install ansible
 ```
 
 2. Подготовить к работе удаленный сервер. Предположим, что учетная запись администратора (root) доступна через ssh по ip-адресу [IP address].
 
 ```
 ssh root@[IP address] #(ввести пароль пользователя root по запросу)
-useradd -m ansible
+useradd -m --shell /bin/bash ansible
 passwd ansible #(ввести пароль для создаваемого пользователя: например, ansiblePasswd)
-su ansible
+sudo usermod -a -G sudo ansible
 hostname #(выведенное имя хоста понадобится для установки параметров на рабочем компьютере на шаге 3)
+
+apt install -y git vim 
+su ansible
+cd /home/ansible
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+source ~/.bashrc
+nvm install 18
+nvm use 18
+npm install -g pm2
+vim ~/.ssh/authorized_keys #(вставить содержимое публичного ключа рабочего компьютера, скопированное на шаге 1)
 ```
 
 3. Установить на рабочем компьютере настройки доступа к удаленному серверу:
 
 ```
-ssh-keygen #(3 раза нажать Enter для установки директории с ключами по умолчанию и пустого пароля)
-cat ~/.ssh/id_rsa > keys/ansible.key
+cd hitvisc/install
 cp group_vars/TargetServers.example group_vars/TargetServers
 vim group_vars/TargetServers #(установить в файле group_vars/TargetServers актуальные параметры boinc_project_host, boinc_url_base и boinc_db_host, используя имя хоста и внешний ip-адрес удаленного сервера [IP address])
 cp source/hitvisc/main/hitvisc.conf.example source/hitvisc/main/hitvisc.conf 
+vim inventory.txt #(установить в файле inventory.txt имя хоста и внешний ip-адрес удаленного сервера [IP address])
 ```
 При желании установить собственные значения параметров в файлах group_vars/TargetServers и source/hitvisc/main/hitvisc.conf.
 
@@ -56,7 +70,20 @@ hitvisc_log_dir          = /app/hitvisc/log
 hitvisc_tmp_dir          = /app/hitvisc/tmp
 ```
 
-4. 
+4. Установить front-end на удаленном сервере.
+
+```
+su ansible
+cd /home/ansible
+git clone https://github.com/hitvisc/hitvisc.git
+cd /home/ansible/hitvisc/frontend/nuxt-client/src/
+npm install
+npm run build
+cd /home/ansible/hitvisc/frontend/backend/src/
+npm install
+npm run build
+
+```
 
 
 
