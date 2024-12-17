@@ -15,6 +15,21 @@
 
 ### :key: Настройки подключения к удаленному серверу
 
+Настройки, связанные с BOINC-проектом, функционирующим внутри системы HiTViSc, можно выбрать по своему усмотрению. Они задают параметры доступа к BOINC-проекту. Параметр boinc_project_name определяет уникальный, неизменный в будущем URL-адрес BOINC-проекта. Параметр boinc_project_caption определяет имя проекта, выводимое в BOINC-клиенте. Если планируется привлечение широкого круга добровольцев к участию в вычислениях, то рекомендуется заранее продумать название проекта.
+
+```
+boinc_project_host           : [REPLACE WITH YOUR SERVER HOSTNAME]
+boinc_url_base               : http://[REPLACE WITH YOUR SERVER IP ADDRESS]/
+boinc_project_home           : hitboinc
+boinc_db_host                : [REPLACE WITH YOUR SERVER HOSTNAME]
+boinc_db_name                : hitboinc
+boinc_db_user                : hitviscadm
+boinc_db_password            : hitviscadmPasswd
+boinc_project_name           : hitboinc
+boinc_project_caption        : HiTViSc@home
+```
+
+
 ### :key: Ip-адрес удаленного сервера
 
 ### :key: Приватный ключ OPENSSH удаленного сервера
@@ -33,7 +48,7 @@ hitvisc_log_dir          = /app/hitvisc/log
 hitvisc_tmp_dir          = /app/hitvisc/tmp
 ```
 
-Настройки, связанные с BOINC-проектом, функционирующим внутри системы HiTViSc, можно выбрать по своему усмотрению. Они задают параметры доступа к BOINC-проекту. Параметр *** определяет  уникальный, неизменный в будущем URL-адрес BOINC-проекта. Если планируется привлечение широкого круга добровольцев к участию в вычислениях, то рекомендуется заранее продумать URL.
+
  
 ```
 project_database         = hitboinc
