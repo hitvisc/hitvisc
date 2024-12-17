@@ -96,6 +96,8 @@ mkdir -p app/client
 cp -r /home/ansible/hitvisc/frontend/backend/src/dist /app/api/dist
 cp -r /home/ansible/hitvisc/frontend/backend/src/node_modules /app/api/node_modules  
 cp -r /home/ansible/hitvisc/frontend/nuxt-client/src/.output app/client/.output
+mkdir -p /app/hitvisc/front/sysdir
+mkdir -p /app/hitvisc/front/storage
 
 
 ```
