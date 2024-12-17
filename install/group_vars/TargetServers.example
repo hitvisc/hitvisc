@@ -1,0 +1,22 @@
+ansible_user                 : ansible
+ansible_ssh_private_key_file : ./keys/ansible.key
+ansible_python_interpreter   : /usr/bin/python3
+hitvisc_group_name           : hitvisc
+hitvisc_user_name            : hitviscadm
+hitvisc_user_password        : hitviscPasswd
+app_base_directory           : app
+source_root                  : source
+boinc_project_host           : [REPLACE WITH YOUR SERVER HOSTNAME]
+boinc_url_base               : http://[REPLACE WITH YOUR SERVER IP ADDRESS]/
+boinc_project_home           : hitboinc
+boinc_db_host                : [REPLACE WITH YOUR SERVER HOSTNAME]
+boinc_db_name                : hitboinc
+boinc_db_user                : hitviscadm
+boinc_db_password            : hitviscadmDbPasswd
+boinc_project_name           : hitboinc
+boinc_project_caption        : HiTViSc@home
+postgresql_base              : postgresql
+postgresql_environment       : _environment
+postgresql_home              : home
+postgresql_database          : database
+postgresql_serverlog         : serverlog
