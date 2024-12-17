@@ -1,7 +1,7 @@
 module.exports = {
   apps : [{
     name   : "hitvisc-api",
-    script : "/app/hitvisc/front/app/backend/src/dist/src/main.js",
+    script : "/app/hitvisc/front/app/api/dist/src/main.js",
     env: {
       APP_PORT: 9090,
       JWT_TOKEN_SECRET: "jwt_token_secret",
@@ -32,7 +32,7 @@ module.exports = {
     }
   },{
     name   : "hitvisc-client",
-    script : "/app/hitvisc/front/app/nuxt-client/src/.output/server/index.mjs",
+    script : "/app/hitvisc/front/app/client/.output/server/index.mjs",
     env: {
       HOST: "0.0.0.0",
       PORT: 8080,
