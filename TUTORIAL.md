@@ -30,22 +30,9 @@ cp source/hitvisc/main/hitvisc.conf.example source/hitvisc/main/hitvisc.conf
 ```
 При желании установить собственные значения параметров в файлах group_vars/TargetServers и source/hitvisc/main/hitvisc.conf.
 
-
-Развертывание системы происходит на удаленном сервере. Настройки подключения к удаленному серверу необходимо внести в следующие 4 файла:
-
-:key: файл install/group_vars/TargetServers содержит настройки подключения к удаленному серверу;
-
-:key: файл install/inventory.txt содержит ip-адрес удаленного сервера;
-
-:key: файл install/keys/ansible.key содержит приватный ключ OPENSSH удаленного сервера;
-
-:key: файл install/source/hitvisc/main/hitvisc.conf содержит системные настройки системы HiTViSc.
-
-Опишем выбор корректных настроек на примере. 
-
 ### :key: Настройки подключения к удаленному серверу
 
-Настройки, связанные с BOINC-проектом, функционирующим внутри системы HiTViSc, можно выбрать по своему усмотрению. Они задают параметры доступа к BOINC-проекту. Параметр boinc_project_name определяет уникальный, неизменный в будущем URL-адрес BOINC-проекта. Параметр boinc_project_caption определяет имя проекта, выводимое в BOINC-клиенте. Если планируется привлечение широкого круга добровольцев к участию в вычислениях, то рекомендуется заранее продумать название проекта.
+Настройки, связанные с BOINC-проектом, функционирующим внутри системы HiTViSc, можно выбрать по своему усмотрению. Они задают параметры доступа к BOINC-проекту. Параметр boinc_project_name определяет уникальный, неизменный URL-адрес BOINC-проекта. Параметр boinc_project_caption определяет имя проекта, выводимое в BOINC-клиенте. Если планируется привлечение широкого круга добровольцев к участию в вычислениях, то рекомендуется заранее продумать название проекта.
 
 ```
 boinc_project_host           : [REPLACE WITH YOUR SERVER HOSTNAME]
@@ -59,10 +46,6 @@ boinc_project_name           : hitboinc
 boinc_project_caption        : HiTViSc@home
 ```
 
-
-### :key: Ip-адрес удаленного сервера
-
-### :key: Приватный ключ OPENSSH удаленного сервера
 
 ### :key: Системные настройки системы HiTViSc
 
@@ -79,18 +62,7 @@ hitvisc_tmp_dir          = /app/hitvisc/tmp
 ```
 
 
- 
-```
-project_database         = hitboinc
-project_user             = hitviscadm
-project_password         = passBOINC_2024
-project_directory        = /app/hitboinc
-boinc_results_dir        = /app/hitboinc/sample_results
-boinc_user_email         = 
-boinc_user_name          = 
-boinc_user_passwd_hash   = 
-boinc_user_authenticator = 
-```
+
 
 
 ## Общий интерфейс системы
