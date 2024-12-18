@@ -44,6 +44,62 @@
       chdir: "/{{ app_base_directory }}/{{ boinc_project_home }}"
       executable: /bin/bash
 
+  - name: Set execution permissions on scripts
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    command: find "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc" -type f -name "*.sh" -exec chmod +x {} \;
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc"
+
+  - name: Set execution permissions on scripts
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    command: find "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/bin" -type f -name "*_trivial_*" -exec chmod +x {} \;
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/bin"
+
+  - name: Set execution permissions on scripts
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    command: find "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/apps" -type f -name "*autodockvina_wrapper_x86_64-pc-linux-gnu" -exec chmod +x {} \;
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/apps"
+
+  - name: Set execution permissions on scripts
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    command: find "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/apps" -type f -name "*.sh" -exec chmod +x {} \;
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/apps"
+
+  - name: Set execution permissions on scripts
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    command: find "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/apps" -type f -name "*autodockvina_1.2.5_1.0_x86_64-pc-linux-gnu"
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/apps"
+
+  - name: Set execution permissions on scripts
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    command: find "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/apps" -type f -name "*cmdock_wrapper_1.0_x86_64-pc-linux-gnu"
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/apps"
+
+  - name: Set execution permissions on scripts
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    command: find "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/apps" -type f -name "*cmdock_0.2.0_1.0_x86_64-pc-linux-gnu"
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/apps"
+
   #  Add HiTViSc-specific files and settings to the BOINC project
   - name: Run HiTViSc script for the BOINC project update
     become: yes

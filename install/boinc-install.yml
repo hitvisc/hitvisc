@@ -59,6 +59,11 @@
       groups: '{{ hitvisc_group_name }}'
       append: yes
 
+  - name: Check if BOINC server directory exists
+    ansible.builtin.stat:
+      path: "/{{ app_base_directory }}/{{ boinc_project_home }}"
+    register: boinc_dir_stat
+
   # Clean the system from previous installation
   - name: Stop BOINC server processes
     become: yes
@@ -69,6 +74,7 @@
       chdir: "/{{ app_base_directory }}/{{ boinc_project_home }}"
       executable: /bin/bash
     ignore_errors: true
+    when: boinc_dir_stat.stat.exists
 
   - name: Stop apache2
     become: yes
@@ -127,6 +133,15 @@
     shell: echo "DROP USER IF EXISTS {{ boinc_db_user }}; CREATE USER {{ boinc_db_user }} IDENTIFIED BY '{{ boinc_db_password }}'; GRANT ALL PRIVILEGES ON *.* TO {{ boinc_db_user }};" | mysql
     args:
       executable: /bin/bash
+
+  - name: Set permissions on build script
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/{{ source_root }}/boinc/boinc_build.sh"
+      mode: 0775
+      recurse: no 
 
   - name: Run build script
     become: yes
