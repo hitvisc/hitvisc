@@ -1,7 +1,7 @@
 registry_database        = hitvisc
 project_database         = hitboinc
 project_user             = hitviscadm
-project_password         = hitviscadmPasswd 
+project_password         = hitviscPasswd 
 project_directory        = /app/hitboinc
 boinc_results_dir        = /app/hitboinc/sample_results
 boinc_user_email         = adm.hitvisc@yandex.ru
