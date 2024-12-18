@@ -139,7 +139,7 @@ cd /app/hitvisc/front
 pm2 start pm2.production.config.js
 ```
 
-Наконец, необходимо выполнить команду завершения подготовки базы данных на рабочем компьютере
+6. Завершить подготовку базы данных на рабочем компьютере.
 
 ``
 ansible-playbook registry-finalize.yml
