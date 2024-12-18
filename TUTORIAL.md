@@ -52,29 +52,25 @@ vim inventory.txt #(установить в файле inventory.txt имя хо
 
 Настройки, связанные с BOINC-проектом, функционирующим внутри системы HiTViSc, можно выбрать по своему усмотрению. Они задают параметры доступа к BOINC-проекту и прописаны в файле group_vars/TargetServers. Параметр boinc_project_name определяет уникальный, неизменный URL-адрес BOINC-проекта. Параметр boinc_project_caption определяет имя проекта, выводимое в BOINC-клиенте. Если планируется привлечение широкого круга добровольцев к участию в вычислениях, то рекомендуется заранее продумать название проекта.
 
-```
-boinc_project_host           : [REPLACE WITH YOUR SERVER HOSTNAME]
-boinc_url_base               : http://[REPLACE WITH YOUR SERVER IP ADDRESS]/
-boinc_project_home           : hitboinc
-boinc_db_host                : [REPLACE WITH YOUR SERVER HOSTNAME]
-boinc_db_name                : hitboinc
-boinc_db_user                : hitviscadm
-boinc_db_password            : hitviscadmPasswd
-boinc_project_name           : hitboinc
-boinc_project_caption        : HiTViSc@home
-```
+>boinc_project_host           : [REPLACE WITH YOUR SERVER HOSTNAME]  
+>boinc_url_base               : http://[REPLACE WITH YOUR SERVER IP ADDRESS]/  
+>boinc_project_home           : hitboinc  
+>boinc_db_host                : [REPLACE WITH YOUR SERVER HOSTNAME]  
+>boinc_db_name                : hitboinc  
+>boinc_db_user                : hitviscadm  
+>boinc_db_password            : hitviscadmPasswd  
+>boinc_project_name           : hitboinc  
+>boinc_project_caption        : HiTViSc@home  
 
 Следующая группа параметров в файле source/hitvisc/main/hitvisc.conf описывает основные системные настройки системы HiTViSc, и их рекомендуется оставить неизменными.
 
-```
-registry_database        = hitvisc
-hitvisc_api_dir          = /app/hitvisc/api
-hitvisc_main_dir         = /app/hitvisc/main
-hitvisc_data_dir         = /app/hitvisc/data
-hitvisc_bio_dir          = /app/hitvisc/bio
-hitvisc_log_dir          = /app/hitvisc/log
-hitvisc_tmp_dir          = /app/hitvisc/tmp
-```
+>registry_database        = hitvisc  
+>hitvisc_api_dir          = /app/hitvisc/api  
+>hitvisc_main_dir         = /app/hitvisc/main  
+>hitvisc_data_dir         = /app/hitvisc/data  
+>hitvisc_bio_dir          = /app/hitvisc/bio  
+>hitvisc_log_dir          = /app/hitvisc/log  
+>hitvisc_tmp_dir          = /app/hitvisc/tmp  
 
 4. Установить back-end на удаленном сервере.
 
@@ -124,12 +120,10 @@ chown -R hitviscadm:hitvisc /app/hitvisc/front
 
 В файле настроек ``/app/hitvisc/front/pm2.config.production.js`` следующая группа параметров задает правила доступа к почтовому аккаунту, который будет использоваться в системе для подтверждения регистраций/восстановлений паролей пользователей: 
 
-```
-EMAIL_HOST: "smtp.yandex.ru", (необходимо заменить на хост SMTP-сервера почтового аккаунта)
-EMAIL_PORT: 465, (необходимо заменить на номер порта почтового аккаунта)
-EMAIL_USER: "user@yandex.ru", (необходимо заменить на адрес e-mail почтового аккаунта)
-EMAIL_PASSWORD: "lnmcrcsrumebdoxu", (необходимо заменить на пароль приложения почтового аккаунта)
-```
+>EMAIL_HOST: "smtp.yandex.ru", (необходимо заменить на хост SMTP-сервера почтового аккаунта)  
+>EMAIL_PORT: 465, (необходимо заменить на номер порта почтового аккаунта)  
+>EMAIL_USER: "user@yandex.ru", (необходимо заменить на адрес e-mail почтового аккаунта)  
+>EMAIL_PASSWORD: "lnmcrcsrumebdoxu", (необходимо заменить на пароль приложения почтового аккаунта)  
 
 Для запуска front-end необходимо выполнить команды на удаленном сервере
 
