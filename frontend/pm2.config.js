@@ -6,7 +6,7 @@ module.exports = {
       APP_PORT: 9090,
       JWT_TOKEN_SECRET: "jwt_token_secret",
       JWT_TOKEN_EXPIRES_IN: "2h",
-      DB_URL: "postgresql://hitviscadm:hitviscPasswd@[IP address]/hitvisc?schema=public",
+      DB_URL: "postgresql://hitviscadm:hitviscPasswd@localhost/hitvisc?schema=public",
       DB_SCHEMA: 'registry',
       DB_SYNC_MODELS: 'true',
       EMAIL_HOST: "smtp.yandex.ru",
