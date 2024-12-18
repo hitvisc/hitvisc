@@ -124,7 +124,7 @@ chown -R hitviscadm:hitvisc /app/hitvisc/front
 >EMAIL_HOST: "smtp.yandex.ru", (необходимо заменить на хост SMTP-сервера почтового аккаунта)  
 >EMAIL_PORT: 465, (необходимо заменить на номер порта почтового аккаунта)  
 >EMAIL_USER: "user@yandex.ru", (необходимо заменить на адрес e-mail почтового аккаунта)  
->EMAIL_PASSWORD: "lnmcrcsrumebdoxu", (необходимо заменить на пароль приложения почтового аккаунта)  
+>EMAIL_PASSWORD: "apppassword", (необходимо заменить на пароль приложения почтового аккаунта)  
 
 Для запуска front-end необходимо выполнить команды на удаленном сервере
 
