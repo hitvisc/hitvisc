@@ -26,6 +26,8 @@ addgroup hitvisc
 sudo usermod -a -G hitvisc hitviscadm
 sudo usermod -a -G hitvisc ansible
 sudo usermod -a -G www-data hitviscadm
+mkdir -p /app/hitvisc/front
+chown -R ansible:hitvisc /app/
 hostname #(выведенное имя хоста понадобится для установки параметров на рабочем компьютере на шаге 3)
 
 apt install -y git vim 
@@ -92,7 +94,6 @@ ansible-playbook third-party-install.yml
 5. Установить front-end на удаленном сервере.
 
 ```
-chown -R ansible /app/hitvisc/front
 su ansible
 cd /home/ansible
 git clone https://github.com/hitvisc/hitvisc.git
