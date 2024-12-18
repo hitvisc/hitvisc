@@ -126,8 +126,8 @@ cp -r /home/ansible/hitvisc/frontend/nuxt-client/src/.output /app/hitvisc/front/
 mkdir -p /app/hitvisc/front/sysdir
 mkdir -p /app/hitvisc/front/storage
 cp /home/ansible/hitvisc/frontend/upload_settings.conf.example /app/hitvisc/front/upload_settings.conf
-cp /home/ansible/hitvisc/frontend/pm2.config.js /app/hitvisc/front/pm2.config.production.js
-vim /app/hitvisc/front/pm2.config.production.js #(установить актуальные настройки)
+cp /home/ansible/hitvisc/frontend/pm2.config.js /app/hitvisc/front/pm2.production.config.js
+vim /app/hitvisc/front/pm2.production.config.js #(установить актуальные настройки)
 exit #(вернуться под пользователем root)
 chown -R hitviscadm:hitvisc /app/hitvisc/front
 ```
@@ -146,7 +146,7 @@ EMAIL_PASSWORD: "lnmcrcsrumebdoxu", (необходимо заменить на 
 ```
 su hitviscadm
 cd /app/hitvisc/front
-pm2 start pm2.config.production.js
+pm2 start pm2.production.config.js
 ```
 
 После успешной установки back-end и front-end частей Системы, пользовательский веб-интерфейс Системы доступен из веб-браузера по адресу вида http://ADDRESS:PORT, в котором подстрока ADDRESS задана в файле install/inventory.txt в переменной 
