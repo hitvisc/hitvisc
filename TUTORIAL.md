@@ -149,6 +149,12 @@ cd /app/hitvisc/front
 pm2 start pm2.production.config.js
 ```
 
+Наконец, необходимо выполнить команду завершения подготовки базы данных на рабочем компьютере
+
+``
+ansible-playbook registry-finalize.yml
+``
+
 После успешной установки back-end и front-end частей Системы, пользовательский веб-интерфейс Системы доступен из веб-браузера по адресу вида http://ADDRESS:PORT, в котором подстрока ADDRESS задана в файле install/inventory.txt в переменной 
 ```
 ansible_host=<ip-адрес удаленного сервера>
