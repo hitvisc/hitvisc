@@ -129,7 +129,7 @@ cp /home/ansible/hitvisc/frontend/upload_settings.conf.example /app/hitvisc/fron
 cp /home/ansible/hitvisc/frontend/pm2.config.js /app/hitvisc/front/pm2.config.production.js
 vim /app/hitvisc/front/pm2.config.production.js #(установить актуальные настройки)
 exit #(вернуться под пользователем root)
-chown -R hitviscadm:hitvisc /app/
+chown -R hitviscadm:hitvisc /app/hitvisc/front
 ```
 
 В файле настроек ``/app/hitvisc/front/pm2.config.production.js`` следующая группа параметров задает правила доступа к почтовому аккаунту, который будет использоваться в системе для подтверждения регистраций/восстановлений паролей пользователей: 
@@ -145,6 +145,7 @@ EMAIL_PASSWORD: "lnmcrcsrumebdoxu", (необходимо заменить на 
 
 ```
 su hitviscadm
+cd /app/hitvisc/front
 pm2 start pm2.config.production.js
 ```
 
