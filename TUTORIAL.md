@@ -9,6 +9,7 @@ git clone git@github.com:hitvisc/hitvisc.git
 cd hitvisc/install
 ssh-keygen #(3 раза нажать Enter для установки директории с ключами по умолчанию и пустого пароля)
 cat ~/.ssh/id_rsa > keys/ansible.key
+chmod 600 keys/ansible.key
 cat ~/.ssh/id_rsa.pub #(скопировать содержимое публичного ключа для шага 2)
 sudo apt install ansible
 ```
