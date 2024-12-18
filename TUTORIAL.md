@@ -141,6 +141,8 @@ EMAIL_USER: "user@yandex.ru", (необходимо заменить на адр
 EMAIL_PASSWORD: "lnmcrcsrumebdoxu", (необходимо заменить на пароль приложения почтового аккаунта)
 ```
 
+Для запуска front-end необходимо выполнить команды на удаленном сервере
+
 ```
 su hitviscadm
 pm2 start pm2.config.production.js
