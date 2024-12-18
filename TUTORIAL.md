@@ -96,7 +96,7 @@ ansible-playbook third-party-install.yml
 ```
 su ansible
 cd /home/ansible
-git clone https://github.com/hitvisc/hitvisc.git
+git clone https://github.com/hitvisc/hitvisc.git # LAST
 cd /home/ansible/hitvisc/frontend/nuxt-client/src/
 npm install
 npm run build
