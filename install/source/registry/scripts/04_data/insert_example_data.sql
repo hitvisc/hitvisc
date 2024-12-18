@@ -21,31 +21,31 @@ DECLARE
 BEGIN
 	TRUNCATE registry.example, registry.search_protocol, registry.docker_protocol_item, registry.docker_protocol, registry.package, registry.library, registry.reference_ligand_file, registry.reference_ligand, registry.target_file, registry.target CASCADE;
 
-	--SELECT NEXTVAL('registry.front_target_id_seq') INTO example_front_target_cmdock_id;
-        --SELECT NEXTVAL('registry.front_target_id_seq') INTO example_front_target_autodockvina_id;
+	SELECT NEXTVAL('registry.front_target_id_seq') INTO example_front_target_cmdock_id;
+        SELECT NEXTVAL('registry.front_target_id_seq') INTO example_front_target_autodockvina_id;
 	SELECT NEXTVAL('registry.seq_target_id') INTO example_back_target_cmdock_id;
 	SELECT NEXTVAL('registry.seq_target_id') INTO example_back_target_autodockvina_id;
 	SELECT NEXTVAL('registry.seq_reference_ligand_id') INTO example_refligand_cmdock_id;
 	SELECT NEXTVAL('registry.seq_reference_ligand_id') INTO example_refligand_autodockvina_id;
-	--SELECT NEXTVAL('registry.front_library_id_seq') INTO example_front_library_cmdock_id;
-	--SELECT NEXTVAL('registry.front_library_id_seq') INTO example_front_library_autodockvina_id;
+	SELECT NEXTVAL('registry.front_library_id_seq') INTO example_front_library_cmdock_id;
+	SELECT NEXTVAL('registry.front_library_id_seq') INTO example_front_library_autodockvina_id;
 	SELECT NEXTVAL('registry.seq_library_id') INTO example_back_library_cmdock_id;
 	SELECT NEXTVAL('registry.seq_library_id') INTO example_back_library_autodockvina_id;
 	SELECT NEXTVAL('registry.seq_docker_protocol_id') INTO example_docker_protocol_cmdock_id;
 	SELECT NEXTVAL('registry.seq_docker_protocol_id') INTO example_docker_protocol_autodockvina_id;
 	SELECT NEXTVAL('registry.seq_search_protocol_id') INTO example_search_protocol_id;
 
-	--INSERT INTO registry.front_target(id, name, description, authors, source, state, type_of_use, pdb_file_id, reference_ligands_file_id, created_by)
-	--	VALUES(example_front_target_cmdock_id, 'Example target for CmDock', 'Example target', 'HiTViSc Administrator', 'HiTViSc example data', 'U'::registry.front_target_state_enum, 'O'::registry.front_target_type_of_use_enum, '', '', 0);
-        --INSERT INTO registry.front_target(id, name, description, authors, source, state, type_of_use, pdb_file_id, reference_ligands_file_id, created_by)
-        --        VALUES(example_front_target_autodockvina_id, 'Example target for AutoDock Vina', 'Example target', 'HiTViSc Administrator', 'HiTViSc example data', 'U'::registry.front_target_state_enum, 'O'::registry.front_target_type_of_use_enum, '', '', 0);
+	INSERT INTO registry.front_target(id, name, description, authors, source, state, type_of_use, pdb_file_id, reference_ligands_file_id, created_by)
+		VALUES(example_front_target_cmdock_id, 'Example target for CmDock', 'Example target', 'HiTViSc Administrator', 'HiTViSc example data', 'U'::registry.front_target_state_enum, 'O'::registry.front_target_type_of_use_enum, '', '', 0);
+        INSERT INTO registry.front_target(id, name, description, authors, source, state, type_of_use, pdb_file_id, reference_ligands_file_id, created_by)
+                VALUES(example_front_target_autodockvina_id, 'Example target for AutoDock Vina', 'Example target', 'HiTViSc Administrator', 'HiTViSc example data', 'U'::registry.front_target_state_enum, 'O'::registry.front_target_type_of_use_enum, '', '', 0);
 
 	INSERT INTO registry.target(id, create_time, name, system_name, description, authors, source, usage_type, state) 
 		VALUES (example_back_target_cmdock_id, CURRENT_TIMESTAMP, 'Example target for CmDock', 'example_cmdock', 'Example target', 'HiTViSc Administrator', 'HiTViSc example data', 'O', 'U');
 	INSERT INTO registry.target(id, create_time, name, system_name, description, authors, source, usage_type, state) 
 		VALUES (example_back_target_autodockvina_id, CURRENT_TIMESTAMP, 'Example target for AutoDock Vina', 'example_autodockvina', 'Example target', 'HiTViSc Administrator', 'HiTViSc example data', 'O', 'U');
-	--SELECT registry.hitvisc_entity_mapping_add(example_front_target_cmdock_id, example_back_target_cmdock_id, 'T') INTO example_mapping_target;
-        --SELECT registry.hitvisc_entity_mapping_add(example_front_target_autodockvina_id, example_back_target_autodockvina_id, 'T') INTO example_mapping_target;
+	SELECT registry.hitvisc_entity_mapping_add(example_front_target_cmdock_id, example_back_target_cmdock_id, 'T') INTO example_mapping_target;
+        SELECT registry.hitvisc_entity_mapping_add(example_front_target_autodockvina_id, example_back_target_autodockvina_id, 'T') INTO example_mapping_target;
 
 
 	INSERT INTO registry.target_file(id, target_id, type, file_path, file_name) 
@@ -63,17 +63,17 @@ BEGIN
 	INSERT INTO registry.reference_ligand_file(id, reference_ligand_id, type, file_path, file_name) 
 		VALUES(NEXTVAL('registry.seq_reference_ligand_file_id'), example_refligand_autodockvina_id, 'pdbqt', '/app/hitvisc/data/hitvisc.target.autodockvina.example.refligand.pdbqt', 'hitvisc.target.autodockvina.example.refligand.pdbqt');
 
-        --INSERT INTO registry.front_library(id, name, description, authors, source, type_of_use, state, file_id, created_by)
-	--	VALUES(example_front_library_cmdock_id, 'Small example ligands library for CmDock', 'Small example library for CmDock, contains 20 ligands', 'HiTViSc Administrator', 'HiTViSc example data', 'O'::registry.front_library_type_of_use_enum, 'U'::registry.front_library_state_enum, '', 0);
-        --INSERT INTO registry.front_library(id, name, description, authors, source, type_of_use, state, file_id, created_by)
-        --        VALUES(example_front_library_autodockvina_id, 'Small example ligands library for AutoDock Vina', 'Small example library for AutoDock Vina, contains 20 ligands', 'HiTViSc Administrator', 'HiTViSc example data', 'O'::registry.front_library_type_of_use_enum, 'U'::registry.front_library_state_enum, '', 0);
+        INSERT INTO registry.front_library(id, name, description, authors, source, type_of_use, state, file_id, created_by)
+		VALUES(example_front_library_cmdock_id, 'Small example ligands library for CmDock', 'Small example library for CmDock, contains 20 ligands', 'HiTViSc Administrator', 'HiTViSc example data', 'O'::registry.front_library_type_of_use_enum, 'U'::registry.front_library_state_enum, '', 0);
+        INSERT INTO registry.front_library(id, name, description, authors, source, type_of_use, state, file_id, created_by)
+                VALUES(example_front_library_autodockvina_id, 'Small example ligands library for AutoDock Vina', 'Small example library for AutoDock Vina, contains 20 ligands', 'HiTViSc Administrator', 'HiTViSc example data', 'O'::registry.front_library_type_of_use_enum, 'U'::registry.front_library_state_enum, '', 0);
 
         INSERT INTO registry.library(id, create_time, name, system_name, description, authors, source, usage_type, state) 
               VALUES(example_back_library_cmdock_id, CURRENT_TIMESTAMP, 'Small example ligands library for CmDock', 'example_small_ligands_cmdock', 'Small example library for CmDock, contains 20 ligands', 'HiTViSc Administrator', 'HiTViSc example data', 'O', 'U');
         INSERT INTO registry.library(id, create_time, name, system_name, description, authors, source, usage_type, state) 
               VALUES(example_back_library_autodockvina_id, CURRENT_TIMESTAMP, 'Small example ligands library for AutoDock Vina', 'example_small_ligands_autodockvina', 'Small example library for AutoDock Vina, contains 20 ligands', 'HiTViSc Administrator', 'HiTViSc example data', 'O', 'U');
-        --SELECT registry.hitvisc_entity_mapping_add(example_front_library_cmdock_id, example_back_library_cmdock_id, 'L') INTO example_mapping_library;
-        --SELECT registry.hitvisc_entity_mapping_add(example_front_library_autodockvina_id, example_back_library_autodockvina_id, 'L') INTO example_mapping_library;
+        SELECT registry.hitvisc_entity_mapping_add(example_front_library_cmdock_id, example_back_library_cmdock_id, 'L') INTO example_mapping_library;
+        SELECT registry.hitvisc_entity_mapping_add(example_front_library_autodockvina_id, example_back_library_autodockvina_id, 'L') INTO example_mapping_library;
 
 
       INSERT INTO registry.package(id, library_id, file_name, file_path, ligand_count)  
@@ -89,22 +89,22 @@ BEGIN
                              '/app/hitvisc/data/hitvisc.ligands.autodockvina.example_small/hitvisc.ligands.autodockvina.example_small_package_02.zip', 2);
 
 
-        --SELECT NEXTVAL('registry.front_library_id_seq') INTO example_front_library_cmdock_id;
-        --SELECT NEXTVAL('registry.front_library_id_seq') INTO example_front_library_autodockvina_id;
+        SELECT NEXTVAL('registry.front_library_id_seq') INTO example_front_library_cmdock_id;
+        SELECT NEXTVAL('registry.front_library_id_seq') INTO example_front_library_autodockvina_id;
         SELECT NEXTVAL('registry.seq_library_id') INTO example_back_library_cmdock_id;
         SELECT NEXTVAL('registry.seq_library_id') INTO example_back_library_autodockvina_id;
 
-        --INSERT INTO registry.front_library(id, name, description, authors, source, type_of_use, state, file_id, created_by)
-        --        VALUES(example_front_library_cmdock_id, 'Medium example ligands library for CmDock', 'Medium example library for CmDock, contains 100 ligands', 'HiTViSc Administrator', 'HiTViSc example data', 'O'::registry.front_library_type_of_use_enum, 'U'::registry.front_library_state_enum, '', 0);
-        --INSERT INTO registry.front_library(id, name, description, authors, source, type_of_use, state, file_id, created_by)
-        --        VALUES(example_front_library_autodockvina_id, 'Medium example ligands library for AutoDock Vina', 'Medium example library for AutoDock Vina, contains 100 ligands', 'HiTViSc Administrator', 'HiTViSc example data', 'O'::registry.front_library_type_of_use_enum, 'U'::registry.front_library_state_enum, '', 0);
+        INSERT INTO registry.front_library(id, name, description, authors, source, type_of_use, state, file_id, created_by)
+                VALUES(example_front_library_cmdock_id, 'Medium example ligands library for CmDock', 'Medium example library for CmDock, contains 100 ligands', 'HiTViSc Administrator', 'HiTViSc example data', 'O'::registry.front_library_type_of_use_enum, 'U'::registry.front_library_state_enum, '', 0);
+        INSERT INTO registry.front_library(id, name, description, authors, source, type_of_use, state, file_id, created_by)
+                VALUES(example_front_library_autodockvina_id, 'Medium example ligands library for AutoDock Vina', 'Medium example library for AutoDock Vina, contains 100 ligands', 'HiTViSc Administrator', 'HiTViSc example data', 'O'::registry.front_library_type_of_use_enum, 'U'::registry.front_library_state_enum, '', 0);
 
 	INSERT INTO registry.library(id, create_time, name, system_name, description, authors, source, usage_type, state) 
 		VALUES(example_back_library_cmdock_id, CURRENT_TIMESTAMP, 'Medium example ligands library for CmDock', 'example_100_ligands_cmdock', 'Medium example library for CmDock, contains 100 ligands', 'Administrator', 'HiTViSc example data', 'O', 'U');
 	INSERT INTO registry.library(id, create_time, name, system_name, description, authors, source, usage_type, state) 
 		VALUES(example_back_library_autodockvina_id, CURRENT_TIMESTAMP, 'Medium example ligands library for AutoDock Vina', 'example_100_ligands_autodockvina', 'Medium example library for AutoDock Vina, contains 100 ligands', 'Administrator', 'HiTViSc example data', 'O', 'U');
-        --SELECT registry.hitvisc_entity_mapping_add(example_front_library_cmdock_id, example_back_library_cmdock_id, 'L') INTO example_mapping_library;
-        --SELECT registry.hitvisc_entity_mapping_add(example_front_library_autodockvina_id, example_back_library_autodockvina_id, 'L') INTO example_mapping_library;
+        SELECT registry.hitvisc_entity_mapping_add(example_front_library_cmdock_id, example_back_library_cmdock_id, 'L') INTO example_mapping_library;
+        SELECT registry.hitvisc_entity_mapping_add(example_front_library_autodockvina_id, example_back_library_autodockvina_id, 'L') INTO example_mapping_library;
 
 	FOR i IN 1..10 LOOP
 		INSERT INTO registry.package(id, library_id, file_name, file_path, ligand_count) 
