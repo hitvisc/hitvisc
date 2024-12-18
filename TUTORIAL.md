@@ -77,7 +77,35 @@ hitvisc_log_dir          = /app/hitvisc/log
 hitvisc_tmp_dir          = /app/hitvisc/tmp
 ```
 
-4. Установить front-end на удаленном сервере.
+4. Установить back-end на удаленном сервере.
+5. 
+Развертывание back-end части Системы обеспечивается скриптами Ansible, выполняющими все необходимые действия по установке и настройке системного программного обеспечения. Последовательное выполнение скриптов позволяет устанавливать системное окружение пошагово с возможностью корректировки, если потребуется, в случае возникновения ошибок.
+Для установки back-end выполняется следующий набор команд:
+
+```
+ansible-playbook hitvisc-install.yml
+ansible-playbook hitvisc-main-install.yml
+ansible-playbook boinc-install.yml
+ansible-playbook hitvisc-boinc-install.yml
+ansible-playbook postgresql-install.yml
+ansible-playbook registry-install.yml
+ansible-playbook third-party-install.yml
+```
+
+Соответствующий набор команд используется для удаления всех компонент:
+
+```
+ansible-playbook third-party-remove.yml
+ansible-playbook registry-remove.yml
+ansible-playbook postgresql-remove.yml
+ansible-playbook boinc-remove.yml
+ansible-playbook hitvisc-main-remove.yml
+ansible-playbook hitvisc-remove.yml
+```
+
+В результате успешного выполнения команд будут созданы все необходимые системные директории в дереве директорий /app/*, созданы и наполнены базовым набором данных необходимые таблицы в базе данных.
+
+5. Установить front-end на удаленном сервере.
 
 ```
 su ansible
