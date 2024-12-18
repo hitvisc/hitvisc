@@ -136,7 +136,7 @@ chown -R hitviscadm:hitvisc /app/
 
 ```
 su hitviscadm
-
+pm2 start pm2.config.production.js
 ```
 
 После успешной установки back-end и front-end частей Системы, пользовательский веб-интерфейс Системы доступен из веб-браузера по адресу вида http://ADDRESS:PORT, в котором подстрока ADDRESS задана в файле install/inventory.txt в переменной 
