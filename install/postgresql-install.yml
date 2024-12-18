@@ -97,6 +97,14 @@
       group: "{{ hitvisc_group_name }}"
       mode: preserve
 
+  - name: Set execution permissions on scripts
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    command: find "/{{ app_base_directory }}/{{ source_root }}/postgresql/" -type f -name "*.sh" -exec chmod +x {} \;
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/postgresql/"
+
   - name: Run build script
     become: yes
     become_user: "{{ hitvisc_user_name }}"
