@@ -20,6 +20,13 @@ ssh root@[IP address] #(ввести пароль пользователя root 
 useradd -m --shell /bin/bash ansible
 passwd ansible #(ввести пароль для создаваемого пользователя: например, ansiblePasswd)
 sudo usermod -a -G sudo ansible
+useradd -m --shell /bin/bash hitviscadm
+addgroup hitvisc
+sudo usermod -a -G hitvisc hitviscadm
+sudo usermod -a -G hitvisc ansible
+sudo usermod -a -G www-data hitviscadm
+mkdir -p /app/hitvisc/front
+chown -R ansible:hitvisc /app/
 hostname #(выведенное имя хоста понадобится для установки параметров на рабочем компьютере на шаге 3)
 
 apt install -y git vim 
@@ -30,7 +37,7 @@ source ~/.bashrc
 nvm install 18
 nvm use 18
 npm install -g pm2
-vim ~/.ssh/authorized_keys #(вставить содержимое публичного ключа рабочего компьютера, скопированное на шаге 1)
+vim ~/.ssh/authorized_keys #(вставить с новой строки содержимое публичного ключа рабочего компьютера, скопированное на шаге 1)
 ```
 
 3. Установить на рабочем компьютере настройки доступа к удаленному серверу:
@@ -83,8 +90,26 @@ cd /home/ansible/hitvisc/frontend/backend/src/
 npm install
 npm run build
 
+cd /app/hitvisc/front
+mkdir -p /app/hitvisc/front/app/api
+mkdir -p /app/hitvisc/front/app/client
+cp -r /home/ansible/hitvisc/frontend/backend/src/dist /app/hitvisc/front/app/api/dist
+cp -r /home/ansible/hitvisc/frontend/backend/src/node_modules /app/hitvisc/front/app/api/node_modules  
+cp -r /home/ansible/hitvisc/frontend/nuxt-client/src/.output /app/hitvisc/front/app/client/.output
+mkdir -p /app/hitvisc/front/sysdir
+mkdir -p /app/hitvisc/front/storage
+cp /home/ansible/hitvisc/frontend/upload_settings.conf.example /app/hitvisc/front/upload_settings.conf
+cp /home/ansible/hitvisc/frontend/pm2.config.js /app/hitvisc/front/pm2.config.production.js
+vim /app/hitvisc/front/pm2.config.production.js #(установить актуальные настройки)
+exit #(вернуться под пользователем root)
+chown -R hitviscadm:hitvisc /app/
 ```
 
+
+```
+su hitviscadm
+
+```
 
 
 ## Общий интерфейс системы
