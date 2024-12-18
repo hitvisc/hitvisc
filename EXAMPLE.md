@@ -2,64 +2,7 @@
 
 ## Установка системы
 
-Установка back-end производится из директории [install](install) с предварительной настройкой параметров системы, как описано в файле [README](README.md).
-
-Для установки back-end выполняется следующий набор скриптов:
-```
-ansible-playbook hitvisc-install.yml
-ansible-playbook hitvisc-main-install.yml
-ansible-playbook boinc-install.yml
-ansible-playbook hitvisc-boinc-install.yml
-ansible-playbook postgresql-install.yml
-ansible-playbook registry-install.yml
-ansible-playbook third-party-install.yml
-```
-
-Соответствующий набор скриптов используется для удаления всех компонент:
-```
-ansible-playbook third-party-remove.yml
-ansible-playbook registry-remove.yml
-ansible-playbook postgresql-remove.yml
-ansible-playbook boinc-remove.yml
-ansible-playbook hitvisc-main-remove.yml
-ansible-playbook hitvisc-remove.yml
-```
-
-Front-end реализован с использование фреймворка Nuxt3, для его установки, генерации образа установки и образа развертывания конечной системы используются следующие команды.
-```
-# npm
-npm install
-# pnpm
-pnpm install
-# yarn
-yarn install
-# bun
-bun install
-
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-# yarn
-yarn dev
-# bun
-bun run dev
-
-# npm
-npm run build
-# pnpm
-pnpm run build
-# yarn
-yarn build
-# bun
-bun run build
-```
-
-Работа сервиса HiTViSc обеспечивается контейнером Docker с настройками, указанными в файле [frontend/docker-compose.staging.yml](frontend/docker-compose.staging.yml).
-
-
-
+Пошаговая инструкция по установке системы описана в файле TUTORIAL.md.
 
 ## Пример 1: виртуальный скрининг с использованием программы молекулярного докинга AutoDock Vina
 
