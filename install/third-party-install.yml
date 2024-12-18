@@ -14,6 +14,14 @@
       owner: "{{ hitvisc_user_name }}"
       group: "{{ hitvisc_group_name }}"
 
+  - name: Set execution permissions on scripts
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    command: find "/{{ app_base_directory }}/hitvisc/bio" -type f -name "*.sh" -exec chmod +x {} \;
+    args:
+      chdir: "/{{ app_base_directory }}/hitvisc/bio"
+
   # Install Anaconda package manager to use third-party bioinformatics tools
   - name: Install Anaconda package manager to use third-party bioinformatics tools
     become: yes
