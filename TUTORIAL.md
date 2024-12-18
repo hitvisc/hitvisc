@@ -106,6 +106,7 @@ ansible-playbook hitvisc-remove.yml
 5. Установить front-end на удаленном сервере.
 
 ```
+chown -R ansible /app/hitvisc/front
 su ansible
 cd /home/ansible
 git clone https://github.com/hitvisc/hitvisc.git
@@ -116,7 +117,6 @@ cd /home/ansible/hitvisc/frontend/backend/src/
 npm install
 npm run build
 
-#chown -R ansible:hitvisc /app/
 cd /app/hitvisc/front
 mkdir -p /app/hitvisc/front/app/api
 mkdir -p /app/hitvisc/front/app/client
@@ -131,7 +131,6 @@ vim /app/hitvisc/front/pm2.config.production.js #(установить акту�
 exit #(вернуться под пользователем root)
 chown -R hitviscadm:hitvisc /app/
 ```
-
 
 ```
 su hitviscadm
