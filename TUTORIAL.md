@@ -91,17 +91,6 @@ ansible-playbook registry-install.yml
 ansible-playbook third-party-install.yml
 ```
 
-Соответствующий набор команд используется для удаления всех компонент:
-
-```
-ansible-playbook third-party-remove.yml
-ansible-playbook registry-remove.yml
-ansible-playbook postgresql-remove.yml
-ansible-playbook boinc-remove.yml
-ansible-playbook hitvisc-main-remove.yml
-ansible-playbook hitvisc-remove.yml
-```
-
 В результате успешного выполнения команд будут созданы все необходимые системные директории в дереве директорий ``/app/*``, созданы и наполнены базовым набором данных необходимые таблицы в базе данных.
 
 5. Установить front-end на удаленном сервере.
