@@ -21,7 +21,7 @@
 
 eval "$(/app/third-party/anaconda/bin/conda 'shell.bash' 'hook' 2>/dev/null)"
 
-conda install -n base -c conda-forge mamba
+#conda install -n base -c conda-forge mamba
 conda config --add channels conda-forge
 conda config --add channels bioconda
 conda config --set auto_activate_base false
