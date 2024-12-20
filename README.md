@@ -42,11 +42,11 @@ ____
 
 Система HiTViSc использует ряд сторонних программных библиотек с открытым исходным кодом:
 
-- [BOINC](https://boinc.berkeley.edu/) для выполнения заданий виртуального скрининга в системе распределенных вычислений;
-- [AutoDock Vina](https://vina.scripps.edu/) и [CmDock](https://gitlab.com/Jukic/cmdock/) для молекулярного докинга;
-- [MGLTools](http://mgltools.scripps.edu/) для подготовки файлов мишени и лигандов к виртуальному скринингу;
-- [OpenBabel](https://openbabel.github.io/) для вычисления химических дескрипторов, конвертации файлов мишени и лигандов в нужные форматы;
-- [Anaconda](https://anaconda.org/) для установки и управления программными пакетами, создания и использования изолированного окружения.
+- [BOINC](https://boinc.berkeley.edu/) (лицензия GNU LGPL) для выполнения заданий виртуального скрининга в системе распределенных вычислений;
+- [AutoDock Vina](https://vina.scripps.edu/) (лицензия Apache) и [CmDock](https://gitlab.com/Jukic/cmdock/) (лицензия GNU LGPL) для молекулярного докинга;
+- [MGLTools](http://mgltools.scripps.edu/) (лицензия MOZILLA Open Source и иные лицензии - см. [подробности](http://mgltools.scripps.edu/downloads/license-agreements)) для подготовки файлов мишени и лигандов к виртуальному скринингу;
+- [OpenBabel](https://openbabel.github.io/) (лицензия GPL-2.0) для вычисления химических дескрипторов, конвертации файлов мишени и лигандов в нужные форматы;
+- [Conda](https://github.com/conda/conda) (лицензия BSD-3) для установки и управления программными пакетами, создания и использования изолированного окружения.
 
 
 
