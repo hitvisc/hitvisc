@@ -34,10 +34,10 @@ ____
 ____
 Before installing the system, make sure that the following files have the current settings:
 
-:key: the install/group_vars/TargetServers file contains the settings for connecting to the remote server;
-:key: the install/inventory.txt file contains the IP address of the remote server;
-:key: the install/keys/ansible.key file contains the private OPENSSH key of the remote server;
-:key: The install/source/hitvisc/main/hitvisc.conf file contains system settings for the HiTViSc system.
+:key: the install/group_vars/TargetServers file contains the settings for connecting to the remote server;  
+:key: the install/inventory.txt file contains the IP address of the remote server;  
+:key: the install/keys/ansible.key file contains the private OPENSSH key of the remote server;  
+:key: The install/source/hitvisc/main/hitvisc.conf file contains system settings for the HiTViSc system.  
 
 ## Third-Party Libraries
 
