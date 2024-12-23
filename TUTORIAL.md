@@ -80,13 +80,13 @@ vim inventory.txt #(установить в файле inventory.txt имя хо
 Для установки back-end выполняется следующий набор команд:
 
 ```
-ansible-playbook hitvisc-install.yml
-ansible-playbook hitvisc-main-install.yml
-ansible-playbook boinc-install.yml
-ansible-playbook hitvisc-boinc-install.yml
-ansible-playbook postgresql-install.yml
-ansible-playbook registry-install.yml
-ansible-playbook third-party-install.yml
+ansible-playbook hitvisc-install.yml -K
+ansible-playbook hitvisc-main-install.yml -K
+ansible-playbook boinc-install.yml -K
+ansible-playbook hitvisc-boinc-install.yml -K
+ansible-playbook postgresql-install.yml -K
+ansible-playbook registry-install.yml -K
+ansible-playbook third-party-install.yml -K
 ```
 
 В результате успешного выполнения команд будут созданы все необходимые системные директории в дереве директорий ``/app/*``, созданы и наполнены базовым набором данных необходимые таблицы в базе данных.
