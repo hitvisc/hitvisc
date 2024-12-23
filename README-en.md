@@ -9,34 +9,35 @@ The high-performance distributed computing system for drug development, HiTViSc,
 
 ____
 
-## Минимальные аппаратные и операционные технические требования для запуска и использования системы:
-- Для работы конечного пользователя рекомендуется использовать персональный компьютер со следующими характеристиками:
-	- процессор с двумя или более ядрами и тактовой частотой 2ГГц или выше;
-	- оперативная память 4Гб или выше;
-	- канал Интернет пропускной способностью 10 Мбит;
-	- ОС Windows, Linux или MacOS со стандартным набором системного программного обеспечения;
-	- веб-браузер Mozilla Firefox версии 132 или новее, Chrome версии 130 или новее, Edge версии 131 или новее, Safari версии 17 или новее.
-- Для работы серверной части системы рекомендуется использовать сервер со следующими характеристиками:
-	- процессор с двумя или более ядрами и тактовой частотой 2ГГц или выше;
-	- оперативная память 4Гб или выше;
-	- два жестких диска 1Тб, объединенных в RAID 1;
-	- канал Интернет пропускной способностью 100 Мбит;
-	- ОС на базе ядра Linux версии 6.4 или выше. 
-- Для работы серверной части системы рекомендуется использовать следующие версии дополнительных компонент и библиотек:
-	- Ansible версии 2.10.8 или выше (устанавливается на рабочем компьютере);
-	- NodeJS версии 18 или выше (устанавливается на удаленном сервере при разворачивании системы);
- 	- pm2 версии 5.4 или выше (устанавливается на удаленном сервере при разворачивании системы);
-	- Anaconda версии 2024.10-1 или выше (устанавливается на удаленном сервере при разворачивании системы, ссылка на скрипт установки задается в файле install/source/hitvisc/bio/install_conda.sh);
-	- BOINC сервер версии 1.4-1.4.2 или выше (устанавливается на удаленном сервере при разворачивании системы, архив с исходным кодом задается в директории install/source/boinc);
-	- OpenBabel версии 3.1.1 или выше (устанавливается на удаленном сервере при разворачивании системы в ходе выполнения скрипта install/source/hitvisc/bio/setup_hitvisc-bio_env.sh);
-	- MGLTools версии 1.5.7 или выше (устанавливается на удаленном сервере при разворачивании системы в ходе выполнения скрипта install/source/hitvisc/bio/setup_hitvisc-bio_env.sh).
-____
-Перед установкой системы убедитесь в наличии актуальных настроек в следующих файлах:
+## Minimum hardware and operating system requirements for running and using the system:
 
-:key: файл install/group_vars/TargetServers содержит настройки подключения к удаленному серверу;  
-:key: файл install/inventory.txt содержит ip-адрес удаленного сервера;  
-:key: файл install/keys/ansible.key содержит приватный ключ OPENSSH удаленного сервера;  
-:key: файл install/source/hitvisc/main/hitvisc.conf содержит системные настройки системы HiTViSc.
+- For the end user, it is recommended to use a personal computer with the following characteristics:
+	- CPU with two or more cores and a clock rate of at least 2 GHz;
+	- RAM of at least 4 GB;
+	- Internet channel with a bandwidth of 10 Mbps;
+	- Windows, Linux or MacOS OS with a standard set of system software;
+	- Mozilla Firefox web browser version 132 or later, Chrome version 130 or later, Edge version 131 or later, Safari version 17 or later.
+- For the server part of the system, it is recommended to use a server with the following characteristics:
+	- CPU with two or more cores and a clock rate of at least 2 GHz;
+	- RAM of at least 4 GB;
+	- two 1 TB hard drives combined into RAID 1;
+	- Internet channel with a bandwidth of 100 Mbps;
+	- OS based on Linux kernel version 6.4 or higher.
+- For the server part of the system, it is recommended to use the following versions of additional components and libraries:
+	- Ansible version 2.10.8 or higher (installed on the working computer);
+	- NodeJS version 18 or higher (installed on the remote server when deploying the system);
+	- pm2 version 5.4 or higher (installed on the remote server when deploying the system);
+	- Anaconda version 2024.10-1 or higher (installed on the remote server when deploying the system, the link to the installation script is specified in the install/source/hitvisc/bio/install_conda.sh file);
+	- BOINC server version 1.4-1.4.2 or higher (installed on the remote server when deploying the system, the archive with the source code is provided in the install/source/boinc directory);
+	- OpenBabel version 3.1.1 or higher (installed on the remote server during system deployment by executing the install/source/hitvisc/bio/setup_hitvisc-bio_env.sh script);
+	- MGLTools version 1.5.7 or higher (installed on the remote server during system deployment by executing the install/source/hitvisc/bio/setup_hitvisc-bio_env.sh script).
+____
+Before installing the system, make sure that the following files have the current settings:
+
+:key: the install/group_vars/TargetServers file contains the settings for connecting to the remote server;
+:key: the install/inventory.txt file contains the IP address of the remote server;
+:key: the install/keys/ansible.key file contains the private OPENSSH key of the remote server;
+:key: The install/source/hitvisc/main/hitvisc.conf file contains system settings for the HiTViSc system.
 
 ## Third-Party Libraries
 
