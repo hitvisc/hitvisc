@@ -81,13 +81,13 @@ The deployment of the back-end part of the System is provided by Ansible scripts
 To install the back-end, the following set of commands is executed:
 
 ```
-ansible-playbook hitvisc-install.yml
-ansible-playbook hitvisc-main-install.yml
-ansible-playbook boinc-install.yml
-ansible-playbook hitvisc-boinc-install.yml
-ansible-playbook postgresql-install.yml
-ansible-playbook registry-install.yml
-ansible-playbook third-party-install.yml
+ansible-playbook hitvisc-install.yml -K
+ansible-playbook hitvisc-main-install.yml -K
+ansible-playbook boinc-install.yml -K
+ansible-playbook hitvisc-boinc-install.yml -K
+ansible-playbook postgresql-install.yml -K
+ansible-playbook registry-install.yml -K
+ansible-playbook third-party-install.yml -K
 ```
 
 As a result of successful execution of the commands, all necessary system directories will be created in the directory tree ``/app/*``, and the necessary tables in the database will be created and filled with a basic set of data.
