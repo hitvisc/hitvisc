@@ -25,6 +25,7 @@ ____
 	- OS based on Linux kernel version 6.4 or higher.
 - For the server part of the system, it is recommended to use the following versions of additional components and libraries:
 	- Ansible version 2.10.8 or higher (installed on the working computer);
+ 	- Python version 3.10 (installed on the remote server);
 	- NodeJS version 18 or higher (installed on the remote server when deploying the system);
 	- pm2 version 5.4 or higher (installed on the remote server when deploying the system);
 	- Anaconda version 2024.10-1 or higher (installed on the remote server when deploying the system, the link to the installation script is specified in the install/source/hitvisc/bio/install_conda.sh file);
