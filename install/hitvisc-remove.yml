@@ -36,6 +36,7 @@
     user:
       name: "{{ hitvisc_user_name }}"
       state: absent
+      remove: yes
 
   - name: Delete HiTViSc group - hitvisc
     become: yes
@@ -43,4 +44,12 @@
     become_method: sudo
     group:
       name: "{{ hitvisc_group_name }}"
+      state: absent
+
+  - name: Remove crontab file
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/var/spool/cron/crontabs/{{ hitvisc_user_name }}"
       state: absent
