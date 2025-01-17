@@ -14,18 +14,18 @@ cat ~/.ssh/id_rsa.pub #(скопировать содержимое публич
 sudo apt install ansible
 ```
 
-2. Подготовить к работе удаленный сервер. Предположим, что учетная запись администратора (root) доступна через ssh по ip-адресу [IP address].
+2. Подготовить к работе удаленный сервер. Предположим, что учетная запись администратора (root) доступна через ssh по ip-адресу [IP address] с паролем ansibleRootPasswd. В ходе установки на сервере будет создана учетная запись пользователя ansible с паролем ansiblePasswd.
 
 ```
-ssh root@[IP address] #(ввести пароль пользователя root по запросу)
+ssh root@[IP address] #(ввести пароль пользователя root - ansibleRootPasswd)
 useradd -m --shell /bin/bash ansible
-passwd ansible #(ввести пароль для создаваемого пользователя: например, ansiblePasswd)
-sudo usermod -a -G sudo ansible
+passwd ansible #(ввести пароль для создаваемого пользователя - ansiblePasswd)
+usermod -a -G sudo ansible
 useradd -m --shell /bin/bash hitviscadm
 addgroup hitvisc
-sudo usermod -a -G hitvisc hitviscadm
-sudo usermod -a -G hitvisc ansible
-sudo usermod -a -G www-data hitviscadm
+usermod -a -G hitvisc hitviscadm
+usermod -a -G hitvisc ansible
+usermod -a -G www-data hitviscadm
 mkdir -p /app/hitvisc/front
 chown -R ansible:hitvisc /app/
 hostname #(выведенное имя хоста понадобится для установки параметров на рабочем компьютере на шаге 3)
