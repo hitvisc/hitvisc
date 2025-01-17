@@ -81,10 +81,10 @@ vim inventory.txt #(установить в файле inventory.txt имя хо
 
 ```
 ansible-playbook hitvisc-install.yml -K
+ansible-playbook postgresql-install.yml -K
 ansible-playbook hitvisc-main-install.yml -K
 ansible-playbook boinc-install.yml -K
 ansible-playbook hitvisc-boinc-install.yml -K
-ansible-playbook postgresql-install.yml -K
 ansible-playbook registry-install.yml -K
 ansible-playbook third-party-install.yml -K
 ```
