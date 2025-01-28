@@ -69,7 +69,6 @@ REFLIG_ORIGINAL_FILENAME="${16}"
 REFLIG_EXTENSION="${17}"
 
 ## Process PDB file
-
 if [ "$PDB_FILE_LOADED" == "N" ]; then
   #TMPPDBFILENAME=$(source "$DIR/download_pdb.sh" "$TMPDIR" "$PDB_ID" "$TARGET_SYSTEM_NAME")
   INFO_PDB_FILE=$(source "$DIR/download_pdb.sh" "$TMPDIR" "$PDB_ID" "$TARGET_SYSTEM_NAME")
