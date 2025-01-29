@@ -69,12 +69,16 @@ REFLIG_ORIGINAL_FILENAME="${16}"
 REFLIG_EXTENSION="${17}"
 
 ## Process PDB file
-
 if [ "$PDB_FILE_LOADED" == "N" ]; then
-  TMPPDBFILENAME=$(source "$DIR/download_pdb.sh" "$TMPDIR" "$PDB_ID" "$TARGET_SYSTEM_NAME")
+  INFO_PDB_FILE=$(source "$DIR/download_pdb.sh" "$TMPDIR" "$PDB_ID" "$TARGET_SYSTEM_NAME")
   if [ $? -ne 0 ]; then log_msg_error "Failed to download PDB file by ID ($PDB_ID)"; return $CODEOTHERERR; fi
+  # Parse the output: TMPPDBFILENAME COMMENT
+  IFS='" ' read -ra ARR_PDB_INFO <<< "$INFO_PDB_FILE"
+  TMPPDBFILENAME=${ARR_PDB_INFO[0]}
+  COMMENT=${ARR_PDB_INFO[1]}
 else
   TMPPDBFILENAME="$TMPDIR/target_${TARGET_SYSTEM_NAME}.pdb"
+  COMMENT="Note: PDB file has been uploaded by the user."
   cp "$TMPDIR/$PDB_FILENAME" "$TMPPDBFILENAME"
 fi
 
