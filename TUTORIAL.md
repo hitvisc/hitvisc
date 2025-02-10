@@ -38,6 +38,7 @@ source ~/.bashrc
 nvm install 18
 nvm use 18
 npm install -g pm2
+mkdir -p ~/.ssh
 vim ~/.ssh/authorized_keys #(вставить с новой строки содержимое публичного ключа рабочего компьютера, скопированное на шаге 1)
 ```
 
