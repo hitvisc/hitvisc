@@ -1,6 +1,6 @@
 ## System installation
 
-Working computer - the computer of the system administrator, from which the preliminary configuration of the HiTViSc system is performed and commands for deploying the system to the remote server are sent. Remote server - the computer on which the HiTViSc system will be directly deployed, including all its components, databases and the end user web interface.
+_Working computer_ is the computer of the system administrator, from which the preliminary configuration of the HiTViSc system is performed and commands for deploying the system to the remote server are sent. _Remote server_ is the computer on which the HiTViSc system will be directly deployed, including all its components, databases and the end user web interface.
 
 1. Download the source code and prepare the working computer:
 
