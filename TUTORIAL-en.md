@@ -81,6 +81,7 @@ The following group of parameters in source/hitvisc/main/hitvisc.conf file descr
 4. Install the back-end on a remote server.
 
 The deployment of the back-end part of the System is provided by Ansible scripts, which perform all the necessary actions to install and configure the system software. Sequential execution of scripts allows you to install the system environment step by step with the ability to adjust, if necessary, in case of errors.
+
 To install the back-end, the following set of commands is executed on the _working computer_:
 
 ```
