@@ -23,7 +23,7 @@ useradd -m --shell /bin/bash ansible
 passwd ansible #(ввести пароль для создаваемого пользователя - ansiblePasswd)
 usermod -a -G sudo ansible
 useradd -m --shell /bin/bash hitviscadm
-passwd hitviscadm #(ввести пароль для создаваемого пользователя - hitviscadmPasswd)
+passwd hitviscadm #(ввести пароль для создаваемого пользователя - hitviscPasswd)
 addgroup hitvisc
 usermod -a -G hitvisc hitviscadm
 usermod -a -G hitvisc ansible
