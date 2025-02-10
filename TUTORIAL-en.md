@@ -14,7 +14,7 @@ cat ~/.ssh/id_rsa.pub #(скопировать содержимое публич
 sudo apt install ansible
 ```
 
-2. Prepare the remote server for work. Let's assume that the administrator account (root) is accessible via ssh at the IP address [IP address].
+2. Prepare the remote server for work. Let's assume that the administrator account (root) is accessible via ssh at the IP address [IP address] with password ansibleRootPasswd. During the installation process, there will be created a user account named ansible, with password ansiblePasswd, on the server.
 
 ```
 ssh root@[IP address] #(ввести пароль пользователя root по запросу)
