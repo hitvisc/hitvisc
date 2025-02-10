@@ -56,7 +56,7 @@ vim inventory.txt #(установить в файле inventory.txt имя хо
 
 If you wish, you can set your own parameter values ​​in the group_vars/TargetServers and source/hitvisc/main/hitvisc.conf files.
 
-You can choose the settings associated with the BOINC project running inside the HiTViSc system at your own discretion. They set the parameters for accessing the BOINC project and are specified in the group_vars/TargetServers file. The couple of parameters boinc_url_base and boinc_project_name defines a unique, unchangeable URL for the BOINC project. The boinc_project_caption parameter defines the project name displayed in the BOINC client. If you plan to involve a wide range of volunteers in the computations, it is recommended to think about the project name in advance.
+You can choose the settings associated with the BOINC project running inside the HiTViSc system at your own discretion. They set the parameters for accessing the BOINC project and are specified in the group_vars/TargetServers file. The couple of parameters boinc_url_base and boinc_project_name defines a unique, unchangeable URL for the BOINC project. The boinc_project_caption parameter defines the project name displayed in the BOINC client. If you plan to involve a wide range of volunteers in the computations, it is recommended to think about the project name and URL address in advance.
 
 >boinc_project_host           : [REPLACE WITH YOUR SERVER HOSTNAME]  
 >boinc_url_base               : http://[REPLACE WITH YOUR SERVER IP ADDRESS OR DOMAIN NAME]/  
