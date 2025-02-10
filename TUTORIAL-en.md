@@ -82,10 +82,10 @@ To install the back-end, the following set of commands is executed:
 
 ```
 ansible-playbook hitvisc-install.yml -K
+ansible-playbook postgresql-install.yml -K
 ansible-playbook hitvisc-main-install.yml -K
 ansible-playbook boinc-install.yml -K
 ansible-playbook hitvisc-boinc-install.yml -K
-ansible-playbook postgresql-install.yml -K
 ansible-playbook registry-install.yml -K
 ansible-playbook third-party-install.yml -K
 ```
@@ -120,7 +120,7 @@ exit #(вернуться под пользователем root)
 chown -R hitviscadm:hitvisc /app
 ```
 
-In the settings file ``/app/hitvisc/front/pm2.production.config.js`` the following group of parameters sets the rules for accessing the mail account that will be used in the system to confirm user registrations/password recovery:
+In the settings file ``/app/hitvisc/front/pm2.production.config.js``, the following group of parameters sets the rules for accessing the e-mail account that will be used in the system to confirm user registrations/password recovery:
 
 >EMAIL_HOST: "smtp.yandex.ru", (must be replaced with the SMTP server host of the mail account)
 >EMAIL_PORT: 465, (must be replaced with the port number of the mail account)
