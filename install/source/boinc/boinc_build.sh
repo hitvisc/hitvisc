@@ -73,7 +73,7 @@ echo "--------------------------------------------------------------------------
 echo "--- Run make_project"
 echo "------------------------------------------------------------------------------------------------"
 cd ./tools/
-./make_project --no_query --project_host $boinc_project_host --url_base $boinc_url_base --project_root $boinc_project_home --db_host $boinc_db_host --db_name $boinc_db_name --db_user $boinc_db_user --db_passwd $boinc_db_password $boinc_project_name $boinc_project_caption
+./make_project --no_query --project_host $boinc_project_host --url_base $boinc_url_base --project_root $boinc_project_home --db_name $boinc_db_name --db_user $boinc_db_user --db_passwd $boinc_db_password $boinc_project_name $boinc_project_caption
 
 echo "------------------------------------------------------------------------------------------------"
 echo "--- Set project and team name into project.inc"
