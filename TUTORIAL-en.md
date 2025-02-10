@@ -69,16 +69,6 @@ You can choose the settings associated with the BOINC project running inside the
 >boinc_project_name           : hitboinc  
 >boinc_project_caption        : HiTViSc@home  
 
-The following group of parameters in source/hitvisc/main/hitvisc.conf file describes the basic system settings of the HiTViSc system, and it is recommended to leave them unchanged.
-
->registry_database        = hitvisc  
->hitvisc_api_dir          = /app/hitvisc/api  
->hitvisc_main_dir         = /app/hitvisc/main  
->hitvisc_data_dir         = /app/hitvisc/data  
->hitvisc_bio_dir          = /app/hitvisc/bio  
->hitvisc_log_dir          = /app/hitvisc/log  
->hitvisc_tmp_dir          = /app/hitvisc/tmp  
-
 4. Install the back-end on a remote server.
 
 The deployment of the back-end part of the System is provided by Ansible scripts, which perform all the necessary actions to install and configure the system software. Sequential execution of scripts allows you to install the system environment step by step with the ability to adjust, if necessary, in case of errors.
