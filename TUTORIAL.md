@@ -58,7 +58,7 @@ vim inventory.txt #(установить в файле inventory.txt имя хо
 Настройки, связанные с BOINC-проектом, функционирующим внутри системы HiTViSc, можно выбрать по своему усмотрению. Они задают параметры доступа к BOINC-проекту и прописаны в файле group_vars/TargetServers. Связка параметров boinc_url_base и boinc_project_name определяет уникальный, неизменный URL-адрес BOINC-проекта. Параметр boinc_project_caption определяет имя проекта, выводимое в BOINC-клиенте. Если планируется привлечение широкого круга добровольцев к участию в вычислениях, то рекомендуется заранее продумать название проекта.
 
 >boinc_project_host           : [REPLACE WITH YOUR SERVER HOSTNAME]  
->boinc_url_base               : http://[REPLACE WITH YOUR SERVER IP ADDRESS]/  
+>boinc_url_base               : http://[REPLACE WITH YOUR SERVER IP ADDRESS OR DOMAIN NAME]/  
 >boinc_project_home           : hitboinc  
 >boinc_db_host                : [REPLACE WITH YOUR SERVER HOSTNAME]  
 >boinc_db_name                : hitboinc  
