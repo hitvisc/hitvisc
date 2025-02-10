@@ -5,8 +5,10 @@ Working computer - the computer of the system administrator, from which the prel
 1. Download the source code and prepare the working computer:
 
 ```
+mkdir -p /home/user/work #(заменить на собственный путь к рабочей директории)
+cd /home/user/work
 git clone git@github.com:hitvisc/hitvisc.git
-cd hitvisc/install
+cd /home/user/work/hitvisc/install
 ssh-keygen #(3 раза нажать Enter для установки директории с ключами по умолчанию и пустого пароля)
 cat ~/.ssh/id_rsa > keys/ansible.key
 chmod 600 keys/ansible.key
@@ -45,11 +47,11 @@ vim ~/.ssh/authorized_keys #(вставить с новой строки сод�
 3. Set up access settings to the remote server on your work computer:
 
 ```
-cd hitvisc/install
-cp group_vars/TargetServers.example group_vars/TargetServers
-vim group_vars/TargetServers #(установить в файле group_vars/TargetServers актуальные параметры boinc_project_host, boinc_url_base и boinc_db_host, используя имя хоста и внешний ip-адрес удаленного сервера [IP address])
-cp source/hitvisc/main/hitvisc.conf.example source/hitvisc/main/hitvisc.conf 
-vim inventory.txt #(установить в файле inventory.txt имя хоста и внешний ip-адрес удаленного сервера [IP address])
+cd /home/user/work/hitvisc/install
+cp /home/user/work/hitvisc/install/group_vars/TargetServers.example /home/user/work/hitvisc/install/group_vars/TargetServers
+vim /home/user/work/hitvisc/install/group_vars/TargetServers #(установить в файле group_vars/TargetServers актуальные параметры boinc_project_host, boinc_url_base и boinc_db_host, используя имя хоста и внешний ip-адрес удаленного сервера [IP address])
+cp /home/user/work/hitvisc/install/source/hitvisc/main/hitvisc.conf.example /home/user/work/hitvisc/install/source/hitvisc/main/hitvisc.conf 
+vim /home/user/work/hitvisc/install/inventory.txt #(установить в файле inventory.txt имя хоста и внешний ip-адрес удаленного сервера [IP address])
 ```
 
 If you wish, you can set your own parameter values ​​in the group_vars/TargetServers and source/hitvisc/main/hitvisc.conf files.
@@ -66,7 +68,7 @@ You can choose the settings associated with the BOINC project running inside the
 >boinc_project_name           : hitboinc  
 >boinc_project_caption        : HiTViSc@home  
 
-The following group of parameters in the source/hitvisc/main/hitvisc.conf file describes the basic system settings of the HiTViSc system, and it is recommended to leave them unchanged.
+The following group of parameters in the /home/user/work/hitvisc/install/source/hitvisc/main/hitvisc.conf file describes the basic system settings of the HiTViSc system, and it is recommended to leave them unchanged.
 
 >registry_database        = hitvisc  
 >hitvisc_api_dir          = /app/hitvisc/api  
