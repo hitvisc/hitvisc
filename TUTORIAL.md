@@ -68,16 +68,6 @@ vim inventory.txt #(установить в файле inventory.txt имя хо
 >boinc_project_name           : hitboinc  
 >boinc_project_caption        : HiTViSc@home  
 
-Следующая группа параметров в файле source/hitvisc/main/hitvisc.conf описывает основные системные настройки системы HiTViSc, и их рекомендуется оставить неизменными.
-
->registry_database        = hitvisc  
->hitvisc_api_dir          = /app/hitvisc/api  
->hitvisc_main_dir         = /app/hitvisc/main  
->hitvisc_data_dir         = /app/hitvisc/data  
->hitvisc_bio_dir          = /app/hitvisc/bio  
->hitvisc_log_dir          = /app/hitvisc/log  
->hitvisc_tmp_dir          = /app/hitvisc/tmp  
-
 4. Установить back-end на удаленном сервере.
 
 Развертывание back-end части Системы обеспечивается скриптами Ansible, выполняющими все необходимые действия по установке и настройке системного программного обеспечения. Последовательное выполнение скриптов позволяет устанавливать системное окружение пошагово с возможностью корректировки, если потребуется, в случае возникновения ошибок.
