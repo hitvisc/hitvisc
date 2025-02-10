@@ -22,7 +22,7 @@ ____
 	- RAM of at least 4 GB;
 	- two 1 TB hard drives combined into RAID 1;
 	- Internet channel with a bandwidth of 100 Mbps;
-	- OS based on Linux kernel version 6.4 or higher.
+	- OS Ubuntu version 22.04 or higher.
 - For the server part of the system, it is recommended to use the following versions of additional components and libraries:
 	- Ansible version 2.10.8 or higher (installed on the working computer);
  	- Python version 3.10 (installed on the remote server);
