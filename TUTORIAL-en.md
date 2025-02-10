@@ -17,15 +17,15 @@ sudo apt install ansible
 2. Prepare the remote server for work. Let's assume that the administrator account (root) is accessible via ssh at the IP address [IP address] with password ansibleRootPasswd. During the installation process, there will be created a user account named ansible, with password ansiblePasswd, on the server.
 
 ```
-ssh root@[IP address] #(ввести пароль пользователя root по запросу)
+ssh root@[IP address] #(ввести пароль пользователя root - ansibleRootPasswd)
 useradd -m --shell /bin/bash ansible
-passwd ansible #(ввести пароль для создаваемого пользователя: например, ansiblePasswd)
-sudo usermod -a -G sudo ansible
+passwd ansible #(ввести пароль для создаваемого пользователя - ansiblePasswd)
+usermod -a -G sudo ansible
 useradd -m --shell /bin/bash hitviscadm
 addgroup hitvisc
-sudo usermod -a -G hitvisc hitviscadm
-sudo usermod -a -G hitvisc ansible
-sudo usermod -a -G www-data hitviscadm
+usermod -a -G hitvisc hitviscadm
+usermod -a -G hitvisc ansible
+usermod -a -G www-data hitviscadm
 mkdir -p /app/hitvisc/front
 chown -R ansible:hitvisc /app/
 hostname #(выведенное имя хоста понадобится для установки параметров на рабочем компьютере на шаге 3)
@@ -53,7 +53,7 @@ vim inventory.txt #(установить в файле inventory.txt имя хо
 
 If you wish, you can set your own parameter values ​​in the group_vars/TargetServers and source/hitvisc/main/hitvisc.conf files.
 
-You can choose the settings associated with the BOINC project running inside the HiTViSc system at your own discretion. They set the parameters for accessing the BOINC project and are specified in the group_vars/TargetServers file. The boinc_project_name parameter defines a unique, unchangeable URL for the BOINC project. The boinc_project_caption parameter defines the project name displayed in the BOINC client. If you plan to involve a wide range of volunteers in the calculations, it is recommended to think about the project name in advance.
+You can choose the settings associated with the BOINC project running inside the HiTViSc system at your own discretion. They set the parameters for accessing the BOINC project and are specified in the group_vars/TargetServers file. The boinc_project_name parameter defines a unique, unchangeable URL for the BOINC project. The boinc_project_caption parameter defines the project name displayed in the BOINC client. If you plan to involve a wide range of volunteers in the computations, it is recommended to think about the project name in advance.
 
 >boinc_project_host           : [REPLACE WITH YOUR SERVER HOSTNAME]  
 >boinc_url_base               : http://[REPLACE WITH YOUR SERVER IP ADDRESS]/  
