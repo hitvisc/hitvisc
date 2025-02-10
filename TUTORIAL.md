@@ -5,8 +5,10 @@
 1. Скачать исходный код и подготовить рабочий компьютер:
 
 ```
+mkdir -p /home/user/work #(заменить на собственный путь к рабочей директории)
+cd /home/user/work
 git clone git@github.com:hitvisc/hitvisc.git
-cd hitvisc/install
+cd /home/user/work/hitvisc/install
 ssh-keygen #(3 раза нажать Enter для установки директории с ключами по умолчанию и пустого пароля)
 cat ~/.ssh/id_rsa > keys/ansible.key
 chmod 600 keys/ansible.key
@@ -45,13 +47,13 @@ vim ~/.ssh/authorized_keys #(вставить с новой строки сод�
 3. Установить на рабочем компьютере настройки доступа к удаленному серверу:
 
 ```
-cd hitvisc/install
-cp group_vars/TargetServers.example group_vars/TargetServers
-vim group_vars/TargetServers #(установить в файле group_vars/TargetServers актуальные параметры boinc_project_host, boinc_url_base и boinc_db_host, используя имя хоста и внешний ip-адрес удаленного сервера [IP address])
-cp source/hitvisc/main/hitvisc.conf.example source/hitvisc/main/hitvisc.conf 
-vim inventory.txt #(установить в файле inventory.txt имя хоста и внешний ip-адрес удаленного сервера [IP address])
+cd /home/user/work/hitvisc/install
+cp /home/user/work/hitvisc/install/group_vars/TargetServers.example /home/user/work/hitvisc/install/group_vars/TargetServers
+vim /home/user/work/hitvisc/install/group_vars/TargetServers #(установить в файле /home/user/work/hitvisc/install/group_vars/TargetServers актуальные параметры boinc_project_host, boinc_url_base и boinc_db_host, используя имя хоста и внешний ip-адрес удаленного сервера [IP address])
+cp /home/user/work/hitvisc/install/source/hitvisc/main/hitvisc.conf.example /home/user/work/hitvisc/install/source/hitvisc/main/hitvisc.conf 
+vim /home/user/work/hitvisc/install/inventory.txt #(установить в файле inventory.txt имя хоста и внешний ip-адрес удаленного сервера [IP address])
 ```
-При желании установить собственные значения параметров в файлах group_vars/TargetServers и source/hitvisc/main/hitvisc.conf.
+При желании установить собственные значения параметров в файлах /home/user/work/hitvisc/install/group_vars/TargetServers и /home/user/work/hitvisc/install/source/hitvisc/main/hitvisc.conf.
 
 Настройки, связанные с BOINC-проектом, функционирующим внутри системы HiTViSc, можно выбрать по своему усмотрению. Они задают параметры доступа к BOINC-проекту и прописаны в файле group_vars/TargetServers. Параметр boinc_project_name определяет уникальный, неизменный URL-адрес BOINC-проекта. Параметр boinc_project_caption определяет имя проекта, выводимое в BOINC-клиенте. Если планируется привлечение широкого круга добровольцев к участию в вычислениях, то рекомендуется заранее продумать название проекта.
 
@@ -65,7 +67,7 @@ vim inventory.txt #(установить в файле inventory.txt имя хо
 >boinc_project_name           : hitboinc  
 >boinc_project_caption        : HiTViSc@home  
 
-Следующая группа параметров в файле source/hitvisc/main/hitvisc.conf описывает основные системные настройки системы HiTViSc, и их рекомендуется оставить неизменными.
+Следующая группа параметров в файле /home/user/work/hitvisc/install/source/hitvisc/main/hitvisc.conf описывает основные системные настройки системы HiTViSc, и их рекомендуется оставить неизменными.
 
 >registry_database        = hitvisc  
 >hitvisc_api_dir          = /app/hitvisc/api  
