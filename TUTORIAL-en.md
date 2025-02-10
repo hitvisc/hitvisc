@@ -2,7 +2,7 @@
 
 _Working computer_ is the computer of the system administrator, from which the preliminary configuration of the HiTViSc system is performed and commands for deploying the system to the remote server are sent. _Remote server_ is the computer on which the HiTViSc system will be directly deployed, including all its components, databases and the end user web interface.
 
-1. Download the source code and prepare the working computer:
+1. Download the source code and prepare the _working computer_:
 
 ```
 # Убедиться, что находимся в рабочей директории: например, /home/user/work
@@ -15,7 +15,7 @@ cat ~/.ssh/id_rsa.pub #(скопировать содержимое публич
 sudo apt install ansible
 ```
 
-2. Prepare the remote server for work. Let's assume that the administrator account (root) is accessible via ssh at the IP address [IP address] with password ansibleRootPasswd. During the installation process, there will be created a user account named ansible, with password ansiblePasswd, on the server.
+2. Prepare the _remote server_ for work. Let's assume that the administrator account (root) is accessible via ssh at the IP address [IP address] with password ansibleRootPasswd. During the installation process, there will be created a user account named ansible, with password ansiblePasswd, on the server.
 
 ```
 ssh root@[IP address] #(ввести пароль пользователя root - ansibleRootPasswd)
@@ -43,7 +43,7 @@ mkdir -p ~/.ssh
 vim ~/.ssh/authorized_keys #(вставить с новой строки содержимое публичного ключа рабочего компьютера, скопированное на шаге 1)
 ```
 
-3. Set up access settings to the remote server on your work computer:
+3. Set up access settings to the remote server on your _working computer_:
 
 ```
 # Убедиться, что находимся в рабочей директории: например, /home/user/work
@@ -81,7 +81,7 @@ The following group of parameters in source/hitvisc/main/hitvisc.conf file descr
 4. Install the back-end on a remote server.
 
 The deployment of the back-end part of the System is provided by Ansible scripts, which perform all the necessary actions to install and configure the system software. Sequential execution of scripts allows you to install the system environment step by step with the ability to adjust, if necessary, in case of errors.
-To install the back-end, the following set of commands is executed on the working computer:
+To install the back-end, the following set of commands is executed on the _working computer_:
 
 ```
 # Убедиться, что находимся в рабочей директории: например, /home/user/work
@@ -97,7 +97,7 @@ ansible-playbook third-party-install.yml -K
 
 As a result of successful execution of the commands, all necessary system directories will be created in the directory tree ``/app/*``, and the necessary tables in the database will be created and filled with a basic set of data.
 
-5. Install the front-end on the remote server.
+5. Install the front-end on the _remote server_.
 
 ```
 su ansible
@@ -132,7 +132,7 @@ In the settings file ``/app/hitvisc/front/pm2.production.config.js``, the follow
 >EMAIL_USER: "user@yandex.ru", (must be replaced with the e-mail address of the mail account)
 >EMAIL_PASSWORD: "apppassword", (must be replaced with the password of the mail account application)
 
-To launch the front-end, you need to run commands on the remote server
+To launch the front-end, you need to run commands on the _remote server_
 
 ```
 su hitviscadm
@@ -140,7 +140,7 @@ cd /app/hitvisc/front
 pm2 start pm2.production.config.js
 ```
 
-6. Complete the database preparation on the work computer.
+6. Complete the database preparation on the _working computer_.
 
 ``
 ansible-playbook registry-finalize.yml
