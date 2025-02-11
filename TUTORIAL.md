@@ -34,15 +34,6 @@ usermod -a -G www-data hitviscadm
 hostname #(выведенное имя хоста понадобится для установки параметров на рабочем компьютере на шаге 3)
 apt-get update && apt install -y git vim 
 
-su hitviscadm
-cd /home/hitviscadm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
-source ~/.bashrc
-nvm install 18
-nvm use 18
-npm install -g pm2
-exit (# вернуться под пользователем root)
-
 su ansible
 mkdir -p ~/.ssh
 vim ~/.ssh/authorized_keys #(вставить с новой строки содержимое публичного ключа рабочего компьютера, скопированное на шаге 1)
@@ -97,24 +88,7 @@ ansible-playbook third-party-install.yml
 
 ```
 su hitviscadm
-cd /home/hitviscadm
-git clone https://github.com/hitvisc/hitvisc.git 
-cd /home/hitviscadm/hitvisc/frontend/nuxt-client/src/
-npm install
-npm run build
-cd /home/hitviscadm/hitvisc/frontend/backend/src/
-npm install
-npm run build
-
-cd /app/hitvisc/front
-cp -r /home/hitviscadm/hitvisc/frontend/backend/src/dist /app/hitvisc/front/app/api/dist
-cp -r /home/hitviscadm/hitvisc/frontend/backend/src/node_modules /app/hitvisc/front/app/api/node_modules  
-cp -r /home/hitviscadm/hitvisc/frontend/nuxt-client/src/.output /app/hitvisc/front/app/client/.output
-cp /home/hitviscadm/hitvisc/frontend/upload_settings.conf.example /app/hitvisc/front/upload_settings.conf
-cp /home/hitviscadm/hitvisc/frontend/pm2.config.js /app/hitvisc/front/pm2.production.config.js
 vim /app/hitvisc/front/pm2.production.config.js #(установить актуальные настройки)
-exit #(вернуться под пользователем root)
-chown -R hitviscadm:hitvisc /app
 ```
 
 В файле настроек ``/app/hitvisc/front/pm2.production.config.js`` следующая группа параметров задает правила доступа к почтовому аккаунту, который будет использоваться в системе для подтверждения регистраций/восстановлений паролей пользователей: 
