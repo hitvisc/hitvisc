@@ -108,13 +108,13 @@ npm install
 npm run build
 
 cd /app/hitvisc/front
-mkdir -p /app/hitvisc/front/app/api
-mkdir -p /app/hitvisc/front/app/client
+##mkdir -p /app/hitvisc/front/app/api
+##mkdir -p /app/hitvisc/front/app/client
 cp -r /home/hitviscadm/hitvisc/frontend/backend/src/dist /app/hitvisc/front/app/api/dist
 cp -r /home/hitviscadm/hitvisc/frontend/backend/src/node_modules /app/hitvisc/front/app/api/node_modules  
 cp -r /home/hitviscadm/hitvisc/frontend/nuxt-client/src/.output /app/hitvisc/front/app/client/.output
-mkdir -p /app/hitvisc/front/sysdir
-mkdir -p /app/hitvisc/front/storage
+##mkdir -p /app/hitvisc/front/sysdir
+##mkdir -p /app/hitvisc/front/storage
 cp /home/hitviscadm/hitvisc/frontend/upload_settings.conf.example /app/hitvisc/front/upload_settings.conf
 cp /home/hitviscadm/hitvisc/frontend/pm2.config.js /app/hitvisc/front/pm2.production.config.js
 vim /app/hitvisc/front/pm2.production.config.js #(установить актуальные настройки)
