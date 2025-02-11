@@ -31,15 +31,18 @@ usermod -a -G www-data hitviscadm
 mkdir -p /app/hitvisc/front
 chown -R ansible:hitvisc /app/
 hostname #(выведенное имя хоста понадобится для установки параметров на рабочем компьютере на шаге 3)
-
 apt install -y git vim 
-su ansible
-cd /home/ansible
+
+su hitviscadm
+cd /home/hitviscadm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
 source ~/.bashrc
 nvm install 18
 nvm use 18
 npm install -g pm2
+exit (# вернуться под пользователем root)
+
+su ansible
 mkdir -p ~/.ssh
 vim ~/.ssh/authorized_keys #(вставить с новой строки содержимое публичного ключа рабочего компьютера, скопированное на шаге 1)
 ```
@@ -93,26 +96,26 @@ As a result of successful execution of the commands, all necessary system direct
 5. Install the front-end on the _remote server_.
 
 ```
-su ansible
-cd /home/ansible
-git clone https://github.com/hitvisc/hitvisc.git # LAST
-cd /home/ansible/hitvisc/frontend/nuxt-client/src/
+su hitviscadm
+cd /home/hitviscadm
+git clone https://github.com/hitvisc/hitvisc.git
+cd /home/hitviscadm/hitvisc/frontend/nuxt-client/src/
 npm install
 npm run build
-cd /home/ansible/hitvisc/frontend/backend/src/
+cd /home/hitviscadm/hitvisc/frontend/backend/src/
 npm install
 npm run build
 
 cd /app/hitvisc/front
 mkdir -p /app/hitvisc/front/app/api
 mkdir -p /app/hitvisc/front/app/client
-cp -r /home/ansible/hitvisc/frontend/backend/src/dist /app/hitvisc/front/app/api/dist
-cp -r /home/ansible/hitvisc/frontend/backend/src/node_modules /app/hitvisc/front/app/api/node_modules  
-cp -r /home/ansible/hitvisc/frontend/nuxt-client/src/.output /app/hitvisc/front/app/client/.output
+cp -r /home/hitviscadm/hitvisc/frontend/backend/src/dist /app/hitvisc/front/app/api/dist
+cp -r /home/hitviscadm/hitvisc/frontend/backend/src/node_modules /app/hitvisc/front/app/api/node_modules  
+cp -r /home/hitviscadm/hitvisc/frontend/nuxt-client/src/.output /app/hitvisc/front/app/client/.output
 mkdir -p /app/hitvisc/front/sysdir
 mkdir -p /app/hitvisc/front/storage
-cp /home/ansible/hitvisc/frontend/upload_settings.conf.example /app/hitvisc/front/upload_settings.conf
-cp /home/ansible/hitvisc/frontend/pm2.config.js /app/hitvisc/front/pm2.production.config.js
+cp /home/hitviscadm/hitvisc/frontend/upload_settings.conf.example /app/hitvisc/front/upload_settings.conf
+cp /home/hitviscadm/hitvisc/frontend/pm2.config.js /app/hitvisc/front/pm2.production.config.js
 vim /app/hitvisc/front/pm2.production.config.js #(установить актуальные настройки)
 exit #(вернуться под пользователем root)
 chown -R hitviscadm:hitvisc /app
