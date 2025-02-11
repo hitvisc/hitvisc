@@ -157,32 +157,6 @@ COMMENT ON COLUMN registry.library.state IS 'Состояние библиоте
 CREATE SEQUENCE registry.seq_library_id START WITH 1 INCREMENT BY 1 MINVALUE 1 NO MAXVALUE;
 
 
--- Пакет с лигандами
-CREATE TABLE registry.package
-(
-	id           INT NOT NULL,
-	library_id   INT NOT NULL,
-	file_name    VARCHAR(256) NOT NULL,
-	file_path    VARCHAR(256) NOT NULL,
-	ligand_count INT NOT NULL
-);
-
-CREATE UNIQUE INDEX idx_package_pk ON registry.package(id);
-CREATE INDEX idx_package_library_fk ON registry.package(library_id);
-ALTER TABLE registry.package ADD CONSTRAINT cs_package_pk PRIMARY KEY USING INDEX idx_package_pk;
-ALTER TABLE registry.package ADD CONSTRAINT cs_package_library_fk FOREIGN KEY(library_id) REFERENCES registry.library(id);
-
-COMMENT ON TABLE registry.package IS 'Пакет с лигандами';
-COMMENT ON COLUMN registry.package.id IS 'Идентификатор пакета';
-COMMENT ON COLUMN registry.package.library_id IS 'Идентификатор библиотеки';
-COMMENT ON COLUMN registry.package.file_name IS 'Имя файла с пакетом лигандов';
-COMMENT ON COLUMN registry.package.file_path IS 'Путь к файлу с пакетом лигандов';
-COMMENT ON COLUMN registry.package.ligand_count IS 'Количество лигандов в пакете';
-
--- Последовательность для нумерации пакетов с лигандами
-CREATE SEQUENCE registry.seq_package_id START WITH 1 INCREMENT BY 1 MINVALUE 1 NO MAXVALUE;
-
-
 -- Перечень модулей моделирования докинга
 CREATE TABLE registry.docker
 (
@@ -281,6 +255,36 @@ COMMENT ON COLUMN registry.docker_protocol_item.file_name IS 'Имя файла'
 
 -- Последовательность для нумерации элементов наборов параметров для создания задач
 CREATE SEQUENCE registry.seq_docker_protocol_item_id START WITH 1 INCREMENT BY 1 MINVALUE 1 NO MAXVALUE;
+
+
+-- Пакет с лигандами
+CREATE TABLE registry.package
+(
+	id           INT NOT NULL,
+	library_id   INT NOT NULL,
+	file_name    VARCHAR(256) NOT NULL,
+	file_path    VARCHAR(256) NOT NULL,
+	ligand_count INT NOT NULL,
+	docker_id    INT NOT NULL 
+);
+
+CREATE UNIQUE INDEX idx_package_pk ON registry.package(id);
+CREATE INDEX idx_package_library_fk ON registry.package(library_id);
+CREATE INDEX idx_package_docker_fk ON registry.package(docker_id);
+ALTER TABLE registry.package ADD CONSTRAINT cs_package_pk PRIMARY KEY USING INDEX idx_package_pk;
+ALTER TABLE registry.package ADD CONSTRAINT cs_package_library_fk FOREIGN KEY(library_id) REFERENCES registry.library(id);
+ALTER TABLE registry.package ADD CONSTRAINT cs_package_docker_fk FOREIGN KEY(docker_id) REFERENCES registry.docker(id);
+
+COMMENT ON TABLE registry.package IS 'Пакет с лигандами';
+COMMENT ON COLUMN registry.package.id IS 'Идентификатор пакета';
+COMMENT ON COLUMN registry.package.library_id IS 'Идентификатор библиотеки';
+COMMENT ON COLUMN registry.package.file_name IS 'Имя файла с пакетом лигандов';
+COMMENT ON COLUMN registry.package.file_path IS 'Путь к файлу с пакетом лигандов';
+COMMENT ON COLUMN registry.package.ligand_count IS 'Количество лигандов в пакете';
+COMMENT ON COLUMN registry.package.docker_id IS 'Идентификатор модуля докинга';
+
+-- Последовательность для нумерации пакетов с лигандами
+CREATE SEQUENCE registry.seq_package_id START WITH 1 INCREMENT BY 1 MINVALUE 1 NO MAXVALUE;
 
 
 -- Перечень протоколов виртуального скрининга
