@@ -82,13 +82,13 @@ vim inventory.txt #(установить в файле inventory.txt имя хо
 # Убедиться, что находимся в рабочей директории: например, /home/user/work
 cd hitvisc/install
 # По запросу ввести пароль для пользователя ansible - ansiblePasswd
-ansible-playbook hitvisc-install.yml -K 
-ansible-playbook postgresql-install.yml -K
-ansible-playbook hitvisc-main-install.yml -K
-ansible-playbook boinc-install.yml -K
-ansible-playbook hitvisc-boinc-install.yml -K
-ansible-playbook registry-install.yml -K
-ansible-playbook third-party-install.yml -K
+ansible-playbook hitvisc-install.yml
+ansible-playbook postgresql-install.yml
+ansible-playbook hitvisc-main-install.yml
+ansible-playbook boinc-install.yml
+ansible-playbook hitvisc-boinc-install.yml
+ansible-playbook registry-install.yml
+ansible-playbook third-party-install.yml
 ```
 
 В результате успешного выполнения команд будут созданы все необходимые системные директории в дереве директорий ``/app/*``, созданы и наполнены базовым набором данных необходимые таблицы в базе данных.
