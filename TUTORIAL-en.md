@@ -73,7 +73,6 @@ To install the back-end, the following set of commands is executed on the _worki
 ```
 # Убедиться, что находимся в рабочей директории: например, /home/user/work
 cd hitvisc/install
-# On request, enter password for user ansible - ansiblePasswd
 ansible-playbook hitvisc-install.yml
 ansible-playbook postgresql-install.yml
 ansible-playbook hitvisc-main-install.yml
