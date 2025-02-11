@@ -105,16 +105,16 @@ cd hitvisc/install
 ansible-playbook hitvisc-finalize.yml
 ```
 
-После успешной установки back-end и front-end частей Системы, пользовательский веб-интерфейс Системы доступен из веб-браузера по адресу вида http://ADDRESS:PORT, в котором подстрока ADDRESS задана в файле install/inventory.txt в переменной 
+После успешной установки back-end и front-end частей Системы, пользовательский веб-интерфейс Системы доступен из веб-браузера по адресу вида http://ADDRESS:PORT, в котором подстрока ADDRESS задана на _рабочем компьютере_ в файле install/inventory.txt в переменной 
 ```
 ansible_host=<ip-адрес удаленного сервера>
 ```
 
-а подстрока PORT задана в файле /app/hitvisc/front/pm2.production.config.js в переменной 
+а подстрока PORT задана на _удаленном сервере_ в файле /app/hitvisc/front/pm2.production.config.js в переменной 
 ```
 PORT: <номер веб-порта>
 ```
-
+(по умолчанию 8080).
 
 ## Общий интерфейс системы
 
