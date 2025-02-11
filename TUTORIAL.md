@@ -31,8 +31,8 @@ usermod -a -G www-data hitviscadm
 mkdir -p /app/hitvisc/front
 chown -R ansible:hitvisc /app/
 hostname #(выведенное имя хоста понадобится для установки параметров на рабочем компьютере на шаге 3)
-
 apt install -y git vim 
+
 su hitviscadm
 cd /home/hitviscadm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
@@ -40,6 +40,9 @@ source ~/.bashrc
 nvm install 18
 nvm use 18
 npm install -g pm2
+exit (# вернуться под пользователем root)
+
+su ansible
 mkdir -p ~/.ssh
 vim ~/.ssh/authorized_keys #(вставить с новой строки содержимое публичного ключа рабочего компьютера, скопированное на шаге 1)
 ```
