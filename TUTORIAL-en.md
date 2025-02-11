@@ -29,8 +29,8 @@ addgroup hitvisc
 usermod -a -G hitvisc hitviscadm
 usermod -a -G hitvisc ansible
 usermod -a -G www-data hitviscadm
-mkdir -p /app/hitvisc/front
-chown -R ansible:hitvisc /app/
+##mkdir -p /app/hitvisc/front
+##chown -R ansible:hitvisc /app/
 hostname #(выведенное имя хоста понадобится для установки параметров на рабочем компьютере на шаге 3)
 apt install -y git vim 
 
@@ -83,13 +83,13 @@ To install the back-end, the following set of commands is executed on the _worki
 # Убедиться, что находимся в рабочей директории: например, /home/user/work
 cd hitvisc/install
 # On request, enter password for user ansible - ansiblePasswd
-ansible-playbook hitvisc-install.yml -K
-ansible-playbook postgresql-install.yml -K
-ansible-playbook hitvisc-main-install.yml -K
-ansible-playbook boinc-install.yml -K
-ansible-playbook hitvisc-boinc-install.yml -K
-ansible-playbook registry-install.yml -K
-ansible-playbook third-party-install.yml -K
+ansible-playbook hitvisc-install.yml
+ansible-playbook postgresql-install.yml
+ansible-playbook hitvisc-main-install.yml
+ansible-playbook boinc-install.yml
+ansible-playbook hitvisc-boinc-install.yml
+ansible-playbook registry-install.yml
+ansible-playbook third-party-install.yml
 ```
 
 As a result of successful execution of the commands, all necessary system directories will be created in the directory tree ``/app/*``, and the necessary tables in the database will be created and filled with a basic set of data.
