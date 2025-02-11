@@ -72,7 +72,6 @@ vim inventory.txt #(установить в файле inventory.txt имя хо
 ```
 # Убедиться, что находимся в рабочей директории: например, /home/user/work
 cd hitvisc/install
-# По запросу ввести пароль для пользователя ansible - ansiblePasswd
 ansible-playbook hitvisc-install.yml
 ansible-playbook postgresql-install.yml
 ansible-playbook hitvisc-main-install.yml
