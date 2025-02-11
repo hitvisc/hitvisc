@@ -22,6 +22,7 @@ ssh root@[IP address] #(ввести пароль пользователя root 
 useradd -m --shell /bin/bash ansible
 passwd ansible #(ввести пароль для создаваемого пользователя - ansiblePasswd)
 usermod -a -G sudo ansible
+echo "ansible ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 useradd -m --shell /bin/bash hitviscadm
 passwd hitviscadm #(ввести пароль для создаваемого пользователя - hitviscPasswd)
 addgroup hitvisc
