@@ -31,3 +31,22 @@
       chdir: "/{{ app_base_directory }}/{{ source_root }}/registry"
       executable: /bin/bash
 
+  - name: Set domain name or IP address of the system website
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: sed -i 's/\[IP address\]/{{ hitvisc_domain_name }}/g' /app/hitvisc/front/pm2.production.config.js
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/registry"
+      executable: /bin/bash
+
+  - name: Launch front-end
+    become: true
+    become_user: "{{ hitvisc_user_name }}"
+    shell: |
+        source /home/hitviscadm/.nvm/nvm.sh
+        nvm use 18
+        pm2 start pm2.production.config.js
+    args:
+      chdir: "/{{ app_base_directory }}/hitvisc/front"
+      executable: /bin/bash
