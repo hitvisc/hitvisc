@@ -105,7 +105,7 @@
   # Create HiTViSc front-end API directory
   - name: Create HiTViSc front-end API directory
     become: yes
-    become_user: root
+    become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
     file:
       path: "/{{ app_base_directory }}/hitvisc/front/app/api"
@@ -116,7 +116,7 @@
   # Create HiTViSc front-end client directory
   - name: Create HiTViSc front-end client directory
     become: yes
-    become_user: root
+    become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
     file:
       path: "/{{ app_base_directory }}/hitvisc/front/app/client"
