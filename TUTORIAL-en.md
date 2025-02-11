@@ -87,7 +87,6 @@ As a result of successful execution of the commands, all necessary system direct
 5. Install the front-end settings on the _remote server_.
 
 ```
-su hitviscadm
 vim /app/hitvisc/front/pm2.production.config.js #(установить актуальные настройки)
 ```
 
@@ -98,18 +97,13 @@ In the settings file ``/app/hitvisc/front/pm2.production.config.js``, the follow
 >EMAIL_USER: "user@yandex.ru", (must be replaced with the e-mail address of the mail account)
 >EMAIL_PASSWORD: "apppassword", (must be replaced with the password of the mail account application)
 
-To launch the front-end, you need to run commands on the _remote server_
 
-```
-su hitviscadm
-cd /app/hitvisc/front
-pm2 start pm2.production.config.js
-```
-
-6. Complete the database preparation on the _working computer_.
+6. Complete the System preparation on the _working computer_.
 
 ``
-ansible-playbook registry-finalize.yml
+# Убедиться, что находимся в рабочей директории: например, /home/user/work
+cd hitvisc/install
+ansible-playbook hitvisc-finalize.yml
 ``
 
 After successful installation of the back-end and front-end parts of the System, the user web interface of the System is accessible from a web browser at an address of the form http://ADDRESS:PORT, in which the substring ADDRESS is specified in the file install/inventory.txt in the variable
