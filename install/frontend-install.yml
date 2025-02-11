@@ -152,3 +152,9 @@
         chdir: "/{{ app_base_directory }}/{{ source_root }}/registry"
         executable: /bin/bash
         
+    - name: Set execution permission of bash scripts
+      become: true
+      become_user: "{{ hitvisc_user_name }}"
+      shell: find "/{{ app_base_directory }}" -name "*.sh" -type f -print0 | xargs -0 chmod u+x
+      args:
+        executable: /bin/bash
