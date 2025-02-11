@@ -12,7 +12,7 @@ ssh-keygen #(3 раза нажать Enter для установки дирек�
 cat ~/.ssh/id_rsa > keys/ansible.key
 chmod 600 keys/ansible.key
 cat ~/.ssh/id_rsa.pub #(скопировать содержимое публичного ключа для шага 2)
-sudo apt install ansible
+sudo apt-get update && sudo apt install ansible
 ```
 
 2. Подготовить к работе _удаленный сервер_. Предположим, что учетная запись администратора (root) доступна через ssh по ip-адресу [IP address] с паролем ansibleRootPasswd. В ходе установки на сервере будет создана учетная запись пользователя ansible с паролем ansiblePasswd.
@@ -29,10 +29,10 @@ addgroup hitvisc
 usermod -a -G hitvisc hitviscadm
 usermod -a -G hitvisc ansible
 usermod -a -G www-data hitviscadm
-mkdir -p /app/hitvisc/front
-chown -R ansible:hitvisc /app/
+##mkdir -p /app/hitvisc/front
+##chown -R ansible:hitvisc /app/
 hostname #(выведенное имя хоста понадобится для установки параметров на рабочем компьютере на шаге 3)
-apt install -y git vim 
+apt-get update && apt install -y git vim 
 
 su hitviscadm
 cd /home/hitviscadm
