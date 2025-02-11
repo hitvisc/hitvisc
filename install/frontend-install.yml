@@ -88,20 +88,20 @@
       become_user: "{{ hitvisc_user_name }}"
       become_method: sudo
       copy:
-        src: /home/hitviscadm/hitvisc/frontend/backend/src/dist
-        dest: "/{{ app_base_directory }}/hitvisc/front/app/api/dist"
+        src: /home/hitviscadm/hitvisc/frontend/backend/src/dist/
+        dest: "/{{ app_base_directory }}/hitvisc/front/app/api/dist/"
         remote_src: yes
         owner: "{{ hitvisc_user_name }}"
         group: "{{ hitvisc_group_name }}"
         mode: preserve
-
+        
     - name: Copy backend node_modules
       become: yes
       become_user: "{{ hitvisc_user_name }}"
       become_method: sudo
       copy:
-        src: /home/hitviscadm/hitvisc/frontend/backend/src/node_modules
-        dest: "/{{ app_base_directory }}/hitvisc/front/app/api/node_modules"
+        src: /home/hitviscadm/hitvisc/frontend/backend/src/node_modules/
+        dest: "/{{ app_base_directory }}/hitvisc/front/app/api/node_modules/"
         remote_src: yes
         owner: "{{ hitvisc_user_name }}"
         group: "{{ hitvisc_group_name }}"
@@ -112,8 +112,8 @@
       become_user: "{{ hitvisc_user_name }}"
       become_method: sudo
       copy:
-        src: /home/hitviscadm/hitvisc/frontend/nuxt-client/src/.output
-        dest: "/{{ app_base_directory }}/hitvisc/front/app/client/.output"
+        src: /home/hitviscadm/hitvisc/frontend/nuxt-client/src/.output/
+        dest: "/{{ app_base_directory }}/hitvisc/front/app/client/.output/"
         remote_src: yes
         owner: "{{ hitvisc_user_name }}"
         group: "{{ hitvisc_group_name }}"
