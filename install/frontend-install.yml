@@ -1,0 +1,144 @@
+#    Copyright (C) 2024 HiTViSc Contributors
+#    Contact e-mail: hitvisc@yandex.ru    
+#   
+#    GNU GENERAL PUBLIC LICENSE
+#    Version 3, 29 June 2007
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#   
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program. If not, see <https://www.gnu.org/licenses/>.
+---
+- name: Deploy HiTViSc front-end
+  hosts: TargetServers
+  become: yes
+  become_user: "{{ hitvisc_user_name }}"
+  tasks:
+    - name: Delete HiTViSc repository directory
+      become: yes
+      become_user: root
+      become_method: sudo
+      file:
+        path: /home/hitviscadm/hitvisc
+        state: absent
+
+    - name: Clone HiTViSc repository
+      git:
+        repo: https://github.com/hitvisc/hitvisc.git
+        dest: /home/hitviscadm/hitvisc
+
+    - name: Install NVM and PM2
+      shell: |
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+        source /home/hitviscadm/.bashrc
+        source /home/hitviscadm/.nvm/nvm.sh
+        nvm install 18
+        nvm use 18
+        npm install -g pm2
+      args:
+        executable: /bin/bash
+        chdir: /home/hitviscadm/
+      become: true
+      become_user: "{{ hitvisc_user_name }}"
+
+    - name: Install npm dependencies and build the frontend (nuxt-client)
+      shell: |
+        source /home/hitviscadm/.nvm/nvm.sh
+        nvm use 18
+        npm install --silent
+        npm run build
+      args:
+        executable: /bin/bash
+        chdir: /home/hitviscadm/hitvisc/frontend/nuxt-client/src/
+      become: true
+      become_user: "{{ hitvisc_user_name }}"
+
+    - name: Install npm dependencies and build the frontend (backend)
+      shell: |
+        source /home/hitviscadm/.nvm/nvm.sh
+        nvm use 18
+        npm install --silent
+        npm run build
+      args:
+        executable: /bin/bash
+        chdir: /home/hitviscadm/hitvisc/frontend/backend/src/
+      become: true
+      become_user: "{{ hitvisc_user_name }}"
+
+    - name: Change ownership of /app
+      file:
+        path: "/{{ app_base_directory }}/"
+        state: directory
+        recurse: yes
+        owner: "{{ hitvisc_user_name }}"
+        group: "{{ hitvisc_group_name }}"
+      become: true
+      become_user: root
+
+    - name: Copy backend distribution
+      become: yes
+      become_user: "{{ hitvisc_user_name }}"
+      become_method: sudo
+      copy:
+        src: /home/hitviscadm/hitvisc/frontend/backend/src/dist
+        dest: "/{{ app_base_directory }}/hitvisc/front/app/api/dist"
+        remote_src: yes
+        owner: "{{ hitvisc_user_name }}"
+        group: "{{ hitvisc_group_name }}"
+        mode: preserve
+
+    - name: Copy backend node_modules
+      become: yes
+      become_user: "{{ hitvisc_user_name }}"
+      become_method: sudo
+      copy:
+        src: /home/hitviscadm/hitvisc/frontend/backend/src/node_modules
+        dest: "/{{ app_base_directory }}/hitvisc/front/app/api/node_modules"
+        remote_src: yes
+        owner: "{{ hitvisc_user_name }}"
+        group: "{{ hitvisc_group_name }}"
+        mode: preserve
+
+    - name: Copy frontend output
+      become: yes
+      become_user: "{{ hitvisc_user_name }}"
+      become_method: sudo
+      copy:
+        src: /home/hitviscadm/hitvisc/frontend/nuxt-client/src/.output
+        dest: "/{{ app_base_directory }}/hitvisc/front/app/client/.output"
+        remote_src: yes
+        owner: "{{ hitvisc_user_name }}"
+        group: "{{ hitvisc_group_name }}"
+        mode: preserve
+
+    - name: Copy upload settings
+      become: yes
+      become_user: "{{ hitvisc_user_name }}"
+      become_method: sudo
+      copy:
+        src: /home/hitviscadm/hitvisc/frontend/upload_settings.conf.example
+        dest: "/{{ app_base_directory }}/hitvisc/front/upload_settings.conf"
+        remote_src: yes
+        owner: "{{ hitvisc_user_name }}"
+        group: "{{ hitvisc_group_name }}"
+        mode: preserve
+
+    - name: Copy pm2 config
+      become: yes
+      become_user: "{{ hitvisc_user_name }}"
+      become_method: sudo
+      copy:
+        src: /home/hitviscadm/hitvisc/frontend/pm2.config.js
+        dest: "/{{ app_base_directory }}/hitvisc/front/pm2.production.config.js"
+        remote_src: yes
+        owner: "{{ hitvisc_user_name }}"
+        group: "{{ hitvisc_group_name }}"
+        mode: preserve
