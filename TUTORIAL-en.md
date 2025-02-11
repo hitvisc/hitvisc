@@ -100,11 +100,11 @@ In the settings file ``/app/hitvisc/front/pm2.production.config.js``, the follow
 
 6. Complete the System preparation on the _working computer_.
 
-``
+```
 # Убедиться, что находимся в рабочей директории: например, /home/user/work
 cd hitvisc/install
 ansible-playbook hitvisc-finalize.yml
-``
+```
 
 After successful installation of the back-end and front-end parts of the System, the user web interface of the System is accessible from a web browser at an address of the form http://ADDRESS:PORT, in which the substring ADDRESS is specified in the file install/inventory.txt in the variable
 
