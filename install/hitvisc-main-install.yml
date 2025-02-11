@@ -102,6 +102,28 @@
       group: "{{ hitvisc_group_name }}"
       mode: preserve
 
+  # Create HiTViSc front-end API directory
+  - name: Create HiTViSc front-end API directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/hitvisc/front/app/api"
+      state: directory
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+
+  # Create HiTViSc front-end client directory
+  - name: Create HiTViSc front-end client directory
+    become: yes
+    become_user: root
+    become_method: sudo
+    file:
+      path: "/{{ app_base_directory }}/hitvisc/front/app/client"
+      state: directory
+      owner: "{{ hitvisc_user_name }}"
+      group: "{{ hitvisc_group_name }}"
+
   # Create HiTViSc tmp directory
   - name: Create HiTViSc tmp directory
     become: yes
