@@ -80,11 +80,12 @@ ansible-playbook boinc-install.yml
 ansible-playbook hitvisc-boinc-install.yml
 ansible-playbook registry-install.yml
 ansible-playbook third-party-install.yml
+ansible-playbook frontend-install.yml
 ```
 
 В результате успешного выполнения команд будут созданы все необходимые системные директории в дереве директорий ``/app/*``, созданы и наполнены базовым набором данных необходимые таблицы в базе данных.
 
-5. Установить front-end на _удаленном сервере_.
+5. Установить настройки front-end на _удаленном сервере_.
 
 ```
 su hitviscadm
