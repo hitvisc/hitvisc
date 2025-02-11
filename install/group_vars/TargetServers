@@ -4,6 +4,7 @@ ansible_python_interpreter   : [REPLACE WITH ANSIBLE_PYTHON_INTERPRETER_PATH (re
 hitvisc_group_name           : [REPLACE WITH HITVISC_GROUP_NAME]
 hitvisc_user_name            : [REPLACE WITH HITVISC_USER_NAME]
 hitvisc_user_password        : [REPLACE WITH HITVISC_USER_PASSWORD]
+hitvisc_domain_name          : [REPLACE WITH DOMAIN NAME OR IP OF REMOTE SERVER]
 app_base_directory           : [REPLACE WITH APP_BASE_DIR_NAME (recommended: app)]
 source_root                  : [REPLACE WITH SOURCE_ROOT_DIR_NAME (recommended: source)]
 boinc_project_host           : [REPLACE WITH BOINC_PROJECT_HOSTNAME]
