@@ -51,7 +51,7 @@ cp -r apps/* "$BOINCPROJECTDIR"/apps/
 
 cp templates/* "$BOINCPROJECTDIR"/templates/ 
 
-cp hitvisc_create_task.sh "$BOINCPROJECTDIR"/
+cp hitvisc_create_boinc_task.sh "$BOINCPROJECTDIR"/
 
 mkdir "$BOINCPROJECTDIR"/results
 mkdir "$BOINCPROJECTDIR"/sample_results
