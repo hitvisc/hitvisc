@@ -12,7 +12,7 @@ ssh-keygen -t ed25519 #(3 раза нажать Enter для установки 
 cat ~/.ssh/id_ed25519 > keys/ansible.key
 chmod 600 keys/ansible.key
 cat ~/.ssh/id_ed25519.pub #(скопировать содержимое публичного ключа для шага 2)
-sudo apt install ansible
+sudo apt-get update && sudo apt install ansible
 ```
 
 2. Prepare the _remote server_ for work. Let's assume that the administrator account (root) is accessible via ssh at the IP address [IP address] with password ansibleRootPasswd. During the installation process, there will be created a user account named ansible, with password ansiblePasswd, on the server.
