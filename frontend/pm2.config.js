@@ -26,7 +26,7 @@ module.exports = {
       CREATE_LIBRARY_SCRIPT_PATH: '/app/hitvisc/api/hitvisc_add_library.sh',
       CREATE_SEARCH_SCRIPT_PATH: '/app/hitvisc/api/hitvisc_add_search.sh',
       UPDATE_HOST_TYPE_SCRIPT_PATH: '/app/hitvisc/main/update_host_type.sh',
-      BOINC_PROJECT_NEW_HOST_URL: 'http://[IP address]/hitvisc',
+      BOINC_PROJECT_NEW_HOST_URL: 'http://[IP address]/hitboinc',
       SYNC_USERS_SCRIPT_PATH: '/app/hitvisc/main/sync_user.sh',
       // SHELL_UID: 999,
     }
