@@ -57,7 +57,7 @@
     become: yes
     become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
-    shell: ./registry_build.sh "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_environment }}" HiTViSc > registry_build.log
+    shell: ./registry_build.sh "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_environment }}" HiTViSc > registry_build.log 2>&1
     args:
       chdir: "/{{ app_base_directory }}/{{ source_root }}/registry"
       executable: /bin/bash
