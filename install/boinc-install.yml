@@ -165,7 +165,7 @@
     become: yes
     become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
-    shell: ./boinc_build.sh boinc-server_release-1.4-1.4.2.tar.gz '{{ boinc_project_host }}' '{{ boinc_url_base }}' '/{{ app_base_directory }}/{{ boinc_project_home }}' '{{ boinc_db_host }}' '{{ boinc_db_name }}' '{{ boinc_db_user }}' '{{ boinc_db_password }}' '{{ boinc_project_name }}' '{{ boinc_project_caption }}' > ./boinc_build.log
+    shell: ./boinc_build.sh boinc-server_release-1.4-1.4.2.tar.gz '{{ boinc_project_host }}' '{{ boinc_url_base }}' '/{{ app_base_directory }}/{{ boinc_project_home }}' '{{ boinc_db_host }}' '{{ boinc_db_name }}' '{{ boinc_db_user }}' '{{ boinc_db_password }}' '{{ boinc_project_name }}' '{{ boinc_project_caption }}' > ./boinc_build.log 2>&1
     args:
       chdir: "/{{ app_base_directory }}/{{ source_root }}/boinc"
       executable: /bin/bash
