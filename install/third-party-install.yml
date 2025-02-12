@@ -45,7 +45,7 @@
     become: yes
     become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
-    shell: ./install_conda.sh
+    shell: ./install_conda.sh > install_conda.log 2>&1
     args:
       chdir: "/{{ app_base_directory }}/hitvisc/bio"
       executable: /bin/bash
@@ -55,7 +55,7 @@
     become: yes
     become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
-    shell: ./setup_conda.sh
+    shell: ./setup_conda.sh > setup_conda.log 2>&1
     args:
       chdir: "/{{ app_base_directory }}/hitvisc/bio"
       executable: /bin/bash
@@ -65,7 +65,7 @@
     become: yes
     become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
-    shell: ./setup_hitvisc-bio_env.sh
+    shell: ./setup_hitvisc-bio_env.sh > setup_hitvisc-bio_env.log 2>&1
     args:
       chdir: "/{{ app_base_directory }}/hitvisc/bio"
       executable: /bin/bash
