@@ -76,17 +76,17 @@ BEGIN
         SELECT registry.hitvisc_entity_mapping_add(example_front_library_autodockvina_id, example_back_library_autodockvina_id, 'L') INTO example_mapping_library;
 
 
-      INSERT INTO registry.package(id, library_id, file_name, file_path, ligand_count)  
+      INSERT INTO registry.package(id, library_id, file_name, file_path, ligand_count, docker_id)  
                       VALUES(NEXTVAL('registry.seq_package_id'), example_back_library_cmdock_id, 'hitvisc.ligands.cmdock.example_small_package_01.zip', 
-                             '/app/hitvisc/data/hitvisc.ligands.cmdock.example_small/hitvisc.ligands.cmdock.example_small_package_01.zip', 2), 
+                             '/app/hitvisc/data/hitvisc.ligands.cmdock.example_small/hitvisc.ligands.cmdock.example_small_package_01.zip', 2, 1), 
                             (NEXTVAL('registry.seq_package_id'), example_back_library_cmdock_id, 'hitvisc.ligands.cmdock.example_small_package_02.zip', 
-                             '/app/hitvisc/data/hitvisc.ligands.cmdock.example_small/hitvisc.ligands.cmdock.example_small_package_02.zip', 2);
+                             '/app/hitvisc/data/hitvisc.ligands.cmdock.example_small/hitvisc.ligands.cmdock.example_small_package_02.zip', 2, 1);
 
-      INSERT INTO registry.package(id, library_id, file_name, file_path, ligand_count)
+      INSERT INTO registry.package(id, library_id, file_name, file_path, ligand_count, docker_id)
                       VALUES(NEXTVAL('registry.seq_package_id'), example_back_library_autodockvina_id, 'hitvisc.ligands.autodockvina.example_small_package_01.zip', 
-                             '/app/hitvisc/data/hitvisc.ligands.autodockvina.example_small/hitvisc.ligands.autodockvina.example_small_package_01.zip', 2),
+                             '/app/hitvisc/data/hitvisc.ligands.autodockvina.example_small/hitvisc.ligands.autodockvina.example_small_package_01.zip', 2, 2),
                              (NEXTVAL('registry.seq_package_id'), example_back_library_autodockvina_id, 'hitvisc.ligands.autodockvina.example_small_package_02.zip', 
-                             '/app/hitvisc/data/hitvisc.ligands.autodockvina.example_small/hitvisc.ligands.autodockvina.example_small_package_02.zip', 2);
+                             '/app/hitvisc/data/hitvisc.ligands.autodockvina.example_small/hitvisc.ligands.autodockvina.example_small_package_02.zip', 2, 2);
 
 
         SELECT NEXTVAL('registry.front_library_id_seq') INTO example_front_library_cmdock_id;
@@ -107,13 +107,15 @@ BEGIN
         SELECT registry.hitvisc_entity_mapping_add(example_front_library_autodockvina_id, example_back_library_autodockvina_id, 'L') INTO example_mapping_library;
 
 	FOR i IN 1..10 LOOP
-		INSERT INTO registry.package(id, library_id, file_name, file_path, ligand_count) 
-			VALUES(NEXTVAL('registry.seq_package_id'), example_back_library_cmdock_id, 'hitvisc.ligands.cmdock.example_100_package_'||lpad(to_char(i, 'FM99'), 2, '0')||'.zip', '/app/hitvisc/data/hitvisc.ligands.cmdock.example_100/hitvisc.ligands.cmdock.example_100_package_'||lpad(to_char(i, 'FM99'), 2, '0')||'.zip', 10);
+		INSERT INTO registry.package(id, library_id, file_name, file_path, ligand_count, docker_id) 
+			VALUES(NEXTVAL('registry.seq_package_id'), example_back_library_cmdock_id, 'hitvisc.ligands.cmdock.example_100_package_'||lpad(to_char(i, 'FM99'), 2, '0')||'.zip', 
+		               '/app/hitvisc/data/hitvisc.ligands.cmdock.example_100/hitvisc.ligands.cmdock.example_100_package_'||lpad(to_char(i, 'FM99'), 2, '0')||'.zip', 10, 1);
 	END LOOP;
 
 	FOR i IN 1..10 LOOP
-		INSERT INTO registry.package(id, library_id, file_name, file_path, ligand_count) 
-			VALUES(NEXTVAL('registry.seq_package_id'), example_back_library_autodockvina_id, 'hitvisc.ligands.autodockvina.example_100_package_'||lpad(to_char(i, 'FM99'), 2, '0')||'.zip', '/app/hitvisc/data/hitvisc.ligands.autodockvina.example_100/hitvisc.ligands.autodockvina.example_100_package_'||lpad(to_char(i, 'FM99'), 2, '0')||'.zip', 10);
+		INSERT INTO registry.package(id, library_id, file_name, file_path, ligand_count, docker_id) 
+			VALUES(NEXTVAL('registry.seq_package_id'), example_back_library_autodockvina_id, 'hitvisc.ligands.autodockvina.example_100_package_'||lpad(to_char(i, 'FM99'), 2, '0')||'.zip', 
+		               '/app/hitvisc/data/hitvisc.ligands.autodockvina.example_100/hitvisc.ligands.autodockvina.example_100_package_'||lpad(to_char(i, 'FM99'), 2, '0')||'.zip', 10, 2);
 	END LOOP;
 
 	INSERT INTO registry.docker_protocol(id, name, system_name, description) 
