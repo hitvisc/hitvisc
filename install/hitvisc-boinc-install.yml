@@ -115,7 +115,7 @@
     become: yes
     become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
-    shell: ./update_boinc_project.sh "/{{ app_base_directory }}/{{ boinc_project_home }}" > update_boinc_project.log
+    shell: ./update_boinc_project.sh "/{{ app_base_directory }}/{{ boinc_project_home }}" > update_boinc_project.log 2>&1
     args:
       chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc"
       executable: /bin/bash
@@ -125,7 +125,7 @@
     become: yes
     become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
-    shell: ./update_boinc_project_EXAMPLE.sh "/{{ app_base_directory }}/{{ boinc_project_home }}" > update_boinc_project_EXAMPLE.log
+    shell: ./update_boinc_project_EXAMPLE.sh "/{{ app_base_directory }}/{{ boinc_project_home }}" > update_boinc_project_EXAMPLE.log 2>&1
     args:
       chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc"
       executable: /bin/bash
