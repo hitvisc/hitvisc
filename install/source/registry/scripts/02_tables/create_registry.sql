@@ -452,7 +452,6 @@ ALTER TABLE registry.example ADD CONSTRAINT cs_example_library_fk FOREIGN KEY(li
 ALTER TABLE registry.example ADD CONSTRAINT cs_example_docker_fk FOREIGN KEY(docker_id) REFERENCES registry.docker(id);
 ALTER TABLE registry.example ADD CONSTRAINT cs_example_docker_protocol_fk FOREIGN KEY(docker_protocol_id) REFERENCES registry.docker_protocol(id);
 ALTER TABLE registry.example ADD CONSTRAINT cs_example_search_protocol_fk FOREIGN KEY(search_protocol_id) REFERENCES registry.search_protocol(id);
-ALTER TABLE registry.example ADD CONSTRAINT cs_example_host_usage_type_ck CHECK (state IN('T', 'R', 'P')); 
 
 COMMENT ON TABLE registry.example IS 'Пример';
 COMMENT ON COLUMN registry.example.id IS 'Идентификатор';
