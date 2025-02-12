@@ -127,7 +127,7 @@
     become: yes
     become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
-    shell: ./postgresql_build.sh postgresql-15.3.tar.gz "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_environment }}" "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_database }}" "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_home }}" "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_serverlog }}" "{{ hitvisc_user_name }}" > ./postgresql_build.log
+    shell: ./postgresql_build.sh postgresql-15.3.tar.gz "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_environment }}" "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_database }}" "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_home }}" "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_serverlog }}" "{{ hitvisc_user_name }}" > ./postgresql_build.log 2>&1
     args:
       chdir: "/{{ app_base_directory }}/{{ source_root }}/postgresql/"
       executable: /bin/bash
@@ -157,7 +157,7 @@
 #    become: yes
 #    become_user: "{{ hitvisc_user_name }}"
 #    become_method: sudo
-#    shell: ./build_registry.sh "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_environment }}" HiTViSc > build_registry.log
+#    shell: ./build_registry.sh "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_environment }}" HiTViSc > build_registry.log 2>&1
 #    args:
 #      chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc/hitvisc_registry/Scripts"
 #      executable: /bin/bash
