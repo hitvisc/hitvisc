@@ -29,9 +29,8 @@ addgroup hitvisc
 usermod -a -G hitvisc hitviscadm
 usermod -a -G hitvisc ansible
 usermod -a -G www-data hitviscadm
-##chown -R ansible:hitvisc /app/
 hostname #(выведенное имя хоста понадобится для установки параметров на рабочем компьютере на шаге 3)
-apt install -y git vim 
+apt-get update && apt install -y git vim 
 
 su ansible
 mkdir -p ~/.ssh
