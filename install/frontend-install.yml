@@ -22,7 +22,7 @@
   become: yes
   become_user: "{{ hitvisc_user_name }}"
   tasks:
-    - name: Delete HiTViSc repository directory
+    - name: Delete previous instance of HiTViSc repository directory if present
       become: yes
       become_user: root
       become_method: sudo
@@ -35,7 +35,7 @@
         repo: https://github.com/hitvisc/hitvisc.git
         dest: /home/hitviscadm/hitvisc
 
-    - name: Install NVM and PM2
+    - name: Install NVM and PM2 services for frontend
       shell: |
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
         source /home/hitviscadm/.bashrc
@@ -73,7 +73,7 @@
       become: true
       become_user: "{{ hitvisc_user_name }}"
 
-    - name: Change ownership of /app
+    - name: Change ownership of HiTViSc base directory
       file:
         path: "/{{ app_base_directory }}/"
         state: directory
@@ -83,7 +83,7 @@
       become: true
       become_user: root
 
-    - name: Copy backend distribution
+    - name: Copy frontend backend distribution
       become: yes
       become_user: "{{ hitvisc_user_name }}"
       become_method: sudo
@@ -95,7 +95,7 @@
         group: "{{ hitvisc_group_name }}"
         mode: preserve
         
-    - name: Copy backend node_modules
+    - name: Copy frontend backend node_modules
       become: yes
       become_user: "{{ hitvisc_user_name }}"
       become_method: sudo
@@ -131,7 +131,7 @@
         group: "{{ hitvisc_group_name }}"
         mode: preserve
 
-    - name: Copy pm2 config
+    - name: Copy pm2 config for frontend
       become: yes
       become_user: "{{ hitvisc_user_name }}"
       become_method: sudo
