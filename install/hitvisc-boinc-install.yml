@@ -62,7 +62,7 @@
       chdir: "/{{ app_base_directory }}/{{ boinc_project_home }}"
       executable: /bin/bash
 
-  - name: Set execution permissions on scripts
+  - name: Set execution permissions on shell scripts of HiTViSc extension of BOINC
     become: yes
     become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
@@ -70,7 +70,7 @@
     args:
       chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc"
 
-  - name: Set execution permissions on scripts
+  - name: Set execution permissions on assimilator/validator scripts of HiTViSc extension of BOINC
     become: yes
     become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
@@ -78,7 +78,7 @@
     args:
       chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/bin"
 
-  - name: Set execution permissions on scripts
+  - name: Set execution permissions on AutoDock Vina wrapper of HiTViSc extension of BOINC
     become: yes
     become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
@@ -86,15 +86,7 @@
     args:
       chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/apps"
 
-  - name: Set execution permissions on scripts
-    become: yes
-    become_user: "{{ hitvisc_user_name }}"
-    become_method: sudo
-    command: find "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/apps" -type f -name "*.sh" -exec chmod +x {} \;
-    args:
-      chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/apps"
-
-  - name: Set execution permissions on scripts
+  - name: Set execution permissions on AutoDock Vina of HiTViSc extension of BOINC
     become: yes
     become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
@@ -102,7 +94,7 @@
     args:
       chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/apps"
 
-  - name: Set execution permissions on scripts
+  - name: Set execution permissions on CmDock wrapper of HiTViSc extension of BOINC
     become: yes
     become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
@@ -110,7 +102,7 @@
     args:
       chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc/apps"
 
-  - name: Set execution permissions on scripts
+  - name: Set execution permissions on CmDock of HiTViSc extension of BOINC
     become: yes
     become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
@@ -128,7 +120,7 @@
       chdir: "/{{ app_base_directory }}/{{ source_root }}/hitvisc-boinc"
       executable: /bin/bash
 
-  #  Add HiTViSc-specific EXAMPLE files to the BOINC project
+  #  Add HiTViSc-specific EXAMPLE files to the BOINC project - add EXAMPLE files for testing
   - name: Run HiTViSc script for the BOINC project update - add EXAMPLE files for testing
     become: yes
     become_user: "{{ hitvisc_user_name }}"
@@ -182,5 +174,3 @@
       name: "start BOINC project"
       minute: "*/5"
       job: "/app/hitboinc/bin/start --cron"
-
-
