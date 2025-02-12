@@ -8,10 +8,10 @@ _Working computer_ is the computer of the system administrator, from which the p
 # Убедиться, что находимся в рабочей директории: например, /home/user/work
 git clone git@github.com:hitvisc/hitvisc.git
 cd hitvisc/install
-ssh-keygen #(3 раза нажать Enter для установки директории с ключами по умолчанию и пустого пароля)
-cat ~/.ssh/id_rsa > keys/ansible.key
+ssh-keygen -t ed25519 #(3 раза нажать Enter для установки директории с ключами по умолчанию и пустого пароля)
+cat ~/.ssh/id_ed25519 > keys/ansible.key
 chmod 600 keys/ansible.key
-cat ~/.ssh/id_rsa.pub #(скопировать содержимое публичного ключа для шага 2)
+cat ~/.ssh/id_ed25519.pub #(скопировать содержимое публичного ключа для шага 2)
 sudo apt install ansible
 ```
 
