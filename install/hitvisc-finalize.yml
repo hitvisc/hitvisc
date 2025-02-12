@@ -35,7 +35,9 @@
     become: yes
     become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
-    command: find "/{{ app_base_directory }}" -type f -name "*.sh" -exec chmod +x {} \;
+    shell: find "/{{ app_base_directory }}" -type f -name "*.sh" -exec chmod +x {} \;
+    args:
+      executable: /bin/bash
 
   - name: Launch front-end
     become: true
