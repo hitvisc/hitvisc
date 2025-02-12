@@ -116,7 +116,7 @@ and the PORT substring is specified on the _remote server_ in the /app/hitvisc/f
 ```
 PORT: <web port number>
 ```
-(8080 by default).
+(8080 by default). В веб-интерфейсе доступна как регистрация новой учетной записи, так и вход по предустановленной учетной записи (adm.hitvisc@yandex.ru, password).
 
 
 
