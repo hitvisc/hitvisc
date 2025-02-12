@@ -6,7 +6,7 @@ _Working computer_ is the computer of the system administrator, from which the p
 
 ```
 # Убедиться, что находимся в рабочей директории: например, /home/user/work
-git clone git@github.com:hitvisc/hitvisc.git
+git clone https://github.com/hitvisc/hitvisc.git
 cd hitvisc/install
 ssh-keygen -t ed25519 #(3 раза нажать Enter для установки директории с ключами по умолчанию и пустого пароля)
 cat ~/.ssh/id_ed25519 > keys/ansible.key
