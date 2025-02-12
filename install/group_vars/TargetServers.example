@@ -4,11 +4,11 @@ ansible_python_interpreter   : /usr/bin/python3
 hitvisc_group_name           : hitvisc
 hitvisc_user_name            : hitviscadm
 hitvisc_user_password        : hitviscPasswd
-hitvisc_domain_name          : [REPLACE WITH YOUR SERVER IP ADDRESS OR DOMAIN NAME]
+hitvisc_domain_name          : [REPLACE WITH YOUR SERVER IP ADDRESS]
 app_base_directory           : app
 source_root                  : source
 boinc_project_host           : [REPLACE WITH YOUR SERVER HOSTNAME]
-boinc_url_base               : http://[REPLACE WITH YOUR SERVER IP ADDRESS OR DOMAIN NAME]/
+boinc_url_base               : http://[REPLACE WITH YOUR SERVER IP ADDRESS]/
 boinc_project_home           : hitboinc
 boinc_db_host                : [REPLACE WITH YOUR SERVER HOSTNAME]
 boinc_db_name                : hitboinc
