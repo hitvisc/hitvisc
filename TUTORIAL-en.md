@@ -23,12 +23,6 @@ useradd -m --shell /bin/bash ansible
 passwd ansible #(ввести пароль для создаваемого пользователя - ansiblePasswd)
 usermod -a -G sudo ansible
 echo "ansible ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-##useradd -m --shell /bin/bash hitviscadm
-##passwd hitviscadm #(ввести пароль для создаваемого пользователя - hitviscPasswd)
-##addgroup hitvisc
-##usermod -a -G hitvisc hitviscadm
-##usermod -a -G hitvisc ansible
-##usermod -a -G www-data hitviscadm
 hostname #(выведенное имя хоста понадобится для установки параметров на рабочем компьютере на шаге 3)
 apt-get update && apt install -y git vim 
 
