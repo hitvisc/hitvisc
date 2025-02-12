@@ -65,6 +65,15 @@
       system: true
       password: "{{ hitvisc_user_password | password_hash('sha512') }}"
 
+  - name: Add existing user "{{ ansible_user }}" to "{{ hitvisc_group_name }}" group
+    become: yes
+    become_user: root
+    become_method: sudo
+    user:
+      name: "{{ ansible_user }}"
+      groups: "{{ hitvisc_group_name }}"
+      append: yes
+
   # Create HiTViSc and related components directories
   - name: Create global application directory
     become: yes
