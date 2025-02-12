@@ -21,16 +21,6 @@
   hosts: TargetServers
 
   tasks:
-  #  Finalize HiTViSc registry
-  - name: Run HiTViSc registry finalize script
-    become: yes
-    become_user: "{{ hitvisc_user_name }}"
-    become_method: sudo
-    shell: ./registry_finalize.sh "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_environment }}" HiTViSc > registry_finalize.log 2>&1
-    args:
-      chdir: "/{{ app_base_directory }}/{{ source_root }}/registry"
-      executable: /bin/bash
-
   - name: Set execution permissions on scripts
     become: yes
     become_user: "{{ hitvisc_user_name }}"
@@ -48,4 +38,14 @@
         pm2 start pm2.production.config.js
     args:
       chdir: "/{{ app_base_directory }}/hitvisc/front"
+      executable: /bin/bash
+
+  #  Finalize HiTViSc registry
+  - name: Run HiTViSc registry finalize script
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: ./registry_finalize.sh "/{{ app_base_directory }}/{{ postgresql_base }}/{{ postgresql_environment }}" HiTViSc > registry_finalize.log 2>&1
+    args:
+      chdir: "/{{ app_base_directory }}/{{ source_root }}/registry"
       executable: /bin/bash
