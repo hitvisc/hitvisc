@@ -146,13 +146,21 @@
       owner: "{{ hitvisc_user_name }}"
       group: "{{ hitvisc_group_name }}"
 
+  - name: Set execution permissions on quantum.sh
+    become: yes
+    become_user: "{{ hitvisc_user_name }}"
+    become_method: sudo
+    shell: chmod u+x "/{{ app_base_directory }}/hitvisc/main/quantum.sh"
+    args:
+      executable: /bin/bash
+
   # Create cron entry to run quantum.sh every 1 minute
-  - name: Create cron entry "*/1 * * * * (cd /app/hitvisc/main && ./quantum.sh) >> /app/hitvisc/log/cron.log 2>&1"
+  - name: Create cron entry "*/1 * * * * (cd /{{ app_base_directory }}/hitvisc/main && ./quantum.sh) >> /{{ app_base_directory }}/hitvisc/log/cron.log 2>&1"
     become: yes
     become_user: "{{ hitvisc_user_name }}"
     become_method: sudo
     cron:
       name: "synchronize hosts and workunits"
       minute: "*/1"
-      job: "(cd /app/hitvisc/main && ./quantum.sh) >> /app/hitvisc/log/cron.log 2>&1"
+      job: "(cd /{{ app_base_directory }}/hitvisc/main && ./quantum.sh) >> /{{ app_base_directory }}/hitvisc/log/cron.log 2>&1"
 
