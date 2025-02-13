@@ -802,6 +802,9 @@ CREATE TABLE registry.front_file_reference (
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
+CREATE UNIQUE INDEX idx_front_file_reference_pk ON registry.front_file_reference(id);
+ALTER TABLE registry.front_file_reference ADD CONSTRAINT cs_front_file_reference_pk PRIMARY KEY USING INDEX idx_front_file_reference_pk;
+
 CREATE TABLE registry.front_target (
     id integer NOT NULL,
     name character varying NOT NULL,
