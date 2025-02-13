@@ -30,7 +30,7 @@ INSERT INTO registry.privilege(id, name, type, description) VALUES(16, 'USE RESO
 --------------------------------------------------------------------------------
 
 -- Добавление учетной записи администратора системы HiTViSc
-INSERT INTO registry.user(id, create_time, login, email, password_hash, name, description, state, boinc_user_id, boinc_authenticator, boinc_password) VALUES(1, CURRENT_TIMESTAMP, 'adm.hitvisc@yandex.ru', 'adm.hitvisc@yandex.ru', MD5('password'), 'Administrator', 'Administrator of HiTViSc system', 'U', 1, '589f3b592c15558d947a2b902c3b640e', 'regnode');
+INSERT INTO registry.user(id, create_time, login, email, password_hash, name, description, state, boinc_user_id, boinc_authenticator, boinc_password) VALUES(NEXTVAL('registry.seq_user_id'), CURRENT_TIMESTAMP, 'adm.hitvisc@yandex.ru', 'adm.hitvisc@yandex.ru', MD5('password'), 'Administrator', 'Administrator of HiTViSc system', 'U', 1, '589f3b592c15558d947a2b902c3b640e', 'regnode');
 --------------------------------------------------------------------------------
 
 -- Добавление программ молекулярного докинга
