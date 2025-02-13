@@ -805,6 +805,19 @@ CREATE TABLE registry.front_file_reference (
 CREATE UNIQUE INDEX idx_front_file_reference_pk ON registry.front_file_reference(id);
 ALTER TABLE registry.front_file_reference ADD CONSTRAINT cs_front_file_reference_pk PRIMARY KEY USING INDEX idx_front_file_reference_pk;
 
+
+CREATE TYPE registry.front_target_state_enum AS ENUM ('P', 'U', 'L', 'A');
+CREATE TYPE registry.front_library_state_enum AS ENUM ('P', 'U', 'L', 'A');
+CREATE TYPE registry.front_search_state_enum AS ENUM ('P', 'U', 'L', 'A');
+CREATE TYPE registry.front_search_resources_type_enum AS ENUM ('T', 'R', 'P');
+CREATE TYPE registry.front_target_type_of_use_enum AS ENUM ('O', 'R', 'P');
+CREATE TYPE registry.front_library_type_of_use_enum AS ENUM ('O', 'R', 'P');
+CREATE TYPE registry.front_search_type_of_use_enum AS ENUM ('O', 'R', 'P');
+CREATE TYPE registry.front_search_stopping_criterion_enum AS ENUM ('percentOfCheckedLigands', 'numberOfFoundHits', 'percentOfHitsAmongLigands');
+CREATE TYPE registry.front_search_hit_selection_criterion_enum AS ENUM ('bindingEnergy', 'ligandEfficiency');
+CREATE TYPE registry.front_search_application_id_enum AS ENUM ('autodockvina', 'cmdock');
+
+
 CREATE TABLE registry.front_target (
     id integer NOT NULL,
     name character varying NOT NULL,
