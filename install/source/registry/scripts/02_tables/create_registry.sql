@@ -815,9 +815,11 @@ CREATE TABLE registry.front_target (
     created_by integer NOT NULL
 );
 
+CREATE UNIQUE INDEX idx_front_target_pk ON registry.front_target(id);
+ALTER TABLE registry.front_target ADD CONSTRAINT cs_front_target_pk PRIMARY KEY USING INDEX idx_front_target_pk;
+
 -- Последовательность для нумерации мишеней (front-end)
 CREATE SEQUENCE registry.front_target_id_seq START WITH 1 INCREMENT BY 1 MINVALUE 1 NO MAXVALUE;
-
 ALTER TABLE ONLY registry.front_target ALTER COLUMN id SET DEFAULT nextval('registry.front_target_id_seq'::regclass);
 
 CREATE TABLE registry.front_library (
@@ -832,9 +834,11 @@ CREATE TABLE registry.front_library (
     created_by integer NOT NULL
 );
 
+CREATE UNIQUE INDEX idx_front_library_pk ON registry.front_library(id);
+ALTER TABLE registry.front_library ADD CONSTRAINT cs_front_library_pk PRIMARY KEY USING INDEX idx_front_library_pk;
+
 -- Последовательность для нумерации библиотек лигандов (front-end)
 CREATE SEQUENCE registry.front_library_id_seq START WITH 1 INCREMENT BY 1 MINVALUE 1 NO MAXVALUE;
-
 ALTER TABLE ONLY registry.front_library ALTER COLUMN id SET DEFAULT nextval('registry.front_library_id_seq'::regclass);
 
 CREATE TABLE registry.front_search (
@@ -854,9 +858,11 @@ CREATE TABLE registry.front_search (
     created_by integer NOT NULL
 );
 
+CREATE UNIQUE INDEX idx_front_search_pk ON registry.front_search(id);
+ALTER TABLE registry.front_search ADD CONSTRAINT cs_front_search_pk PRIMARY KEY USING INDEX idx_front_search_pk;
+
 -- Последовательность для нумерации поисков (front-end)
 CREATE SEQUENCE registry.front_search_id_seq START WITH 1 INCREMENT BY 1 MINVALUE 1 NO MAXVALUE;
-
 ALTER TABLE ONLY registry.front_search ALTER COLUMN id SET DEFAULT nextval('registry.front_search_id_seq'::regclass);
 
 
