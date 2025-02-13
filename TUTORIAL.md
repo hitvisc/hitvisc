@@ -19,12 +19,9 @@ sudo apt-get update && sudo apt install ansible
 
 ```
 ssh root@[IP address] #(ввести пароль пользователя root - ansibleRootPasswd)
-useradd -m --shell /bin/bash ansible
+useradd -m --shell /bin/bash ansible && usermod -a -G sudo ansible && echo "ansible ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && apt-get update && apt install -y git vim 
 passwd ansible #(ввести пароль для создаваемого пользователя - ansiblePasswd)
-usermod -a -G sudo ansible
-echo "ansible ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 hostname #(выведенное имя хоста понадобится для установки параметров на рабочем компьютере на шаге 3)
-apt-get update && apt install -y git vim 
 
 su ansible
 mkdir -p ~/.ssh
