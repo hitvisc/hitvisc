@@ -45,5 +45,5 @@ do
 done < "$config_file"
 
 mysql --database=$project_database --user=$project_user --password=$project_password <<QUERY
-INSERT INTO user(create_time, email_addr, name, passwd_hash, authenticator, total_credit, expavg_credit, expavg_time, teamid, venue, send_email, show_hosts, posts, seti_id, seti_nresults, seti_last_result_time, seti_total_cpu, has_profile, cross_project_id, email_validated, donated) VALUES(UNIX_TIMESTAMP(CURRENT_TIMESTAMP()), '$boinc_user_email', '$boinc_user_name', '$boinc_user_passwd_hash', '$boinc_user_authenticator', 0, 0, 0, 0, 'home', 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0);
+INSERT INTO user(create_time, email_addr, name, passwd_hash, authenticator, total_credit, expavg_credit, expavg_time, teamid, venue, send_email, show_hosts, posts, seti_id, seti_nresults, seti_last_result_time, seti_total_cpu, has_profile, cross_project_id, email_validated, donated, project_prefs) VALUES(UNIX_TIMESTAMP(CURRENT_TIMESTAMP()), '$boinc_user_email', '$boinc_user_name', '$boinc_user_passwd_hash', '$boinc_user_authenticator', 0, 0, 0, 0, 'home', 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, LOAD_FILE('/var/lib/mysql-files/hitvisc_project_prefs.xml'));
 QUERY
