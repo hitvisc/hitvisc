@@ -788,6 +788,77 @@ SELECT workunit.id AS workunit_id,
   JOIN registry.package ON package.id = workunit.package_id AND package.docker_id = docker.id
  WHERE workunit_state.name = 'GENERATED';
 
+-- Таблицы сущностей front-end части
+CREATE TABLE registry.front_file_reference (
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    name character varying NOT NULL,
+    extension character varying NOT NULL,
+    mime_type character varying NOT NULL,
+    size_in_bytes integer NOT NULL,
+    directory_in_storage character varying NOT NULL,
+    persistent boolean NOT NULL,
+    owner_id integer NOT NULL,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL
+);
+
+CREATE TABLE registry.front_target (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    description character varying(2000) NOT NULL,
+    authors character varying NOT NULL,
+    source character varying NOT NULL,
+    state registry.front_target_state_enum DEFAULT 'P'::registry.front_target_state_enum NOT NULL,
+    type_of_use registry.front_target_type_of_use_enum DEFAULT 'R'::registry.front_target_type_of_use_enum NOT NULL,
+    pdb_file_id character varying,
+    reference_ligands_file_id character varying,
+    created_by integer NOT NULL
+);
+
+-- Последовательность для нумерации мишеней (front-end)
+CREATE SEQUENCE registry.front_target_id_seq START WITH 1 INCREMENT BY 1 MINVALUE 1 NO MAXVALUE;
+
+ALTER TABLE ONLY registry.front_target ALTER COLUMN id SET DEFAULT nextval('registry.front_target_id_seq'::regclass);
+
+CREATE TABLE registry.front_library (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    description character varying(2000) NOT NULL,
+    authors character varying NOT NULL,
+    source character varying NOT NULL,
+    type_of_use registry.front_library_type_of_use_enum DEFAULT 'R'::registry.front_library_type_of_use_enum NOT NULL,
+    state registry.front_library_state_enum DEFAULT 'P'::registry.front_library_state_enum NOT NULL,
+    file_id character varying,
+    created_by integer NOT NULL
+);
+
+-- Последовательность для нумерации библиотек лигандов (front-end)
+CREATE SEQUENCE registry.front_library_id_seq START WITH 1 INCREMENT BY 1 MINVALUE 1 NO MAXVALUE;
+
+ALTER TABLE ONLY registry.front_library ALTER COLUMN id SET DEFAULT nextval('registry.front_library_id_seq'::regclass);
+
+CREATE TABLE registry.front_search (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    type_of_use registry.front_search_type_of_use_enum DEFAULT 'R'::registry.front_search_type_of_use_enum NOT NULL,
+    state registry.front_search_state_enum DEFAULT 'P'::registry.front_search_state_enum NOT NULL,
+    description character varying(2000) NOT NULL,
+    target_id integer NOT NULL,
+    library_id integer NOT NULL,
+    application_id registry.front_search_application_id_enum NOT NULL,
+    hit_selection_criterion registry.front_search_hit_selection_criterion_enum NOT NULL,
+    hit_selection_value double precision NOT NULL,
+    stopping_criterion registry.front_search_stopping_criterion_enum NOT NULL,
+    stopping_value double precision NOT NULL,
+    resources_type registry.front_search_resources_type_enum NOT NULL,
+    created_by integer NOT NULL
+);
+
+-- Последовательность для нумерации поисков (front-end)
+CREATE SEQUENCE registry.front_search_id_seq START WITH 1 INCREMENT BY 1 MINVALUE 1 NO MAXVALUE;
+
+ALTER TABLE ONLY registry.front_search ALTER COLUMN id SET DEFAULT nextval('registry.front_search_id_seq'::regclass);
+
 
 -- Таблица для связи сущностей frontend - backend
 CREATE TABLE registry.entity_mapping
@@ -831,28 +902,3 @@ OPTIONS (FILENAME '/app/hitvisc/main/hitvisc.conf', DELIMITER '=', FORMAT 'csv')
 -- Создание представления для просмотра параметров без пробелов в названиях и значениях
 CREATE VIEW registry.vw_system_parameter AS SELECT TRIM(name) AS name, TRIM(value) AS value FROM registry.system_parameter;
 
--- TODO: если потребуются такие файлы, то описать их в более конкретных таблицах
---
--- Файлы с настройками (к мишени или чему-либо ещё), добавляющиеся в рамках поиска
---CREATE TABLE registry.search_file
---(
---    id        INT NOT NULL,
---    search_id INT NOT NULL,
---    type      VARCHAR(16) NOT NULL,
---    name      VARCHAR(64) NOT NULL,
---    path      VARCHAR(256) NOT NULL
---);
---
---CREATE UNIQUE INDEX idx_search_file_pk ON registry.search_file(id);
---CREATE INDEX idx_search_file_research_fk ON registry.search_file(search_id);
---ALTER TABLE registry.search_file ADD CONSTRAINT cs_search_file_pk PRIMARY KEY USING INDEX idx_search_file_pk;
---ALTER TABLE registry.search_file ADD CONSTRAINT cs_search_file_research_fk FOREIGN KEY(search_id) REFERENCES registry.search(id);
-
---COMMENT ON TABLE registry.search_file IS 'Файл с настройками поиска';
---COMMENT ON COLUMN registry.search_file.search_id IS 'Идентификатор поиска';
---COMMENT ON COLUMN registry.search_file.type IS 'Вид файла';
---COMMENT ON COLUMN registry.search_file.name IS 'Название файла';
---COMMENT ON COLUMN registry.search_file.path IS 'Полный путь к файлу';
-
--- Последовательность для идентификации файлов мишени, добавляющихся в рамках поиска
---CREATE SEQUENCE registry.seq_search_file_id START WITH 1 INCREMENT BY 1 MINVALUE 1 NO MAXVALUE;
