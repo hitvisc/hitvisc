@@ -66,7 +66,7 @@ result <- tryCatch(
       
       # Визуализировать полученную диаграмму.
       plot(jittereddata, xlab="", ylab="", xlim=range(fit$points[,1])+c(-.2,.2), col=kc$cluster, pch=19)
-      title(main=sprintf("Хиты из библиотеки %s",datasetname))
+      title(main=sprintf("Хиты виртуального скрининга %s",datasetname))
       
       # Plot the points of selected ligands from the clusters
       points(x=as.numeric(as.character(smain$X5)), y=as.numeric(as.character(smain$X6)), pch=8, cex=2.5, col=as.numeric(as.character(smain$X2)))
