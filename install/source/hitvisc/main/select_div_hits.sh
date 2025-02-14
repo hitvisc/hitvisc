@@ -22,7 +22,7 @@
 # ENERGYFILE="$HITS_DIR/energies.dat"  # Must have this value from parent script
 TABLEFILE="$HITS_DIR/table.dat"        # Output file
 TOP=$1                                 # Number of ligands to select
-SETNAME="Search $SEARCH_ID"            # Set name to display
+SETNAME="$SEARCH_ID"                   # Set name to display
 DIAGRAMFILE="$HITS_DIR/table.png"      # Diagram output file
 OUTPUT_DIV_ZIP="$HITS_DIR_DIV/hitvisc_hits_div.zip"
 OUTPUT_VIZ_ZIP="$HITS_DIR_VIZ/hitvisc_hits_viz.zip"
