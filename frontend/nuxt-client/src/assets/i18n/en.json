@@ -109,10 +109,10 @@
       "delete": "Delete project"
     },
     "results": "Results",
-    "allHits": "Все хиты",
-    "divHits": "Химически разнообразные хиты",
-    "visHits": "Визуализация множества хитов",
-    "resultsNotFoundError": "Результаты проекта не доступны для скачивания. Пожалуйста, обратитесь к администратору системы.",
+    "allHits": "All hits",
+    "divHits": "Chemically diverse hits",
+    "visHits": "Visualisation of the set of hits",
+    "resultsNotFoundError": "Project results are not available for downloading. Please address the system administrator.",
     "typeOfUseLabel": "Type of use",
     "typeOfUse": {
       "R": "Restricted",
