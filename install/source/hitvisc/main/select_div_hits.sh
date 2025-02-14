@@ -109,7 +109,7 @@ echo "------ Stop hits visualisation ----"
 
 if [ -f "$DIAGRAMFILE" ]; then 
   zip -qjum "$OUTPUT_VIZ_ZIP" "$DIAGRAMFILE" 
-  if [ -f "selected_ligands.txt" ]; then zip -qjum "$OUTPUT_DIV_ZIP" "selected_ligands.txt"; fi
+  if [ -f "selected_ligands.txt" ]; then zip -qjum "$OUTPUT_VIZ_ZIP" "selected_ligands.txt"; fi
 else log_msg_error "Failed to zip results visualisation ($DIAGRAMFILE)"; return $CODEOTHERERR; fi 
 
 if [ ! -f "$OUTPUT_VIZ_ZIP" ]; then log_msg_error "Failed to zip results visualisation"; return $CODEOTHERERR; fi
