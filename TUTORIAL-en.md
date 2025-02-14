@@ -206,7 +206,7 @@ The following information is displayed in the list of shared system resources:
 - the number of current tasks that were previously sent to the computing node and for which results have not yet been received,
 - the total number of tasks completed by the node,
 - the computing node access mode.
-For computing nodes added by the user, the node name can be edited.
+For computing nodes added by the user, the node name and type can be edited.
 
 ### Private resources
 
@@ -217,7 +217,7 @@ The following information is displayed in the list of private resources of the s
 - the number of current tasks that were previously sent to the computing node and for which results have not yet been received,
 - the total number of tasks completed by the node,
 - the computing node access mode.
-The ability to edit the node name is available for computing nodes.
+For computing nodes added by the user, the node name and type can be edited.
 
 ### Test resources
 
@@ -232,7 +232,7 @@ For computing nodes added by the user, the node name can be edited.
 
 ### Adding resources
 
-The addition of computing nodes is available for shared and private resources.
+The addition of computing nodes is available. A new computing node is added with type "private". If needed, the type of the node can be changed on page "Resources-Private".
 When you click the "Add" button in the corresponding resource section, a pop-up window provides instructions on how to connect a new computing node.
 
 ![image](https://github.com/user-attachments/assets/5b11a24d-5b71-42f7-abe7-80e487380a15)
