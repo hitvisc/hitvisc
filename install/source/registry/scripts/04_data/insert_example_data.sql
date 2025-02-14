@@ -78,15 +78,15 @@ BEGIN
 
       INSERT INTO registry.package(id, library_id, file_name, file_path, ligand_count, docker_id)  
                       VALUES(NEXTVAL('registry.seq_package_id'), example_back_library_cmdock_id, 'hitvisc.ligands.cmdock.example_small_package_01.zip', 
-                             '/app/hitvisc/data/hitvisc.ligands.cmdock.example_small/hitvisc.ligands.cmdock.example_small_package_01.zip', 2, 1), 
+                             '/app/hitvisc/data/hitvisc.ligands.cmdock.example_small/hitvisc.ligands.cmdock.example_small_package_01.zip', 10, 1), 
                             (NEXTVAL('registry.seq_package_id'), example_back_library_cmdock_id, 'hitvisc.ligands.cmdock.example_small_package_02.zip', 
-                             '/app/hitvisc/data/hitvisc.ligands.cmdock.example_small/hitvisc.ligands.cmdock.example_small_package_02.zip', 2, 1);
+                             '/app/hitvisc/data/hitvisc.ligands.cmdock.example_small/hitvisc.ligands.cmdock.example_small_package_02.zip', 10, 1);
 
       INSERT INTO registry.package(id, library_id, file_name, file_path, ligand_count, docker_id)
                       VALUES(NEXTVAL('registry.seq_package_id'), example_back_library_autodockvina_id, 'hitvisc.ligands.autodockvina.example_small_package_01.zip', 
-                             '/app/hitvisc/data/hitvisc.ligands.autodockvina.example_small/hitvisc.ligands.autodockvina.example_small_package_01.zip', 2, 2),
+                             '/app/hitvisc/data/hitvisc.ligands.autodockvina.example_small/hitvisc.ligands.autodockvina.example_small_package_01.zip', 10, 2),
                              (NEXTVAL('registry.seq_package_id'), example_back_library_autodockvina_id, 'hitvisc.ligands.autodockvina.example_small_package_02.zip', 
-                             '/app/hitvisc/data/hitvisc.ligands.autodockvina.example_small/hitvisc.ligands.autodockvina.example_small_package_02.zip', 2, 2);
+                             '/app/hitvisc/data/hitvisc.ligands.autodockvina.example_small/hitvisc.ligands.autodockvina.example_small_package_02.zip', 10, 2);
 
 
         SELECT NEXTVAL('registry.front_library_id_seq') INTO example_front_library_cmdock_id;
