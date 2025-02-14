@@ -117,5 +117,5 @@ if [ ! -f "$OUTPUT_VIZ_ZIP" ]; then log_msg_error "Failed to zip results visuali
 rm "$TABLEFILE" "$ENERGYFILE"
 find "$HITS_DIR" -maxdepth 1 -type f -name "*.$EXT" -print0 | xargs -0 rm
 
-rm "$LOCKFILE"
+rm -f "$LOCKFILE"
 
