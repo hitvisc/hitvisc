@@ -228,7 +228,7 @@ The following information is displayed in the list of test system resources:
 - the number of current tasks that were previously sent to the computing node and for which results have not yet been received,
 - the total number of tasks completed by the node,
 - the computing node access mode.
-For computing nodes added by the user, the node name can be edited.
+For computing nodes added by the user, the node name can be edited. The type of a test resource cannot be changed.
 
 ### Adding resources
 
