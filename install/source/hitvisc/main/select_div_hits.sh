@@ -19,7 +19,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-# ENERGYFILE="$HITS_DIR/energies.dat"  # From parent script
+# ENERGYFILE="$HITS_DIR/energies.dat"  # Must have this value from parent script
 TABLEFILE="$HITS_DIR/table.dat"        # Output file
 TOP=$1                                 # Number of ligands to select
 SETNAME="Search $SEARCH_ID"            # Set name to display
@@ -61,7 +61,7 @@ if [[ $TOP -eq 0 ]] || [[ $FACT_HITS -eq 0 ]]; then
   echo "$hitdata" > $TABLEFILE 
 else
   if [[ $FACT_HITS -gt 0 ]]; then 
-  echo "------ Start creating the table of TOP best hits ----" 
+  echo "------ Start creating the table of $TOP best hits ----" 
     eval "$(/app/third-party/anaconda/bin/conda 'shell.bash' 'hook' 2>/dev/null)"
     conda activate hitvisc-bio
     declare -A arr; x=1
@@ -92,7 +92,7 @@ else
       echo "" >> $TABLEFILE
     done
     conda deactivate
-  echo "------ The table of TOP best hits has been created ----"
+  echo "------ The table of $TOP best hits has been created ----"
   fi
 fi
 
