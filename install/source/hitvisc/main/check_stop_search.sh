@@ -27,7 +27,7 @@ TOP=100  # Maximal number of top hits to select
 
 while IFS="|" read -r SEARCH_ID SEARCH_SYSTEM_NAME DOCKER_NAME
 do
-    if [[ ! $SEARCH_ID =~ ^[0-9]+$ ]]; then log_msg_error "Invalid SEARCH_ID ($SEARCH_ID)"; rm "$LOCKFILE"; return $CODEARGERR; fi
+    if [[ ! $SEARCH_ID =~ ^[0-9]+$ ]]; then log_msg_error "Invalid SEARCH_ID ($SEARCH_ID)"; return $CODEARGERR; fi
     LOCKFILE="$hitvisc_data_dir/check_stop_search_${SEARCH_ID}.lock"
     if [ -f "$LOCKFILE" ]; then log_msg_error "Stop check_stop_search.sh because lockfile is present"; return 0; fi
     touch "$LOCKFILE"
