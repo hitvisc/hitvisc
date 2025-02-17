@@ -57,12 +57,15 @@
 
 Входные файлы примеров и выходные файлы с результатами представлены в репозитории в папке [example](example). Содержание файлов следующее:
 1.  Файлы описания мишени для AutoDock Vina:
--  [example/hitvisc.target.autodockvina.example.pdbqt](example/hitvisc.target.autodockvina.example.pdbqt) – описание мишени RORα в формате для молекулярного докинга;
--  [example/hitvisc.target.autodockvina.example.refligand.pdbqt](example/hitvisc.target.autodockvina.example.refligand.pdbqt) – описание справочного лиганда в формате для молекулярного докинга;
--  [example/hitvisc.target.autodockvina.example.refligand_out.pdbqt](example/hitvisc.target.autodockvina.example.refligand_out.pdbqt) – результат молекулярного докинга справочного лиганда;
+-  [example/hitvisc.target.autodockvina.example.pdb](example/hitvisc.target.autodockvina.example.pdb) – описание мишени RORα в формате PDB (используется для загрузки файла при создании мишени. В качестве альтернативы, можно указать RCSB PDB 1S0X при создании мишени);
+-  [example/hitvisc.target.autodockvina.example.refligand.pdbqt](example/hitvisc.target.autodockvina.example.refligand.pdbqt) – описание справочного лиганда мишени RORα в формате SDF;
 -  [example/hitvisc.docker_protocol.autodockvina.example.txt](example/hitvisc.docker_protocol.autodockvina.example.txt) – протокол молекулярного докинга;
+<!-- -  [example/hitvisc.target.autodockvina.example.pdbqt](example/hitvisc.target.autodockvina.example.pdbqt) – описание мишени RORα в формате для молекулярного докинга;
+-  [example/hitvisc.target.autodockvina.example.refligand.pdbqt](example/hitvisc.target.autodockvina.example.refligand.pdbqt) – описание справочного лиганда в формате для молекулярного докинга;
+-  [example/hitvisc.target.autodockvina.example.refligand_out.pdbqt](example/hitvisc.target.autodockvina.example.refligand_out.pdbqt) – результат молекулярного докинга справочного лиганда;-->
 2.  Файлы описания мишени для CmDock:
--  [example/hitvisc.target.cmdock.example.mol2](example/hitvisc.target.cmdock.example.mol2) – описание мишени 3CLpro в формате для молекулярного докинга;
+-  [example/hitvisc.target.cmdock.example.pdb](example/hitvisc.target.cmdock.example.pdb) – описание мишени 3CLpro в формате PDB (используется для загрузки файла при создании мишени. В качестве альтернативы, можно указать RCSB PDB 7WOH при создании мишени);
+<!-- -  [example/hitvisc.target.cmdock.example.mol2](example/hitvisc.target.cmdock.example.mol2) – описание мишени 3CLpro в формате для молекулярного докинга;-->
 -  [example/corona_3CLpro_v3.prm](example/corona_3CLpro_v3.prm), [example/corona_3CLpro_v3.as](example/corona_3CLpro_v3.as), [example/htvs.ptc](example/htvs.ptc) – тройка файлов, задающих протокол молекулярного докинга в формате CmDock;
 3.  Файл библиотеки лигандов:
 -  [example/lib_sidock_20000_ligands.zip](example/lib_sidock_20000_ligands.zip) – исходный архив библиотеки лигандов;
