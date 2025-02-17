@@ -125,7 +125,7 @@ do
           # Results have been processed. Update search status
           PSQL_STATUS=$(echo "UPDATE registry.search SET status = 'F' WHERE registry.search.id = $SEARCH_ID;" | psql --dbname=hitvisc -qtA)
         else # if [ ! -z "$TEST" ] -- файлы хитов 
-          echo -n "" > "$ENERGYFILE"; rm "$ENERGYFILE.tmp"
+          echo -n "" > "$ENERGYFILE"; rm -f "$ENERGYFILE.tmp"
           echo "Stop search criteria has been met but no hits found for search $SEARCH_ID (dir $HITS_DIR)"
           PSQL_STATUS=$(echo "UPDATE registry.search SET status = 'F' WHERE registry.search.id = $SEARCH_ID;" | psql --dbname=hitvisc -qtA)
         fi # if [ ! -z "$TEST" ] -- файлы хитов
