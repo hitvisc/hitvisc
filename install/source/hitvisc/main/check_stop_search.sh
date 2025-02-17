@@ -51,7 +51,7 @@ do
 
     if [ -z $N_LIGANDS ] && [[ ! $N_LIGANDS -gt 0 ]]; then N_LIGANDS=0; fi
     echo "--- $N_LIGANDS ligands exist for search $SEARCH_ID"
-    if [[ ! $N_LIGANDS -gt 0 ]]; then log_msg_error "No ligands found for search $SEARCH_ID"; rm "$LOCKFILE"; return $CODEOTHERERR; fi
+    if [[ ! $N_LIGANDS -gt 0 ]]; then log_msg_error "No ligands found for search $SEARCH_ID"; rm -f "$LOCKFILE"; return $CODEOTHERERR; fi
 
     # Число проверенных лигандов для данного поиска
     N_CHK_LIGANDS=$(echo "SELECT SUM(registry.package.ligand_count) FROM registry.workunit, registry.workunit_state, registry.search, registry.package 
@@ -68,7 +68,7 @@ do
     HITS_DIR="$hitvisc_data_dir/search/$SEARCH_SYSTEM_NAME/hits"
 
     if [[ "$DOCKER_NAME" == "cmdock" ]]; then EXT="sdf"; else if [[ "$DOCKER_NAME" == "autodockvina" ]]; then EXT="pdbqt"; fi; fi
-    if [ -z "$EXT" ]; then log_msg_error "Unable to get hits extension for search $SEARCH_ID"; rm "$LOCKFILE"; return $CODEENVERR; fi
+    if [ -z "$EXT" ]; then log_msg_error "Unable to get hits extension for search $SEARCH_ID"; rm -f "$LOCKFILE"; return $CODEENVERR; fi
 
     ## Check stop criterion
     if [[ $N_CHK_LIGANDS -ge $N_LIGANDS ]]; then 
@@ -98,7 +98,7 @@ do
 
     ## If stop criterion has been met:
     if [[ $STOP_SEARCH = 1 ]]; then
-        if [ ! -d "$HITS_DIR" ]; then log_msg_error "HITS_DIR not found ($HITS_DIR)"; rm "$LOCKFILE"; return $CODEENVERR; fi
+        if [ ! -d "$HITS_DIR" ]; then log_msg_error "HITS_DIR not found ($HITS_DIR)"; rm -f "$LOCKFILE"; return $CODEENVERR; fi
 
         # Mark workunits with unprocessed results as not needed
         PSQL_STATUS=$(echo "UPDATE registry.workunit SET state_id = (SELECT id FROM registry.workunit_state WHERE name = 'NOT_NEEDED') 
@@ -131,7 +131,7 @@ do
         fi # if [ ! -z "$TEST" ] -- файлы хитов
     fi # if [[ $STOP_SEARCH = 1 ]]
 
-  rm "$LOCKFILE"
+  rm -f "$LOCKFILE"
 done < <(echo "SELECT registry.search.id, registry.search.system_name, registry.docker.system_name FROM registry.search, registry.docker 
          WHERE registry.search.docker_id = registry.docker.id AND registry.search.state = 'U' AND registry.search.status = 'A';" | psql --dbname=hitvisc -qtA)
 
