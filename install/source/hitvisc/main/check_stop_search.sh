@@ -31,6 +31,14 @@ do
     LOCKFILE="$hitvisc_data_dir/check_stop_search_${SEARCH_ID}.lock"
     if [ -f "$LOCKFILE" ]; then log_msg_error "Stop check_stop_search.sh because lockfile is present"; return 0; fi
     touch "$LOCKFILE"
+
+    # Prepare .zip files for results (initially empty)
+    HITS_DIR="$hitvisc_data_dir/search/$SEARCH_SYSTEM_NAME/hits"
+    HITS_DIR_ALL="$HITS_DIR/all"; HITS_DIR_DIV="$HITS_DIR/div"; HITS_DIR_VIZ="$HITS_DIR/viz"
+    for dir in "$HITS_DIR_ALL" "$HITS_DIR_DIV" "$HITS_DIR_VIZ"; do mkdir -p "$dir"; done
+    for archive in "$HITS_DIR_ALL/hitvisc_hits_all.zip" "$HITS_DIR_DIV/hitvisc_hits_div.zip" "$HITS_DIR_VIZ/hitvisc_hits_viz.zip"; do
+      if [ ! -f "$archive" ]; then echo | zip -q > "$archive" && zip -dq "$archive" -; fi; done
+    
     IFS="|" read -r stop_criterion stop_fraction_ligands stop_count_hits stop_fraction_hits is_notify_hits is_notify_fraction_ligands value_notify_fraction_ligands <<< $(echo "SELECT stop_criterion, stop_fraction_ligands, stop_count_hits, stop_fraction_hits, is_notify_hits, 
                is_notify_fraction_ligands, value_notify_fraction_ligands, docker_id FROM registry.search, registry.search_protocol 
                WHERE registry.search.id = $SEARCH_ID AND registry.search.search_protocol_id = registry.search_protocol.id;" | psql --dbname=hitvisc -qtA)
@@ -111,10 +119,6 @@ do
 
           if [ -f "$ENERGYFILE.tmp" ]; then sort -n -t',' -k3,3 "$ENERGYFILE.tmp" > "$ENERGYFILE"; rm "$ENERGYFILE.tmp"
           else log_msg_error "File energies.dat.tmp not found ($ENERGYFILE.tmp)"; fi
-
-          # All hits
-          HITS_DIR_ALL="$HITS_DIR/all"; HITS_DIR_DIV="$HITS_DIR/div"; HITS_DIR_VIZ="$HITS_DIR/viz"
-          for dir in "$HITS_DIR_ALL" "$HITS_DIR_DIV" "$HITS_DIR_VIZ"; do mkdir -p "$dir"; done
 
           find "$HITS_DIR" -maxdepth 1 -type f -name "*.$EXT" -print0 | xargs -0 zip -qju "$HITS_DIR_ALL/hitvisc_hits_all.zip" -@
 
