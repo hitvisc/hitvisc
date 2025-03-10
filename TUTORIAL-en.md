@@ -62,10 +62,10 @@ To install the back-end, the following set of commands is executed on the _worki
 ```
 # Убедиться, что находимся в рабочей директории: например, /home/user/work
 cd hitvisc/install
-ansible-playbook hitvisc-install.yml && ansible-playbook postgresql-install.yml \
- && ansible-playbook hitvisc-main-install.yml && ansible-playbook boinc-install.yml \
- && ansible-playbook hitvisc-boinc-install.yml && ansible-playbook registry-install.yml \
- && ansible-playbook third-party-install.yml && ansible-playbook frontend-install.yml
+ansible-playbook -K hitvisc-install.yml && ansible-playbook -K postgresql-install.yml \
+ && ansible-playbook -K hitvisc-main-install.yml && ansible-playbook -K boinc-install.yml \
+ && ansible-playbook -K hitvisc-boinc-install.yml && ansible-playbook -K registry-install.yml \
+ && ansible-playbook -K third-party-install.yml && ansible-playbook -K frontend-install.yml
 ```
 
 As a result of successful execution of the commands, all necessary system directories will be created in the directory tree ``/app/*``, and the necessary tables in the database will be created and filled with a basic set of data.
