@@ -738,7 +738,9 @@ BEGIN
 END;
 $$;
 -- Функция создания поиска
-CREATE OR REPLACE FUNCTION registry.hitvisc_search_add(p_name CHARACTER VARYING, p_system_name CHARACTER VARYING, p_description CHARACTER VARYING, p_target_id INT, p_library_id INT, p_docker_id INT, p_docker_protocol_id INT, p_search_protocol_id INT, p_host_usage_type CHAR(1), p_prefix CHARACTER VARYING, p_state CHAR(1))
+CREATE OR REPLACE FUNCTION registry.hitvisc_search_add(p_name CHARACTER VARYING, p_system_name CHARACTER VARYING, p_description CHARACTER VARYING, 
+	p_usage_type CHAR(1), p_target_id INT, p_library_id INT, p_docker_id INT, p_docker_protocol_id INT, p_search_protocol_id INT, 
+	p_host_usage_type CHAR(1), p_prefix CHARACTER VARYING, p_state CHAR(1))
     RETURNS INTEGER
     LANGUAGE PLPGSQL
 AS
@@ -748,6 +750,7 @@ $$
 -- p_name                - Название поиска
 -- p_system_name         - Системное имя поиска
 -- p_description         - Описание поиска
+-- p_usage_type          - Вид использования ('O' - open, 'R' - restricted, 'P' - private)
 -- p_target_id           - Идентификатор мишени
 -- p_library_id          - Идентификатор библиотеки лигандов
 -- p_docker_id           - Идентификатор приложения докинга
@@ -774,8 +777,8 @@ BEGIN
         -- Добавление поиска
             SELECT NEXTVAL('registry.seq_search_id') INTO l_id;
             -- Вставка записи в таблицу
-            INSERT INTO registry.search(id, create_time, name, system_name, description, target_id, library_id, docker_id, docker_protocol_id, search_protocol_id, host_usage_type, prefix, state)
-            VALUES(l_id, CURRENT_TIMESTAMP, p_name, p_system_name, p_description, p_target_id, p_library_id, p_docker_id, p_docker_protocol_id, p_search_protocol_id, p_host_usage_type, p_prefix, p_state);
+            INSERT INTO registry.search(id, create_time, name, system_name, description, usage_type, target_id, library_id, docker_id, docker_protocol_id, search_protocol_id, host_usage_type, prefix, state)
+            VALUES(l_id, CURRENT_TIMESTAMP, p_name, p_system_name, p_description, p_usage_type, p_target_id, p_library_id, p_docker_id, p_docker_protocol_id, p_search_protocol_id, p_host_usage_type, p_prefix, p_state);
             -- Считывание результата добавления
             GET DIAGNOSTICS l_processed_rows := ROW_COUNT;
             l_result := l_processed_rows > 0;
