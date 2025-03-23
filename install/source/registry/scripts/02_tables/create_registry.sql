@@ -22,7 +22,7 @@ ALTER TABLE registry.target ADD CONSTRAINT cs_target_pk PRIMARY KEY USING INDEX 
 ALTER TABLE registry.target ADD CONSTRAINT cs_target_name_uq UNIQUE(name);
 ALTER TABLE registry.target ADD CONSTRAINT cs_target_system_name_uq UNIQUE(system_name);
 ALTER TABLE registry.target ADD CONSTRAINT cs_target_usage_type_ck CHECK(usage_type IN('O', 'R', 'P'));
-ALTER TABLE registry.target ADD CONSTRAINT cs_target_state_ck CHECK(state IN('P', 'U', 'L', 'A'));
+ALTER TABLE registry.target ADD CONSTRAINT cs_target_state_ck CHECK(state IN('P', 'U', 'L', 'A', 'I'));
 
 COMMENT ON TABLE registry.target IS 'Мишень';
 COMMENT ON COLUMN registry.target.id IS 'Идентификатор';
@@ -33,7 +33,7 @@ COMMENT ON COLUMN registry.target.description IS 'Описание';
 COMMENT ON COLUMN registry.target.authors IS 'Авторы';
 COMMENT ON COLUMN registry.target.source IS 'Источник';
 COMMENT ON COLUMN registry.target.usage_type IS 'Вид использования: O - общая (open), R - закрытая (restricted), P - частная (private)';
-COMMENT ON COLUMN registry.target.state IS 'Состояние мишени: P - создается (preparing); U - не заблокирована, можно изменять и удалять (unlocked); L - заблокирована - используется в поисках (locked); A - архивация, данные выносятся в архив (archived)';
+COMMENT ON COLUMN registry.target.state IS 'Состояние мишени: P - создается (preparing); U - не заблокирована, можно изменять и удалять (unlocked); I - используется, нельзя изменять и удалять (in use); L - заблокирована - используется в поисках (locked); A - архивация, данные выносятся в архив (archived)';
 
 -- Последовательность для нумерации мишеней
 CREATE SEQUENCE registry.seq_target_id START WITH 1 INCREMENT BY 1 MINVALUE 1 NO MAXVALUE;
@@ -141,7 +141,7 @@ ALTER TABLE registry.library ADD CONSTRAINT cs_library_pk PRIMARY KEY USING INDE
 ALTER TABLE registry.library ADD CONSTRAINT cs_library_name_uq UNIQUE(name);
 ALTER TABLE registry.library ADD CONSTRAINT cs_library_system_name_uq UNIQUE(system_name);
 ALTER TABLE registry.library ADD CONSTRAINT cs_library_usage_type_ck CHECK(usage_type IN('O', 'R', 'P'));
-ALTER TABLE registry.library ADD CONSTRAINT cs_library_state_ck CHECK (state IN('P', 'U', 'L', 'A'));
+ALTER TABLE registry.library ADD CONSTRAINT cs_library_state_ck CHECK (state IN('P', 'U', 'L', 'A', 'I'));
 
 COMMENT ON TABLE registry.library IS 'Библиотека с лигандами';
 COMMENT ON COLUMN registry.library.id IS 'Идентификатор библиотеки';
@@ -151,7 +151,7 @@ COMMENT ON COLUMN registry.library.description IS 'Описание';
 COMMENT ON COLUMN registry.library.authors IS 'Авторы';
 COMMENT ON COLUMN registry.library.source IS 'Источник';
 COMMENT ON COLUMN registry.library.usage_type IS 'Вид использования: O - общая (open), R - закрытая (restricted), P - частная (private)';
-COMMENT ON COLUMN registry.library.state IS 'Состояние библиотеки: P - создается (preparing); U - не заблокирована, можно изменять и удалять (unlocked); L - заблокирована - используется в поисках (locked); A - архивация, данные выносятся в архив (archived)';
+COMMENT ON COLUMN registry.library.state IS 'Состояние библиотеки: P - создается (preparing); U - не заблокирована, можно изменять и удалять (unlocked); I - используется, нельзя изменять и удалять (in use); L - заблокирована - используется в поисках (locked); A - архивация, данные выносятся в архив (archived)';
 
 -- Последовательность для нумерации библиотек лигандов
 CREATE SEQUENCE registry.seq_library_id START WITH 1 INCREMENT BY 1 MINVALUE 1 NO MAXVALUE;
