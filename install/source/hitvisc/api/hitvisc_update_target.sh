@@ -20,7 +20,7 @@
 #    along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 # Usage:
-USAGE_TEMPLATE="hitvisc_update_target.sh FRONT_ENTITY_ID NAME USAGE_TYPE DESCRIPTION"
+USAGE_TEMPLATE="hitvisc_update_target.sh FRONT_ENTITY_ID NAME USAGE_TYPE DESCRIPTION AUTHOR SOURCE"
 
 # Get the number of arguments from template:
 NARGS="$(awk '{print NF-1}' <<< "$USAGE_TEMPLATE")"
