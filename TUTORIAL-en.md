@@ -138,8 +138,8 @@ At each step, the user has the opportunity to verify the completed data by click
 
 The first step in creating a project is to describe it, specify a target and a library of ligands. The user inputs the project name, access mode, and description.
 There are three access modes for the project:
-- Closed – the project is not published in the system for other users; this mode is available only with the use of private computing resources – without involving the resources of volunteers and other users of the system,
-- Private – only general information about the project is available to users of the system,
+- Closed – the project is not published in the system for other users; 
+- Private – only general information about the project is available to users of the system;
 - General – the project is available for review by all users of the system, including the initial data, the parameters of the experiment, and its results.
 
 ![image](https://github.com/user-attachments/assets/37948e26-447f-4e7d-8a63-f87ea1d61411)
@@ -168,9 +168,9 @@ As a result of completing all the steps of the Assistant, upon successful verifi
 
 ## Editing and deleting projects
 
-A previously created saved project can be edited and/or deleted. To do this, select "Edit project" or "Delete project" in the system interface, in the main window of the project list, on the corresponding project card. Editing is only available for projects that belong to this user and have the status "ready". You can edit the name, type of use and description. The functionality of editing a project is similar to the functionality of creating a project in Step 1 with previously filled in fields.
+A previously created saved project can be edited and/or deleted. To do this, select "Edit project" or "Delete project" in the system interface, in the main window of the project list, on the corresponding project card. Editing is only available for projects owned by this user and with the status "ready". You can edit the name, type of use and description. The functionality of editing a project is similar to the functionality of creating a project in Step 1 with previously filled in fields. Deletion is only available for projects owned by this user. When deleting, the project is transferred to the "archived" status.
 
-![image](https://github.com/user-attachments/assets/9f1c7cde-c62d-432b-9a11-0397c54e6aa0)
+![image](https://github.com/hitvisc/hitvisc/blob/main/img/tutorial_search_edit.png)
 
 ## Use of project results
 
