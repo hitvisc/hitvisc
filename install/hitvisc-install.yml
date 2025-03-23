@@ -29,6 +29,7 @@
       name:
       - acl
       - pkg-config
+      - curl
       - libzstd-dev
       - libreadline-dev
       - zlib1g-dev
