@@ -229,7 +229,6 @@ if [[ $SEARCH_PROTOCOL_ID -le 0 ]]; then
   # TODO: delete docker protocol
   log_msg_error "unable to create new search protocol (cmd: SELECT registry.hitvisc_search_protocol_add('$CRIT_HIT', $BIND_EN, $LIG_EFF, '$CRIT_STOP', $PCENT_LIG_TESTED, $N_HITS_FOUND, $PCENT_HITS, '$NOTIFY_HITS', '$NOTIFY_LIGS', $NOTIFY_N_LIGS);"; return $CODEPSQLERR; fi
 
-
 ## Create a new search with the obtained parameters
 
 SEARCH_ID=$(echo "SELECT registry.hitvisc_search_add('$SEARCH_NAME', '$SEARCH_SYSTEM_NAME', '$SEARCH_DESC', $TARGET_ID, $LIBRARY_ID, $DOCKER_ID, $DOCKER_PROTOCOL_ID, $SEARCH_PROTOCOL_ID, '$RESOURCE_TYPE', '$SEARCH_PREFIX', '$SEARCH_STATE');" | psql --dbname=hitvisc -qtA)
