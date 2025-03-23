@@ -168,7 +168,7 @@ As a result of completing all the steps of the Assistant, upon successful verifi
 
 ## Editing and deleting projects
 
-A previously created saved project can be edited and/or deleted. To do this, select "Edit project" or "Delete project" in the system interface, in the main window of the project list, on the corresponding project card. The functionality of editing a project is similar to the functionality of creating a project – using the same Assistant and going through the same steps, but with the fields filled in earlier.
+A previously created saved project can be edited and/or deleted. To do this, select "Edit project" or "Delete project" in the system interface, in the main window of the project list, on the corresponding project card. Editing is only available for projects that belong to this user and have the status "ready". You can edit the name, type of use and description. The functionality of editing a project is similar to the functionality of creating a project in Step 1 with previously filled in fields.
 
 ![image](https://github.com/user-attachments/assets/9f1c7cde-c62d-432b-9a11-0397c54e6aa0)
 
@@ -188,8 +188,8 @@ The results are available as three files: a file with information about all hits
 Resources are computing nodes (personal computers or workstations, servers, computing clusters) used to perform calculations (modeling, molecular docking) for virtual screening. To solve the general problem of virtual screening, the complete database of ligands is divided into parts, forming tasks for a computing node, within which it performs molecular docking of a small number of ligands against the` target.
 There are three types of resources allocated in the system:
 - Test resources – highly reliable and affordable computing resources, provided by the system and used in a limited mode to test project settings,
-- Private resources – resources added by the user from his own available ones and used as a priority for calculating the user's projects; when choosing a closed or private project, calculations can only be performed using private resources,
-- Publicly available resources – resources of other users of the system, marked as publicly available, resources of volunteers; publicly available resources can only be used by open projects, information about the results of which is available to all users of the system.
+- Private resources – resources added by the user from his own available ones;
+- Publicly available resources – resources of other users of the system, marked as publicly available, resources of volunteers.
 To manage resources, select the appropriate section in the menu bar.
 
 ![image](https://github.com/user-attachments/assets/d3c3840c-8074-418b-8487-388464fd24bd)
