@@ -330,6 +330,7 @@ CREATE TABLE registry.search
 	name               VARCHAR(256) NOT NULL,
 	system_name        VARCHAR(64) NOT NULL,
 	description        VARCHAR(1024) NOT NULL,
+	usage_type         CHAR(1) NOT NULL,
 	target_id          INT NOT NULL,
 	library_id         INT NOT NULL,
 	docker_id          INT NOT NULL,
@@ -354,6 +355,7 @@ ALTER TABLE registry.search ADD CONSTRAINT cs_search_library_fk FOREIGN KEY(libr
 ALTER TABLE registry.search ADD CONSTRAINT cs_search_docker_fk FOREIGN KEY(docker_id) REFERENCES registry.docker(id);
 ALTER TABLE registry.search ADD CONSTRAINT cs_search_docker_protocol_fk FOREIGN KEY(docker_protocol_id) REFERENCES registry.docker_protocol(id);
 ALTER TABLE registry.search ADD CONSTRAINT cs_search_search_protocol_fk FOREIGN KEY(search_protocol_id) REFERENCES registry.search_protocol(id);
+ALTER TABLE registry.search ADD CONSTRAINT cs_search_usage_type_ck CHECK(usage_type IN('O', 'R', 'P'));
 ALTER TABLE registry.search ADD CONSTRAINT cs_search_host_usage_type_ck CHECK (host_usage_type IN('T', 'R', 'P')); 
 ALTER TABLE registry.search ADD CONSTRAINT cs_search_state_ck CHECK (state IN('P', 'U', 'L', 'A')); 
 ALTER TABLE registry.search ADD CONSTRAINT cs_search_status_ck CHECK (status IN('A', 'F'));
@@ -368,6 +370,7 @@ COMMENT ON COLUMN registry.search.docker_id IS 'Идентификатор вы�
 COMMENT ON COLUMN registry.search.docker_protocol_id IS 'Идентификатор набора параметров молекулярного докинга';
 COMMENT ON COLUMN registry.search.search_protocol_id IS 'Идентификатор набора параметров виртаульного скрининга';
 COMMENT ON COLUMN registry.search.prefix IS 'Приставка, выделяющая задачи этого поиска среди иных';
+COMMENT ON COLUMN registry.search.usage_type IS 'Вид использования: O - общая (open), R - закрытая (restricted), P - частная (private)';
 COMMENT ON COLUMN registry.search.host_usage_type IS 'Тип вычислительных ресурсов: T - тестовые (test); R - частные (private); P - общие (public)';
 COMMENT ON COLUMN registry.search.state IS 'Состояние поиска: P - создается (preparing); U - не заблокирован, можно изменять и удалять (unlocked); L - заблокирован - используется в поисках (locked); A - архивация, данные выносятся в архив (archived)';
 COMMENT ON COLUMN registry.search.status IS 'Статус поиска: A - активен, F - завершен';
