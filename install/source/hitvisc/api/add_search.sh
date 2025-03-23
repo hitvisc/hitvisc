@@ -231,7 +231,7 @@ if [[ $SEARCH_PROTOCOL_ID -le 0 ]]; then
 
 ## Create a new search with the obtained parameters
 
-SEARCH_ID=$(echo "SELECT registry.hitvisc_search_add('$SEARCH_NAME', '$SEARCH_SYSTEM_NAME', '$SEARCH_DESC', $TARGET_ID, $LIBRARY_ID, $DOCKER_ID, $DOCKER_PROTOCOL_ID, $SEARCH_PROTOCOL_ID, '$RESOURCE_TYPE', '$SEARCH_PREFIX', '$SEARCH_STATE');" | psql --dbname=hitvisc -qtA)
+SEARCH_ID=$(echo "SELECT registry.hitvisc_search_add('$SEARCH_NAME', '$SEARCH_SYSTEM_NAME', '$SEARCH_DESC', '$SEARCH_USAGE_TYPE', $TARGET_ID, $LIBRARY_ID, $DOCKER_ID, $DOCKER_PROTOCOL_ID, $SEARCH_PROTOCOL_ID, '$RESOURCE_TYPE', '$SEARCH_PREFIX', '$SEARCH_STATE');" | psql --dbname=hitvisc -qtA)
 
 if [[ $SEARCH_ID -gt 0 ]]; then
   PSQL_STATUS=$(echo "UPDATE registry.search SET state = 'U' WHERE id = $SEARCH_ID; UPDATE registry.target SET state = 'I' WHERE id = $TARGET_ID; UPDATE registry.library SET state = 'I' WHERE id = $LIBRARY_ID;" | psql --dbname=hitvisc -qtA)
@@ -242,5 +242,3 @@ else
 
 if [[ $ENTITY_MAPPING_ID -le 0 ]]; then 
   log_msg_error "unable to create mapping between front_search (id $FRONT_SEARCH_ID) and back_search (id $SEARCH_ID)"; return $CODEPSQLERR; fi
-
-
