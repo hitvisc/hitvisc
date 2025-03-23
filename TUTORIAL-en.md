@@ -271,6 +271,10 @@ After clicking the "Add Target" button, the new library will appear in the targe
 
 ![image](https://github.com/user-attachments/assets/a613b0c1-3a1e-4a43-8ff9-4e250644ba9b)
 
+### Editing and deleting targets
+
+You can edit and/or delete a previously saved target. To do this, in the system interface, in the main window of the target list, on the flashcard of the corresponding target, select the item "Edit target" or "Delete target". Editing is available only for targets that belong to this user and have the status "ready". You can edit the name, type of use, description, author and source. The functionality of editing a target is similar to the functionality of creating a target with previously filled in fields. Deletion is available only for targets that belong to this user. When deleting, the target is transferred to the status "archived".
+
 ### Ligands
 
 When you select the "Library-Ligands" section of the side menu, a list of available ligand libraries is displayed in the working window.
@@ -291,9 +295,13 @@ When filling out the form, you must provide the following information:
 - The source from which the library was obtained,
 - Library access mode (closed, private, shared),
 - The source of the ligand file – if the file size is small, it can be downloaded directly; if the file size is large, you can specify a link to it on the file sharing site.
-After clicking the "Add a collection of ligands" button, the new library will appear in the list of ligand library cards, and will also be available for selection when creating a new project.
+After clicking the "Add a ligand collection" button, the new library will appear in the list of ligand library cards, and will also be available for selection when creating a new project.
 
 ![image](https://github.com/user-attachments/assets/58355b72-593c-4cc8-ba1d-47b0fb14ac46)
+
+### Editing and deleting ligand collections
+
+You can edit and/or delete a previously saved ligand collection. To do this, in the system interface, in the main window of the ligand collection list, on the flashcard of the corresponding ligand collection, select the item "Edit ligand collection" or "Delete ligand collection". Editing is available only for ligand collections that belong to this user and have the status "ready". You can edit the name, type of use, description, author and source. The functionality of editing a ligand collection is similar to the functionality of creating a ligand collection with previously filled in fields. Deletion is available only for ligand collections that belong to this user. When deleting, the ligand collection is transferred to the status "archived".
 
 ## Auxiliary functionality
 
