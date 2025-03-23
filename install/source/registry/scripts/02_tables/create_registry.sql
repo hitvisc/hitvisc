@@ -806,8 +806,8 @@ CREATE UNIQUE INDEX idx_front_file_reference_pk ON registry.front_file_reference
 ALTER TABLE registry.front_file_reference ADD CONSTRAINT cs_front_file_reference_pk PRIMARY KEY USING INDEX idx_front_file_reference_pk;
 
 
-CREATE TYPE registry.front_target_state_enum AS ENUM ('P', 'U', 'L', 'A');
-CREATE TYPE registry.front_library_state_enum AS ENUM ('P', 'U', 'L', 'A');
+CREATE TYPE registry.front_target_state_enum AS ENUM ('P', 'U', 'L', 'A', 'I');
+CREATE TYPE registry.front_library_state_enum AS ENUM ('P', 'U', 'L', 'A', 'I');
 CREATE TYPE registry.front_search_state_enum AS ENUM ('P', 'U', 'L', 'A');
 CREATE TYPE registry.front_search_resources_type_enum AS ENUM ('T', 'R', 'P');
 CREATE TYPE registry.front_target_type_of_use_enum AS ENUM ('O', 'R', 'P');
@@ -923,4 +923,3 @@ OPTIONS (FILENAME '/app/hitvisc/main/hitvisc.conf', DELIMITER '=', FORMAT 'csv')
 
 -- Создание представления для просмотра параметров без пробелов в названиях и значениях
 CREATE VIEW registry.vw_system_parameter AS SELECT TRIM(name) AS name, TRIM(value) AS value FROM registry.system_parameter;
-
