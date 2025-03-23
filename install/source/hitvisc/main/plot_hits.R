@@ -72,7 +72,7 @@ result <- tryCatch(
       points(x=as.numeric(as.character(smain$X5)), y=as.numeric(as.character(smain$X6)), pch=8, cex=2.5, col=as.numeric(as.character(smain$X2)))
       text(x=as.numeric(as.character(smain$X5)), y=as.numeric(as.character(smain$X6)), labels=smain$X1, cex=0.7, pos=sample(c(1:4), replace=T, size=nrow(distances)))
       mtext(paste('Множество', Nlig, 'наилучших хитов разделено на', Nclusters, 'кластеров алгоритмом k-средних.\n Выделены хиты с минимальной энергией связывания.'), side=1, line=3, at=-0.12)
-    } else { stop("Too few hits"); }
+    } #else { stop("Too few hits"); }
   }, error = function(e) {
         # Handle the error
         plot.new()
