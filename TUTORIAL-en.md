@@ -257,8 +257,9 @@ Target libraries are displayed as flashcards. Each card contains the following i
 - The author or the authors,
 - The creator (the user who added the library),
 - A short description.
+  
 Editing and deleting libraries are available for libraries created by the user.
-To add a new target library, click the "Add" button of the main work window (Figure A.16) and fill out the appropriate form (Figure A.17).
+To add a new target library, click the "Add" button of the main work window and fill out the appropriate form.
 When filling out the form, you must specify the following information:
 - The name of the target library,
 - Brief description of the target library,
@@ -286,8 +287,9 @@ The ligand libraries are displayed as flashcards. Each card contains the followi
 - The author or the authors,
 - The creator (the user who added the library),
 - A short description.
+  
 Editing and deleting libraries are available for libraries created by the user.
-To add a new library of ligands, click the "Add" button in the main work window (Figure A.16) and fill out the appropriate form (Figure A.19).
+To add a new library of ligands, click the "Add" button in the main work window and fill out the appropriate form.
 When filling out the form, you must provide the following information:
 - The name of the library (collection) of ligands,
 - Brief description of the ligand library,
@@ -311,3 +313,4 @@ The auxiliary functionality of the system provides additional features for user 
 - Settings – system settings related to interaction with a specific user.
 The sections are accessed from the corresponding items in the side menu.
 
+![image](https://github.com/user-attachments/assets/aab4cb71-0743-4ed6-ab7f-9ec4cb883340)
