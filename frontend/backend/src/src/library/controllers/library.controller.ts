@@ -4,9 +4,12 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Delete,
   Get,
   HttpCode,
   Post,
+  Param,
+  Put,
   Request,
   UploadedFile,
   UseGuards,
@@ -18,6 +21,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { LibraryService } from '../services/library.service';
 import { LibraryEntity } from '../entities/library.entity';
 import { LibraryCardDto } from '../dto/library-card.dto';
+import { UpdateLibraryDto } from '../dto/update-library.dto';
 
 @Controller('api/library')
 export class LibraryController {
@@ -38,6 +42,28 @@ export class LibraryController {
       req.user.id,
     );
     return library.id;
+  }
+
+
+  @Put(':id')
+  @HttpCode(200)
+  @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(ClassSerializerInterceptor)
+  async updateLibrary(
+    @Param('id') id: number,
+    @Body() updateDto: UpdateLibraryDto,
+  ): Promise<void> {
+    await this.libraryService.updateLibrary(id, updateDto);
+  }
+
+  @Delete(':id')
+  @HttpCode(200)
+  @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(ClassSerializerInterceptor)
+  async deleteLibrary(
+    @Param('id') id: number,
+  ): Promise<void> {
+    await this.libraryService.deleteLibrary(id);
   }
 
   @Post('files')

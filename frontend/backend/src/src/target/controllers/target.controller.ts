@@ -4,9 +4,12 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Delete,
   Get,
   HttpCode,
   Post,
+  Put,
+  Param,
   Request,
   UploadedFile,
   UseGuards,
@@ -18,6 +21,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { TargetService } from '../services/target.service';
 import { TargetEntity } from '../entities/target.entity';
 import { TargetCardDto } from '../dto/target-card.dto';
+import { UpdateTargetDto } from '../dto/update-target.dto';
 
 @Controller('api/target')
 export class TargetController {
@@ -38,6 +42,27 @@ export class TargetController {
       req.user.id,
     );
     return target.id;
+  }
+
+  @Put(':id')
+  @HttpCode(200)
+  @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(ClassSerializerInterceptor)
+  async updateTarget(
+    @Param('id') id: number,
+    @Body() updateDto: UpdateTargetDto,
+  ): Promise<void> {
+    await this.targetService.updateTarget(id, updateDto);
+  }
+
+  @Delete(':id')
+  @HttpCode(200)
+  @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(ClassSerializerInterceptor)
+  async deleteTarget(
+    @Param('id') id: number,
+  ): Promise<void> {
+    await this.targetService.deleteTarget(id);
   }
 
   @Post('files/pdb')

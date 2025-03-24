@@ -1,16 +1,19 @@
 import { createReadStream, existsSync, promises } from 'fs';
 import { join } from 'path';
 import { CreateSearchDto } from '../dto/create-search.dto';
+import { UpdateSearchDto } from '../dto/update-search.dto';
 import {
   BadRequestException,
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Delete,
   Get,
   HttpCode,
   NotFoundException,
   Param,
   Post,
+  Put,
   Query,
   Request,
   Res,
@@ -132,6 +135,29 @@ export class SearchController {
       req.user.id,
     );
     return search.id;
+  }
+
+  @Put(':id')
+  @HttpCode(200)
+  @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(ClassSerializerInterceptor)
+  async updateSearch(
+    @Request() req,
+    @Param('id') id: number,
+    @Body() updateDto: UpdateSearchDto,
+  ): Promise<void> {
+    await this.searchService.updateSearch(id, updateDto, req.user.id);
+  }
+
+  @Delete(':id')
+  @HttpCode(200)
+  @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(ClassSerializerInterceptor)
+  async deleteSearch(
+    @Request() req,
+    @Param('id') id: number,
+  ): Promise<void> {
+    await this.searchService.deleteSearch(id, req.user.id);
   }
 
   @Get(':searchId/results/hits/:type')

@@ -1,10 +1,11 @@
 import { In, Repository } from 'typeorm';
 import { join } from 'path';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, HttpException, HttpStatus } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { FilesService } from '../../files/services/files.service';
 import { CreateLibraryDto } from '../dto/create-library.dto';
+import { UpdateLibraryDto } from '../dto/update-library.dto';
 import { LibraryEntity } from '../entities/library.entity';
 import { TypeOfUse } from '../../core/enums/type-of-use';
 import { ShellService } from '../../shell/services/shell.service';
@@ -174,11 +175,11 @@ export class LibraryService {
     return await this.libraryRepository.find({
       where: [
         {
-          state: EntityState.Ready,
+          state: In([EntityState.Ready, EntityState.InUse]),
           typeOfUse: TypeOfUse.Public,
         },
         {
-          state: EntityState.Ready,
+          state: In([EntityState.Ready, EntityState.InUse]),
           createdBy: userId,
         },
       ],
@@ -187,5 +188,161 @@ export class LibraryService {
       },
       take: 500,
     });
+  }
+
+  async updateLibraryState(id: number, state: EntityState): Promise<void> {
+    const library = await this.libraryRepository.findOneBy({ id });
+    if (!library) {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.NOT_FOUND,
+          message: `Library with id ${id} not found`,
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    library.state = state;
+    await this.libraryRepository.save(library);
+  }
+
+  async updateLibrary(id: number, updateDto: UpdateLibraryDto) {
+    const library = await this.libraryRepository.findOneBy({ id });
+    if (!library) {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.NOT_FOUND,
+          message: `Library with id ${id} not found`,
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    if (library.state !== EntityState.Ready) {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.FORBIDDEN,
+          message: `Library with id ${id} not allowed to update`,
+        },
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
+    const ok = await this.runUpdateLibaryScript(
+      library,
+      updateDto,
+    );
+
+    if (ok) {
+      library.name = updateDto.name;
+      library.typeOfUse = updateDto.typeOfUse;
+      library.description = updateDto.description;
+      library.authors = updateDto.authors;
+      library.source = updateDto.source;
+
+      await this.libraryRepository.save(library);
+    } else {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.BAD_REQUEST,
+          message: `Libary with id ${id} not update`,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  async runUpdateLibaryScript(library: LibraryEntity, updateDto: UpdateLibraryDto) {
+    const scriptPath = this.configService.get<string>(
+      'UPDATE_LIBRARY_SCRIPT_PATH',
+    );
+    if (!scriptPath) {
+      this.logger.error('update library script path is not set');
+    }
+    const command = [
+      scriptPath,
+      library.id,
+      `"${updateDto.name}"`,
+      updateDto.typeOfUse,
+      `"${updateDto.description}"`,
+      `"${updateDto.authors}"`,
+      `"${updateDto.source}"`,
+    ].join(' ');
+    this.logger.debug('update library command:', command);
+
+    try {
+      const { stdout, stderr } = await this.shellService.runShellCommand(
+        command,
+      );
+      if (stderr) {
+        this.logger.error('update library stderr:', stderr);
+        return false;
+      } else {
+        this.logger.log('update library stdout:', stdout);
+      }
+    } catch (e) {
+      this.logger.error('update library error:', e);
+      return false;
+    }
+
+    return true;
+  }
+
+  async deleteLibrary(id: number) {
+    const library = await this.libraryRepository.findOneBy({ id });
+    if (!library) {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.NOT_FOUND,
+          message: `Library with id ${id} not found`,
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    const ok = await this.runDeleteLibaryScript(id);
+
+    if (ok) {
+      library.state = EntityState.Archived;
+      await this.libraryRepository.save(library);
+    } else {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.BAD_REQUEST,
+          message: `Libary with id ${id} not delete`,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  async runDeleteLibaryScript(id: number) {
+    const scriptPath = this.configService.get<string>(
+      'DELETE_LIBRARY_SCRIPT_PATH',
+    );
+    if (!scriptPath) {
+      this.logger.error('delete library script path is not set');
+    }
+    const command = [
+      scriptPath,
+      id,
+    ].join(' ');
+    this.logger.debug('delete library command:', command);
+
+    try {
+      const { stdout, stderr } = await this.shellService.runShellCommand(
+        command,
+      );
+      if (stderr) {
+        this.logger.error('delete library stderr:', stderr);
+        return false;
+      } else {
+        this.logger.log('delete library stdout:', stdout);
+      }
+    } catch (e) {
+      this.logger.error('delete library error:', e);
+      return false;
+    }
+
+    return true;
   }
 }

@@ -1,10 +1,11 @@
 import { In, Repository } from 'typeorm';
 import { join } from 'path';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException, HttpException, HttpStatus } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { FilesService } from '../../files/services/files.service';
 import { CreateSearchDto } from '../dto/create-search.dto';
+import { UpdateSearchDto } from '../dto/update-search.dto';
 import { SearchEntity } from '../entities/search.entity';
 import { TypeOfUse } from '../../core/enums/type-of-use';
 import { ShellService } from '../../shell/services/shell.service';
@@ -18,6 +19,8 @@ import { CmDockProtocolSource } from '../enums/cm-dock-protocol-source';
 import { mapBooleanToFlag } from '../../shell/util';
 import { HitviscSearchEntity } from '../entities/hitvisc-search.entity';
 import { EntityMappingService } from '../../entity-mapping/services/entity-mapping.service';
+import { LibraryService } from '../../library/services/library.service';
+import { TargetService } from '../../target/services/target.service';
 
 const ONE_MEGABYTE = 1_000_000;
 
@@ -34,6 +37,8 @@ export class SearchService {
     private readonly configService: ConfigService,
     private readonly filesService: FilesService,
     private readonly shellService: ShellService,
+    private readonly libraryService: LibraryService,
+    private readonly targetService: TargetService,
   ) {}
 
   async uploadAutoDockVinaProtocolFile(
@@ -236,6 +241,11 @@ export class SearchService {
     );
     search.state = ok ? EntityState.Ready : EntityState.Locked;
     await this.searchRepository.save(search);
+
+    if (ok) {
+      this.libraryService.updateLibraryState(search.libraryId, EntityState.InUse);
+      this.targetService.updateTargetState(search.targetId, EntityState.InUse);
+    }
 
     return search;
   }
@@ -554,5 +564,152 @@ export class SearchService {
     return await this.hitviscSearchRepository.findBy({
       id: In(ids),
     });
+  }
+
+  async updateSearch(id: number, updateDto: UpdateSearchDto, userId: number) {
+    const search = await this.searchRepository.findOneBy([
+      {
+        id,
+        createdBy: userId,
+      },
+    ])
+    if (!search) {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.NOT_FOUND,
+          message: `Project with id ${id} not found`,
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    if (search.state !== EntityState.Ready) {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.FORBIDDEN,
+          message: `Project with id ${id} not allowed to update`,
+        },
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
+    const ok = await this.runUpdateSearchScript(
+      search,
+      updateDto,
+    );
+
+    if (ok) {
+      search.name = updateDto.name;
+      search.typeOfUse = updateDto.typeOfUse;
+      search.description = updateDto.description;
+
+      await this.searchRepository.save(search);
+    } else {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.BAD_REQUEST,
+          message: `Project with id ${id} not update`,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  async runUpdateSearchScript(search: SearchEntity, updateDto: UpdateSearchDto) {
+    const scriptPath = this.configService.get<string>(
+      'UPDATE_SEARCH_SCRIPT_PATH',
+    );
+    if (!scriptPath) {
+      this.logger.error('update search script path is not set');
+    }
+    const command = [
+      scriptPath,
+      search.id,
+      `"${updateDto.name}"`,
+      updateDto.typeOfUse,
+      `"${updateDto.description}"`,
+    ].join(' ');
+    this.logger.debug('update search command:', command);
+
+    try {
+      const { stdout, stderr } = await this.shellService.runShellCommand(
+        command,
+      );
+      if (stderr) {
+        this.logger.error('update search stderr:', stderr);
+        return false;
+      } else {
+        this.logger.log('update search stdout:', stdout);
+      }
+    } catch (e) {
+      this.logger.error('update search error:', e);
+      return false;
+    }
+
+    return true;
+  }
+
+  async deleteSearch(id: number, userId: number) {
+    const search = await this.searchRepository.findOneBy([
+      {
+        id,
+        createdBy: userId,
+      },
+    ])
+    if (!search) {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.NOT_FOUND,
+          message: `Project with id ${id} not found`,
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    const ok = await this.runDeleteSearchScript(id);
+
+    if (ok) {
+      search.state = EntityState.Archived;
+      await this.searchRepository.save(search);
+    } else {
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.BAD_REQUEST,
+          message: `Project with id ${id} not delete`,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  async runDeleteSearchScript(id: number) {
+    const scriptPath = this.configService.get<string>(
+      'DELETE_SEARCH_SCRIPT_PATH',
+    );
+    if (!scriptPath) {
+      this.logger.error('delete search script path is not set');
+    }
+    const command = [
+      scriptPath,
+      id,
+    ].join(' ');
+    this.logger.debug('delete search command:', command);
+
+    try {
+      const { stdout, stderr } = await this.shellService.runShellCommand(
+        command,
+      );
+      if (stderr) {
+        this.logger.error('delete search stderr:', stderr);
+        return false;
+      } else {
+        this.logger.log('delete search stdout:', stdout);
+      }
+    } catch (e) {
+      this.logger.error('delete search error:', e);
+      return false;
+    }
+
+    return true;
   }
 }

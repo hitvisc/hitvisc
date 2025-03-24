@@ -3,4 +3,5 @@ export enum EntityState {
   Ready = 'U',
   Locked = 'L',
   Archived = 'A',
+  InUse = 'I'
 }
