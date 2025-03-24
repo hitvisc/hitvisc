@@ -21,17 +21,14 @@
 
 # Arguments: FRONT_TARGET_ID
 
-FRONT_TARGET_ID="$1"; if [[ ! $FRONT_TARGET_ID -gt 0 ]]; then
-  log_msg_error "invalid value of FRONT_TARGET_ID ($FRONT_TARGET_ID)"; return $CODEARGERR; fi
+FRONT_TARGET_ID="$1"; #if [[ ! $FRONT_TARGET_ID -gt 0 ]]; then
+  #log_msg_error "invalid value of FRONT_TARGET_ID ($FRONT_TARGET_ID)"; return $CODEARGERR; fi
 
 TARGET_ID=$(echo "SELECT back_entity_id FROM registry.entity_mapping WHERE front_entity_id = $FRONT_TARGET_ID AND entity_type = 'T'" | psql --dbname=hitvisc -qtA)
 
-if [[ ! $TARGET_ID -gt 0 ]]; then
-  log_msg_error "invalid value of TARGET_ID ($TARGET_ID)"; return $CODEARGERR; fi
+#if [[ ! $TARGET_ID -gt 0 ]]; then
+#  log_msg_error "invalid value of TARGET_ID ($TARGET_ID)"; return $CODEARGERR; fi
 
-PSQL_STATUS=$(echo "UPDATE registry.target SET state = 'A' WHERE id = $TARGET_ID" | psql --dbname=hitvisc -qtA)
-
-if [[ ! "$PSQL_STATUS" -gt 0 ]]; then
-  log_msg_error "unable to archive the target ($TARGET_ID)"
-  exit 1
+if [[ $TARGET_ID -gt 0 ]]; then
+  PSQL_STATUS=$(echo "UPDATE registry.target SET state = 'A' WHERE id = $TARGET_ID" | psql --dbname=hitvisc -qtA)
 fi

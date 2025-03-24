@@ -21,17 +21,14 @@
 
 # Arguments: FRONT_SEARCH_ID
 
-FRONT_SEARCH_ID="$1"; if [[ ! $FRONT_SEARCH_ID -gt 0 ]]; then
-  log_msg_error "invalid value of FRONT_SEARCH_ID ($FRONT_SEARCH_ID)"; return $CODEARGERR; fi
+FRONT_SEARCH_ID="$1"; #if [[ ! $FRONT_SEARCH_ID -gt 0 ]]; then
+  #log_msg_error "invalid value of FRONT_SEARCH_ID ($FRONT_SEARCH_ID)"; return $CODEARGERR; fi
 
 SEARCH_ID=$(echo "SELECT back_entity_id FROM registry.entity_mapping WHERE front_entity_id = $FRONT_SEARCH_ID AND entity_type = 'S'" | psql --dbname=hitvisc -qtA)
 
-if [[ ! $SEARCH_ID -gt 0 ]]; then
-  log_msg_error "invalid value of SEARCH_ID ($SEARCH_ID)"; return $CODEARGERR; fi
+#if [[ ! $SEARCH_ID -gt 0 ]]; then
+#  log_msg_error "invalid value of SEARCH_ID ($SEARCH_ID)"; return $CODEARGERR; fi
 
-PSQL_STATUS=$(echo "UPDATE registry.search SET state = 'A' WHERE id = $SEARCH_ID" | psql --dbname=hitvisc -qtA)
-
-if [[ ! "$PSQL_STATUS" -gt 0 ]]; then
-  log_msg_error "unable to archive the search ($SEARCH_ID)"
-  exit 1
+if [[ $SEARCH_ID -gt 0 ]]; then
+  PSQL_STATUS=$(echo "UPDATE registry.search SET state = 'A' WHERE id = $SEARCH_ID" | psql --dbname=hitvisc -qtA)
 fi

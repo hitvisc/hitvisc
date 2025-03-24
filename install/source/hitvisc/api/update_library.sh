@@ -34,6 +34,6 @@ LIBRARY_SOURCE="$6"; if [ ${#LIBRARY_SOURCE} -gt 256 ]; then log_msg_error "LIBR
 LIBRARY_ID=$(echo "SELECT back_entity_id FROM registry.entity_mapping WHERE front_entity_id = $FRONT_LIBRARY_ID AND entity_type = 'L'" | psql --dbname=hitvisc -qtA)
 
 if [[ $LIBRARY_ID -gt 0 ]]; then
-  PSQL_STATUS=$(echo "UPDATE registry.library SET name = '$LIBRARY_NAME', usage_type = '$LIBRARY_USAGE_TYPE', description = '$LIBRARY_DESC', author = '$LIBRARY_AUTHOR', source = '$LIBRARY_SOURCE' WHERE id = $LIBRARY_ID" | psql --dbname=hitvisc -qtA)
+  PSQL_STATUS=$(echo "UPDATE registry.library SET name = '$LIBRARY_NAME', usage_type = '$LIBRARY_USAGE_TYPE', description = '$LIBRARY_DESC', authors = '$LIBRARY_AUTHOR', source = '$LIBRARY_SOURCE' WHERE id = $LIBRARY_ID" | psql --dbname=hitvisc -qtA)
 else
-  log_msg_error "unable to update library (cmd: UPDATE registry.library SET name = '$LIBRARY_NAME', usage_type = '$LIBRARY_USAGE_TYPE', description = '$LIBRARY_DESC', author = '$LIBRARY_AUTHOR', source = '$LIBRARY_SOURCE' WHERE id = $LIBRARY_ID)"; return $CODEPSQLERR; fi
+  log_msg_error "unable to update library (cmd: UPDATE registry.library SET name = '$LIBRARY_NAME', usage_type = '$LIBRARY_USAGE_TYPE', description = '$LIBRARY_DESC', authors = '$LIBRARY_AUTHOR', source = '$LIBRARY_SOURCE' WHERE id = $LIBRARY_ID)"; return $CODEPSQLERR; fi

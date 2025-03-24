@@ -34,6 +34,6 @@ TARGET_SOURCE="$6"; if [ ${#TARGET_SOURCE} -gt 256 ]; then log_msg_error "TARGET
 TARGET_ID=$(echo "SELECT back_entity_id FROM registry.entity_mapping WHERE front_entity_id = $FRONT_TARGET_ID AND entity_type = 'T'" | psql --dbname=hitvisc -qtA)
 
 if [[ $TARGET_ID -gt 0 ]]; then
-  PSQL_STATUS=$(echo "UPDATE registry.target SET name = '$TARGET_NAME', usage_type = '$TARGET_USAGE_TYPE', description = '$TARGET_DESC', author = '$TARGET_AUTHOR', source = '$TARGET_SOURCE' WHERE id = $TARGET_ID" | psql --dbname=hitvisc -qtA)
+  PSQL_STATUS=$(echo "UPDATE registry.target SET name = '$TARGET_NAME', usage_type = '$TARGET_USAGE_TYPE', description = '$TARGET_DESC', authors = '$TARGET_AUTHOR', source = '$TARGET_SOURCE' WHERE id = $TARGET_ID" | psql --dbname=hitvisc -qtA)
 else
-  log_msg_error "unable to update target (cmd: UPDATE registry.target SET name = '$TARGET_NAME', usage_type = '$TARGET_USAGE_TYPE', description = '$TARGET_DESC', author = '$TARGET_AUTHOR', source = '$TARGET_SOURCE' WHERE id = $TARGET_ID)"; return $CODEPSQLERR; fi
+  log_msg_error "unable to update target (cmd: UPDATE registry.target SET name = '$TARGET_NAME', usage_type = '$TARGET_USAGE_TYPE', description = '$TARGET_DESC', authors = '$TARGET_AUTHOR', source = '$TARGET_SOURCE' WHERE id = $TARGET_ID)"; return $CODEPSQLERR; fi
