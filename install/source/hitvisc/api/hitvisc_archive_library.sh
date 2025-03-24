@@ -34,4 +34,4 @@ EXITCODE=$?
 if [ $EXITCODE -ne $CODESUCCESS ]; then
   let ERRCODE=$EXITCODE-256; echo $ERRCODE; exit $EXITCODE; fi
 
-if [ -z $LIBRARY_ID ] || [ $LIBRARY_ID -le 0 ]; then echo $CODEOTHERERR; exit $CODEOTHERERR; fi
+#if [ -z $LIBRARY_ID ] || [ $LIBRARY_ID -le 0 ]; then echo $CODEOTHERERR; exit $CODEOTHERERR; fi
