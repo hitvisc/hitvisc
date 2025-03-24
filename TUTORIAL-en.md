@@ -119,7 +119,7 @@ The menu bar consists of the following sections:
 - Notifications – User notifications about events in projects, such as completing a certain number of tasks or discovering a certain number of hits in the user's projects,
 - Settings – system settings related to interaction with the user.
 
-![image](https://github.com/user-attachments/assets/e565fb58-7abb-45ae-8d82-debdb56e44ca)
+![image](https://github.com/hitvisc/hitvisc/blob/main/img/tutorial_overview.png)
 
 The main functionality of the system is related to the creation of virtual screening projects. Available for users:
 - Projects creation,
