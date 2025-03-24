@@ -5,38 +5,38 @@ _Working computer_ is the computer of the system administrator, from which the p
 1. Download the source code and prepare the _working computer_:
 
 ```
-# Убедиться, что находимся в рабочей директории: например, /home/user/work
+# Make sure that we are in the working directory, for example, /home/user/work
 git clone https://github.com/hitvisc/hitvisc.git
 cd hitvisc/install
-ssh-keygen -t ed25519 #(3 раза нажать Enter для установки директории с ключами по умолчанию и пустого пароля)
+ssh-keygen -t ed25519 #(press Enter 3 times to choose the default directory for SSH keys and an empty password)
 cat ~/.ssh/id_ed25519 > keys/ansible.key
 chmod 600 keys/ansible.key
-cat ~/.ssh/id_ed25519.pub #(скопировать содержимое публичного ключа для шага 2)
+cat ~/.ssh/id_ed25519.pub #(copy the public key contents for step 2)
 sudo apt-get update && sudo apt install ansible
 ```
 
 2. Prepare the _remote server_ for work. Let's assume that the administrator account (root) is accessible via ssh at the IP address [IP address] with password ansibleRootPasswd. During the installation process, there will be created a user account named ansible, with password ansiblePasswd, on the server.
 
 ```
-ssh root@[IP address] #(ввести пароль пользователя root - ansibleRootPasswd)
+ssh root@[IP address] #(enter root's password - ansibleRootPasswd)
 useradd -m --shell /bin/bash ansible && usermod -a -G sudo ansible && echo "ansible ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && apt-get update && apt install -y git vim 
-passwd ansible #(ввести пароль для создаваемого пользователя - ansiblePasswd)
-hostname #(выведенное имя хоста понадобится для установки параметров на рабочем компьютере на шаге 3)
+passwd ansible #(enter the password for the created user - ansiblePasswd)
+hostname #(the printed host name will be used to setup the parameters on the working computer at step 3)
 
 su ansible
 mkdir -p ~/.ssh
-vim ~/.ssh/authorized_keys #(вставить с новой строки содержимое публичного ключа рабочего компьютера, скопированное на шаге 1)
+vim ~/.ssh/authorized_keys #(insert, from a new line, the public key contents copied at step 1)
 ```
 
 3. Set up access settings to the remote server on your _working computer_:
 
 ```
-# Убедиться, что находимся в рабочей директории: например, /home/user/work
+# Make sure that we are in the working directory, for example, /home/user/work
 cd hitvisc/install
 cp group_vars/TargetServers.example group_vars/TargetServers
-vim group_vars/TargetServers #(установить в файле group_vars/TargetServers актуальные параметры boinc_project_host, boinc_url_base и boinc_db_host, используя имя хоста и внешний ip-адрес удаленного сервера [IP address])
+vim group_vars/TargetServers #(setup in file group_vars/TargetServers actual parameters of boinc_project_host, boinc_url_base and boinc_db_host, using the host name and external IP of the remote server [IP address])
 cp source/hitvisc/main/hitvisc.conf.example source/hitvisc/main/hitvisc.conf 
-vim inventory.txt #(установить в файле inventory.txt имя хоста и внешний ip-адрес удаленного сервера [IP address])
+vim inventory.txt #(setup in file inventory.txt the host name and external IP of the remote server [IP address])
 ```
 
 If you wish, you can set your own parameter values ​​in the group_vars/TargetServers and source/hitvisc/main/hitvisc.conf files.
@@ -60,7 +60,7 @@ The deployment of the back-end part of the System is provided by Ansible scripts
 To install the back-end, the following set of commands is executed on the _working computer_:
 
 ```
-# Убедиться, что находимся в рабочей директории: например, /home/user/work
+# Make sure that we are in the working directory, for example, /home/user/work
 cd hitvisc/install
 ansible-playbook -K hitvisc-install.yml && ansible-playbook -K postgresql-install.yml \
  && ansible-playbook -K hitvisc-main-install.yml && ansible-playbook -K boinc-install.yml \
@@ -73,7 +73,7 @@ As a result of successful execution of the commands, all necessary system direct
 5. Install the front-end settings on the _remote server_.
 
 ```
-vim /app/hitvisc/front/pm2.production.config.js #(установить актуальные настройки)
+vim /app/hitvisc/front/pm2.production.config.js #(setup actual parameters)
 ```
 
 In the settings file ``/app/hitvisc/front/pm2.production.config.js``, the following group of parameters sets the rules for accessing the e-mail account that will be used in the system to confirm user registrations/password recovery:
@@ -87,7 +87,7 @@ In the settings file ``/app/hitvisc/front/pm2.production.config.js``, the follow
 6. Complete the System preparation on the _working computer_.
 
 ```
-# Убедиться, что находимся в рабочей директории: например, /home/user/work
+# Make sure that we are in the working directory, for example, /home/user/work
 cd hitvisc/install
 ansible-playbook hitvisc-finalize.yml
 ```
@@ -95,7 +95,7 @@ ansible-playbook hitvisc-finalize.yml
 After successful installation of the back-end and front-end parts of the System, the user web interface of the System is accessible from a web browser at an address of the form http://ADDRESS:PORT, in which the substring ADDRESS is specified on the _working computer_ in the file install/inventory.txt in the variable
 
 ```
-ansible_host=<ip-адрес удаленного сервера>
+ansible_host=<ip address of the remote server>
 ```
 
 and the PORT substring is specified on the _remote server_ in the /app/hitvisc/front/pm2.production.config.js file in the variable
@@ -103,7 +103,7 @@ and the PORT substring is specified on the _remote server_ in the /app/hitvisc/f
 ```
 PORT: <web port number>
 ```
-(8080 by default). В веб-интерфейсе доступна как регистрация новой учетной записи, так и вход по предустановленной учетной записи (adm.hitvisc@yandex.ru, password).
+(8080 by default). Web interface provides the ability to register a new account as well as login using a predefined account (adm.hitvisc@yandex.ru, password).
 
 
 ## General system interface
