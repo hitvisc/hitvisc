@@ -1,12 +1,12 @@
 <template>
   <x-modal
     v-model="isVisible"
-    :title="$t('ligand.deletor.title')"
+    :title="$t('projects.deletor.title')"
     width="500px"
     :has-footer="false"
   >
     <p>
-      {{ $t('ligand.deletor.text', { name: libraryName }) }}
+      {{ $t('projects.deletor.text', { name: searchName }) }}
     </p>
 
     <div class="form-footer">
@@ -15,7 +15,7 @@
         class="btn btn-ghost-secondary w-50"
         @click="() => reset()"
       >
-        {{ $t('ligand.deletor.cancelBtn') }}
+        {{ $t('projects.deletor.cancelBtn') }}
       </button>
 
       <button
@@ -23,7 +23,7 @@
         class="btn btn-danger w-50"
         @click="() => confirmDelete()"
       >
-        {{ $t('ligand.deletor.submitBtn') }}
+        {{ $t('projects.deletor.submitBtn') }}
       </button>
     </div>
   </x-modal>
@@ -31,7 +31,7 @@
 
 <script lang="ts" setup>
 import axios from 'axios';
-import { LibraryService } from '~/app-modules/library/services/library.service';
+import { SearchService } from '~/app-modules/projects/services/search.service';
 
 const emit = defineEmits<{
   deleted: [];
@@ -40,19 +40,19 @@ const emit = defineEmits<{
 const { t } = useI18n();
 
 const isVisible = ref(false);
-const libraryId = ref(0);
-const libraryName = ref('');
+const searchId = ref(0);
+const searchName = ref('');
 
-const libraryService = useIOC(LibraryService);
+const searchService = useIOC(SearchService);
 
 async function confirmDelete() {
   try {
-    await libraryService.deleteLibrary(libraryId.value);
+    await searchService.deleteSearch(searchId.value);
     emit('deleted');
     reset();
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      useToast().warning('Ошибка удаления коллекции лигандов');
+      useToast().warning('Ошибка удаления проекта');
     } else {
       throw error;
     }
@@ -60,8 +60,8 @@ async function confirmDelete() {
 }
 
 function open(id: number, name: string) {
-  libraryId.value = id;
-  libraryName.value = name;
+  searchId.value = id;
+  searchName.value = name;
   isVisible.value = true;
 }
 

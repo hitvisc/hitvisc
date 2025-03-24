@@ -167,7 +167,7 @@
         </div>
 
         <div
-          v-if="!preview"
+          v-if="!preview && (isOwner || !isSearchPrivate)"
           class="col-12 col-lg-6"
         >
           <div class="row align-items-center py-1 result-link">
@@ -225,7 +225,7 @@
     </div>
 
     <div
-      v-if="preview"
+      v-if="preview && (isOwner || !isSearchPrivate)"
       class="card-footer card-footer-transparent"
     >
       <button
@@ -254,6 +254,7 @@ import { UsersStoreProvider } from '~/app-modules/users/stores/users.store';
 import { SearchClient } from '~/app-modules/projects/clients/search.client';
 import { getEntityStateClass } from '~/app-modules/core/helpers/entity';
 import { EntityState } from '~/app-modules/core/enums/EntityState';
+import { TypeOfUse } from '~/app-modules/core/enums/TypeOfUse';
 
 const emit = defineEmits<{
   toggleFavourite: [];
@@ -278,6 +279,7 @@ const usersStore = useIOC(UsersStoreProvider).getStore();
 
 const isOwner = computed(() => search.value.creatorId === usersStore.currentUser?.id);
 const isSearchReady = computed(() => search.value.state === EntityState.Ready);
+const isSearchPrivate = computed(() => search.value.typeOfUse === TypeOfUse.Private);
 
 async function onSearchResultsDownload(type: string) {
   const userId = usersStore.currentUser?.id;

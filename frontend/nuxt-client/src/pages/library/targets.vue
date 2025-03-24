@@ -43,6 +43,11 @@
             @updated="() => fetchTargets()"
           />
 
+          <target-confirm-delete
+            ref="targetConfirmDeleteRef"
+            @deleted="() => fetchTargets()"
+          />
+
           <div class="library-items">
             <library-target-card
               v-for="target in targets"
@@ -65,6 +70,7 @@ import TargetCreator from '~/app-modules/library/components/target-creator.vue';
 import { TargetCardDto } from '~/app-modules/library/clients/dto/target.dto';
 import { TargetService } from '~/app-modules/library/services/target.service';
 import TargetEditor from '~/app-modules/library/components/target-editor.vue';
+import TargetConfirmDelete from '~/app-modules/library/components/target-confirm-delete.vue';
 
 const targetCreatorRef = ref<InstanceType<typeof TargetCreator> | null>(null);
 
@@ -101,8 +107,9 @@ function onEdit(_target: TargetCardDto) {
   targetEditorRef.value?.open(_target);
 }
 
+const targetConfirmDeleteRef = ref<InstanceType<typeof TargetConfirmDelete> | null>(null);
+
 async function onDelete(_target: TargetCardDto) {
-  useToast().info(t('inWork.title'));
-  await fetchTargets();
+  targetConfirmDeleteRef.value?.open(_target.id, _target.name);
 }
 </script>

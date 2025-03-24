@@ -19,7 +19,12 @@
 
     <projects-editor
       ref="searchEditorRef"
-      @updated="onSearchUpdated"
+      @updated="() => fetchProjects()"
+    />
+
+    <search-confirm-delete
+      ref="searchConfirmDeleteRef"
+      @deleted="() => fetchProjects()"
     />
 
     <div class="container-xl">
@@ -43,6 +48,7 @@ import axios from 'axios';
 import { SearchCardDto } from '~/app-modules/projects/clients/dto/search.dto';
 import { SearchService } from '~/app-modules/projects/services/search.service';
 import SearchEditor from '~/app-modules/projects/components/editor.vue';
+import SearchConfirmDelete from '~/app-modules/projects/components/search-confirm-delete.vue';
 
 const search: Ref<SearchCardDto | undefined> = ref();
 
@@ -78,12 +84,9 @@ function onEdit(_search: SearchCardDto) {
   searchEditorRef.value?.open(_search);
 }
 
-async function onDelete(_search: SearchCardDto) {
-  useToast().info(t('inWork.title'));
-  await fetchProjects();
-}
+const searchConfirmDeleteRef = ref<InstanceType<typeof SearchConfirmDelete> | null>(null);
 
-async function onSearchUpdated() {
-  await fetchProjects();
+async function onDelete(_search: SearchCardDto) {
+  searchConfirmDeleteRef.value?.open(_search.id, _search.name);
 }
 </script>

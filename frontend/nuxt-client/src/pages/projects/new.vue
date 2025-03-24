@@ -298,7 +298,7 @@
                                   :class="{
                                     'is-invalid':
                                       errors[
-                                        'application.autoDockVinaOptions.gridSpaceDimensions.x'
+                                      'application.autoDockVinaOptions.gridSpaceDimensions.x'
                                       ],
                                   }"
                                   autocomplete="off"
@@ -316,7 +316,7 @@
                                   :class="{
                                     'is-invalid':
                                       errors[
-                                        'application.autoDockVinaOptions.gridSpaceDimensions.y'
+                                      'application.autoDockVinaOptions.gridSpaceDimensions.y'
                                       ],
                                   }"
                                   autocomplete="off"
@@ -334,7 +334,7 @@
                                   :class="{
                                     'is-invalid':
                                       errors[
-                                        'application.autoDockVinaOptions.gridSpaceDimensions.z'
+                                      'application.autoDockVinaOptions.gridSpaceDimensions.z'
                                       ],
                                   }"
                                   autocomplete="off"
@@ -1180,14 +1180,14 @@
                 >
                   {{ t('projects.creator.start') }}
                 </button>
-                <button
+                <!-- <button
                   type="button"
                   class="btn btn-ghost-secondary"
                   :disabled="lastApprovedStep !== 3"
                   @click="() => onDelay()"
                 >
                   {{ t('projects.creator.save') }}
-                </button>
+                </button> -->
               </div>
             </projects-create-form-step>
           </div>
@@ -1805,55 +1805,55 @@ function getCreateSearchDto(options: { launch: boolean } = { launch: true }): cr
   const autoDockVinaParameters =
     values.application.id === ApplicationType.AutoDockVina
       ? {
-          inputType: autoDockVinaProtocolSource,
-          protocolFileId:
-            autoDockVinaProtocolSource === AutoDockVinaProtocolSource.File
-              ? values.application.autoDockVinaOptions.file
-              : null,
-          centerX: values.application.autoDockVinaOptions.gridSpaceCenter.x,
-          centerY: values.application.autoDockVinaOptions.gridSpaceCenter.y,
-          centerZ: values.application.autoDockVinaOptions.gridSpaceCenter.z,
-          sizeX: values.application.autoDockVinaOptions.gridSpaceDimensions.x,
-          sizeY: values.application.autoDockVinaOptions.gridSpaceDimensions.y,
-          sizeZ: values.application.autoDockVinaOptions.gridSpaceDimensions.z,
-          exhaustiveness: values.application.autoDockVinaOptions.exhaustiveness,
-          nmodes: values.application.autoDockVinaOptions.numberOfModes,
-          erange: values.application.autoDockVinaOptions.energyRange,
-        }
+        inputType: autoDockVinaProtocolSource,
+        protocolFileId:
+          autoDockVinaProtocolSource === AutoDockVinaProtocolSource.File
+            ? values.application.autoDockVinaOptions.file
+            : null,
+        centerX: values.application.autoDockVinaOptions.gridSpaceCenter.x,
+        centerY: values.application.autoDockVinaOptions.gridSpaceCenter.y,
+        centerZ: values.application.autoDockVinaOptions.gridSpaceCenter.z,
+        sizeX: values.application.autoDockVinaOptions.gridSpaceDimensions.x,
+        sizeY: values.application.autoDockVinaOptions.gridSpaceDimensions.y,
+        sizeZ: values.application.autoDockVinaOptions.gridSpaceDimensions.z,
+        exhaustiveness: values.application.autoDockVinaOptions.exhaustiveness,
+        nmodes: values.application.autoDockVinaOptions.numberOfModes,
+        erange: values.application.autoDockVinaOptions.energyRange,
+      }
       : null;
 
   const cmDockProtocolSource = values.application.cmDockOptions.inputType;
   const cmDockParameters =
     values.application.id === ApplicationType.CmDock
       ? {
-          inputType: cmDockProtocolSource,
-          protocolFileId:
-            cmDockProtocolSource === CmDockProtocolSource.File
-              ? values.application.cmDockOptions.protocolFile
-              : null,
-          siteParamsFileId:
-            cmDockProtocolSource === CmDockProtocolSource.File
-              ? values.application.cmDockOptions.siteParamsFile
-              : null,
-          filterParamsFileId:
-            cmDockProtocolSource === CmDockProtocolSource.File
-              ? values.application.cmDockOptions.filterParamsFile
-              : null,
-          referenceLigandFileId:
-            cmDockProtocolSource === CmDockProtocolSource.ManualLigand
-              ? values.application.cmDockOptions.ligandFile
-              : null,
-          cavRadius: values.application.cmDockOptions.cavityMappingRegion.radius,
-          smallSphereRadius: values.application.cmDockOptions.cavityMappingRegion.smallSphereRadius,
-          maxCav: values.application.cmDockOptions.cavityMappingRegion.maximumCavities,
-          minVol: values.application.cmDockOptions.cavityMappingRegion.minimalVolume,
-          volInc: values.application.cmDockOptions.cavityMappingRegion.volumeIncrement,
-          centerX: values.application.cmDockOptions.center.x,
-          centerY: values.application.cmDockOptions.center.y,
-          centerZ: values.application.cmDockOptions.center.z,
-          largeSphereRadius: values.application.cmDockOptions.largeSphereRadius,
-          step: values.application.cmDockOptions.gridStep,
-        }
+        inputType: cmDockProtocolSource,
+        protocolFileId:
+          cmDockProtocolSource === CmDockProtocolSource.File
+            ? values.application.cmDockOptions.protocolFile
+            : null,
+        siteParamsFileId:
+          cmDockProtocolSource === CmDockProtocolSource.File
+            ? values.application.cmDockOptions.siteParamsFile
+            : null,
+        filterParamsFileId:
+          cmDockProtocolSource === CmDockProtocolSource.File
+            ? values.application.cmDockOptions.filterParamsFile
+            : null,
+        referenceLigandFileId:
+          cmDockProtocolSource === CmDockProtocolSource.ManualLigand
+            ? values.application.cmDockOptions.ligandFile
+            : null,
+        cavRadius: values.application.cmDockOptions.cavityMappingRegion.radius,
+        smallSphereRadius: values.application.cmDockOptions.cavityMappingRegion.smallSphereRadius,
+        maxCav: values.application.cmDockOptions.cavityMappingRegion.maximumCavities,
+        minVol: values.application.cmDockOptions.cavityMappingRegion.minimalVolume,
+        volInc: values.application.cmDockOptions.cavityMappingRegion.volumeIncrement,
+        centerX: values.application.cmDockOptions.center.x,
+        centerY: values.application.cmDockOptions.center.y,
+        centerZ: values.application.cmDockOptions.center.z,
+        largeSphereRadius: values.application.cmDockOptions.largeSphereRadius,
+        step: values.application.cmDockOptions.gridStep,
+      }
       : null;
 
   return {
@@ -1917,7 +1917,7 @@ async function validateFields() {
 .accordion-item {
   background: white;
 
-  & + & {
+  &+& {
     margin-top: 16px;
     border-top: var(--tblr-accordion-border-width) solid var(--tblr-accordion-border-color);
   }
