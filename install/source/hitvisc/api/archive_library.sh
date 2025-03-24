@@ -21,17 +21,14 @@
 
 # Arguments: FRONT_LIBRARY_ID
 
-FRONT_LIBRARY_ID="$1"; if [[ ! $FRONT_LIBRARY_ID -gt 0 ]]; then
-  log_msg_error "invalid value of FRONT_LIBRARY_ID ($FRONT_LIBRARY_ID)"; return $CODEARGERR; fi
+FRONT_LIBRARY_ID="$1"; #if [[ ! $FRONT_LIBRARY_ID -gt 0 ]]; then
+  #log_msg_error "invalid value of FRONT_LIBRARY_ID ($FRONT_LIBRARY_ID)"; return $CODEARGERR; fi
 
 LIBRARY_ID=$(echo "SELECT back_entity_id FROM registry.entity_mapping WHERE front_entity_id = $FRONT_LIBRARY_ID AND entity_type = 'L'" | psql --dbname=hitvisc -qtA)
 
-if [[ ! $LIBRARY_ID -gt 0 ]]; then
-  log_msg_error "invalid value of LIBRARY_ID ($LIBRARY_ID)"; return $CODEARGERR; fi
+#if [[ ! $LIBRARY_ID -gt 0 ]]; then
+#  log_msg_error "invalid value of LIBRARY_ID ($LIBRARY_ID)"; return $CODEARGERR; fi
 
-PSQL_STATUS=$(echo "UPDATE registry.library SET state = 'A' WHERE id = $LIBRARY_ID" | psql --dbname=hitvisc -qtA)
-
-if [[ ! "$PSQL_STATUS" -gt 0 ]]; then
-  log_msg_error "unable to archive the library ($LIBRARY_ID)"
-  exit 1
+if [[ $LIBRARY_ID -gt 0 ]]; then
+  PSQL_STATUS=$(echo "UPDATE registry.library SET state = 'A' WHERE id = $LIBRARY_ID" | psql --dbname=hitvisc -qtA)
 fi
