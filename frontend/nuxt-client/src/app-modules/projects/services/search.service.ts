@@ -1,5 +1,5 @@
 import { SearchClient } from '~/app-modules/projects/clients/search.client';
-import { createSearchDto } from '~/app-modules/projects/clients/dto/search.dto';
+import { createSearchDto, UpdateSearchDto } from '~/app-modules/projects/clients/dto/search.dto';
 
 @singleton()
 export class SearchService {
@@ -7,6 +7,14 @@ export class SearchService {
 
   async createSearch(dto: createSearchDto) {
     return await this.searchClient.createSearch(dto);
+  }
+
+  async updateSearch(id: number, dto: UpdateSearchDto) {
+    return await this.searchClient.updateSearch(id, dto);
+  }
+
+  async deleteSearch(id: number) {
+    return await this.searchClient.deleteSearch(id);
   }
 
   async getSearch(searchId: number) {

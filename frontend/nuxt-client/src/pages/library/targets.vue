@@ -37,6 +37,12 @@
             @created="() => fetchTargets()"
           />
 
+
+          <library-target-editor
+            ref="targetEditorRef"
+            @updated="() => fetchTargets()"
+          />
+
           <div class="library-items">
             <library-target-card
               v-for="target in targets"
@@ -58,6 +64,7 @@ import axios from 'axios';
 import TargetCreator from '~/app-modules/library/components/target-creator.vue';
 import { TargetCardDto } from '~/app-modules/library/clients/dto/target.dto';
 import { TargetService } from '~/app-modules/library/services/target.service';
+import TargetEditor from '~/app-modules/library/components/target-editor.vue';
 
 const targetCreatorRef = ref<InstanceType<typeof TargetCreator> | null>(null);
 
@@ -88,8 +95,10 @@ function onToggleFavourite(target: TargetCardDto) {
   target.isFavourite = !target.isFavourite;
 }
 
+const targetEditorRef = ref<InstanceType<typeof TargetEditor> | null>(null);
+
 function onEdit(_target: TargetCardDto) {
-  useToast().info(t('inWork.title'));
+  targetEditorRef.value?.open(_target);
 }
 
 async function onDelete(_target: TargetCardDto) {

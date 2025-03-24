@@ -33,7 +33,7 @@
           <div class="dropdown-menu dropdown-menu-end">
             <button
               class="dropdown-item"
-              :disabled="!isOwner"
+              :disabled="!isOwner || !isLigandReady"
               @click="emit('edit')"
             >
               {{ $t('ligand.card.edit') }}
@@ -97,6 +97,7 @@
 import { LibraryCardDto } from '~/app-modules/library/clients/dto/library.dto';
 import { UsersStoreProvider } from '~/app-modules/users/stores/users.store';
 import { getEntityStateClass } from '~/app-modules/core/helpers/entity';
+import { EntityState } from '~/app-modules/core/enums/EntityState';
 
 const emit = defineEmits<{
   toggleFavourite: [];
@@ -113,6 +114,7 @@ const { ligand } = toRefs(props);
 const usersStore = useIOC(UsersStoreProvider).getStore();
 
 const isOwner = computed(() => ligand.value.creatorId === usersStore.currentUser?.id);
+const isLigandReady = computed(() => ligand.value.state === EntityState.Ready);
 </script>
 
 <style lang="scss" scoped></style>

@@ -44,7 +44,7 @@
           <div class="dropdown-menu dropdown-menu-end">
             <button
               class="dropdown-item"
-              :disabled="!isOwner"
+              :disabled="!isOwner || !isSearchReady"
               @click="emit('edit')"
             >
               {{ $t('projects.card.edit') }}
@@ -253,6 +253,7 @@ import { SearchCardDto } from '~/app-modules/projects/clients/dto/search.dto';
 import { UsersStoreProvider } from '~/app-modules/users/stores/users.store';
 import { SearchClient } from '~/app-modules/projects/clients/search.client';
 import { getEntityStateClass } from '~/app-modules/core/helpers/entity';
+import { EntityState } from '~/app-modules/core/enums/EntityState';
 
 const emit = defineEmits<{
   toggleFavourite: [];
@@ -276,6 +277,7 @@ const searchClient = useIOC(SearchClient);
 const usersStore = useIOC(UsersStoreProvider).getStore();
 
 const isOwner = computed(() => search.value.creatorId === usersStore.currentUser?.id);
+const isSearchReady = computed(() => search.value.state === EntityState.Ready);
 
 async function onSearchResultsDownload(type: string) {
   const userId = usersStore.currentUser?.id;

@@ -81,6 +81,14 @@ export const SearchCardDtoSchema = z.object({
   isCompleted: z.boolean(),
 });
 
+export const UpdateSearchDtoSchema = z.object({
+  name: z.string(),
+  typeOfUse: z.nativeEnum(TypeOfUse),
+  description: z.string(),
+});
+
 export type createSearchDto = z.infer<typeof createSearchDtoSchema>;
 
 export type SearchCardDto = z.infer<typeof SearchCardDtoSchema>;
+
+export type UpdateSearchDto = z.infer<typeof UpdateSearchDtoSchema>;

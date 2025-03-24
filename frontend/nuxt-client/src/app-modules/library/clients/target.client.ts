@@ -5,6 +5,7 @@ import {
   CreateTargetDto,
   TargetCardDto,
   TargetCardDtoSchema,
+  TargetDto,
 } from '~/app-modules/library/clients/dto/target.dto';
 
 @singleton()
@@ -18,6 +19,21 @@ export class TargetClient extends AuthorizedClient {
       method: 'post',
       url: '/api/target',
       data,
+    });
+  }
+
+  async updateTarget(id: number, data: TargetDto): Promise<void> {
+    await this.executeRequest({
+      method: 'put',
+      url: `/api/target/${id}`,
+      data,
+    });
+  }
+
+  async deleteTarget(id: number): Promise<void> {
+    await this.executeRequest({
+      method: 'delete',
+      url: `/api/target/${id}`,
     });
   }
 

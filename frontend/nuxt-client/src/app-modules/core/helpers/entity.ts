@@ -10,6 +10,8 @@ export function getEntityStateClass(state: EntityState) {
       return 'bg-red-lt';
     case EntityState.Archived:
       return 'bg-purple-lt';
+    case EntityState.InUse:
+      return 'bg-orange-lt';
     default:
       throw new Error('not supported');
   }

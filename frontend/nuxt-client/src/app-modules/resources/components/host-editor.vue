@@ -40,6 +40,8 @@
           :class="{
             'is-invalid': errors.usageType,
           }"
+          :disabled="isHostTest"
+
           autocomplete="off"
         >
           <option
@@ -116,6 +118,8 @@ const { handleSubmit, errors, resetForm } = useForm({
 const hostId = ref(0);
 const { value: name } = useField('name');
 const { value: usageType } = useField('usageType');
+
+const isHostTest = computed(() => usageType.value === HostUsageType.Test);
 
 const hostClient = useIOC(HostClient);
 

@@ -7,6 +7,7 @@ import {
   createSearchDto,
   SearchCardDto,
   SearchCardDtoSchema,
+  UpdateSearchDto,
 } from '~/app-modules/projects/clients/dto/search.dto';
 
 @singleton()
@@ -24,6 +25,21 @@ export class SearchClient extends AuthorizedClient {
       },
       z.number(),
     );
+  }
+
+  async updateSearch(id: number, data: UpdateSearchDto): Promise<void> {
+    await this.executeRequest({
+      method: 'put',
+      url: `/api/search/${id}`,
+      data,
+    });
+  }
+
+  async deleteSearch(id: number): Promise<void> {
+    await this.executeRequest({
+      method: 'delete',
+      url: `/api/search/${id}`,
+    });
   }
 
   async getSearch(searchId: number): Promise<SearchCardDto> {

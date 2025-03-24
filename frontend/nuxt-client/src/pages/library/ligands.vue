@@ -37,6 +37,16 @@
             @created="() => fetchLibraries()"
           />
 
+          <library-editor
+            ref="libraryEditorRef"
+            @updated="() => fetchLibraries()"
+          />
+
+          <library-confirm-delete
+            ref="libraryConfirmDeleteRef"
+            @deleted="() => fetchLibraries()"
+          />
+
           <div class="library-items">
             <library-card
               v-for="library in libraries"
@@ -58,6 +68,8 @@ import axios from 'axios';
 import LibraryCreator from '~/app-modules/library/components/library-creator.vue';
 import { LibraryCardDto } from '~/app-modules/library/clients/dto/library.dto';
 import { LibraryService } from '~/app-modules/library/services/library.service';
+import LibraryEditor from '~/app-modules/library/components/library-editor.vue';
+import LibraryConfirmDelete from '~/app-modules/library/components/library-confirm-delete.vue';
 
 const libraryCreatorRef = ref<InstanceType<typeof LibraryCreator> | null>(null);
 
@@ -88,12 +100,15 @@ function onToggleFavourite(library: LibraryCardDto) {
   library.isFavourite = !library.isFavourite;
 }
 
+const libraryEditorRef = ref<InstanceType<typeof LibraryEditor> | null>(null);
+
 function onEdit(_library: LibraryCardDto) {
-  useToast().info(t('inWork.title'));
+  libraryEditorRef.value?.open(_library);
 }
 
+const libraryConfirmDeleteRef = ref<InstanceType<typeof LibraryConfirmDelete> | null>(null);
+
 async function onDelete(_library: LibraryCardDto) {
-  useToast().info(t('inWork.title'));
-  await fetchLibraries();
+  libraryConfirmDeleteRef.value?.open(_library.id, _library.name);
 }
 </script>

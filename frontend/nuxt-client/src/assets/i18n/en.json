@@ -120,6 +120,18 @@
       "O": "Public"
     },
     "createdBy": "Creator",
+    "editor": {
+      "title": "Update project",
+      "submitBtn": "Save",
+      "name": "Name",
+      "description": "Description"
+    },
+    "deletor": {
+      "title": "Deleting project",
+      "text": "Are you sure you want to delete project - {name}?",
+      "submitBtn": "Delete project",
+      "cancelBtn": "Cancel"
+    },
     "creator": {
       "next": "Next",
       "back": "Back",
@@ -244,6 +256,16 @@
       "title": "Adding a new target",
       "extractAutomatically": "extract automatically",
       "submitBtn": "Add a new target"
+    },
+    "editor": {
+      "title": "Editing target",
+      "submitBtn": "Edit target"
+    },
+    "deletor": {
+      "title": "Deleting target",
+      "text": "Are you sure you want to delete target - {name}?",
+      "submitBtn": "Delete target",
+      "cancelBtn": "Cancel"
     }
   },
   "ligand": {
@@ -265,6 +287,16 @@
     "creator": {
       "title": "Adding a new ligand collection",
       "submitBtn": "Add a new ligand collection"
+    },
+    "editor": {
+      "title": "Editing ligand collection",
+      "submitBtn": "Edit ligand collection"
+    },
+    "deletor": {
+      "title": "Deleting ligand collection",
+      "text": "Are you sure you want to delete ligand collection - {name}?",
+      "submitBtn": "Delete collection",
+      "cancelBtn": "Cancel"
     }
   },
   "library": {
@@ -286,7 +318,8 @@
       "P": "preparing",
       "U": "ready",
       "L": "locked",
-      "A": "archived"
+      "A": "archived",
+      "I": "in use"
     }
   },
   "files": {

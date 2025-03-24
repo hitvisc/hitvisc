@@ -33,7 +33,7 @@
           <div class="dropdown-menu dropdown-menu-end">
             <button
               class="dropdown-item"
-              :disabled="!isOwner"
+              :disabled="!isOwner || !isTargetReady"
               @click="emit('edit')"
             >
               {{ $t('target.card.edit') }}
@@ -97,6 +97,7 @@
 import { TargetCardDto } from '~/app-modules/library/clients/dto/target.dto';
 import { UsersStoreProvider } from '~/app-modules/users/stores/users.store';
 import { getEntityStateClass } from '~/app-modules/core/helpers/entity';
+import { EntityState } from '~/app-modules/core/enums/EntityState';
 
 const emit = defineEmits<{
   toggleFavourite: [];
@@ -113,6 +114,7 @@ const { target } = toRefs(props);
 const usersStore = useIOC(UsersStoreProvider).getStore();
 
 const isOwner = computed(() => target.value.creatorId === usersStore.currentUser?.id);
+const isTargetReady = computed(() => target.value.state === EntityState.Ready);
 </script>
 
 <style lang="scss" scoped></style>

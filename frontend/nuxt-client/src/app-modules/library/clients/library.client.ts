@@ -5,6 +5,7 @@ import {
   createLibraryDto,
   LibraryCardDto,
   LibraryCardDtoSchema,
+  LibraryDto,
 } from '~/app-modules/library/clients/dto/library.dto';
 
 @singleton()
@@ -18,6 +19,21 @@ export class LibraryClient extends AuthorizedClient {
       method: 'post',
       url: '/api/library',
       data,
+    });
+  }
+
+  async updateLibrary(id: number, data: LibraryDto): Promise<void> {
+    await this.executeRequest({
+      method: 'put',
+      url: `/api/library/${id}`,
+      data,
+    });
+  }
+
+  async deleteLibrary(id: number): Promise<void> {
+    await this.executeRequest({
+      method: 'delete',
+      url: `/api/library/${id}`,
     });
   }
 

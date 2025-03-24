@@ -1,5 +1,5 @@
 import { TargetClient } from '~/app-modules/library/clients/target.client';
-import { CreateTargetDto } from '~/app-modules/library/clients/dto/target.dto';
+import { CreateTargetDto, TargetDto } from '~/app-modules/library/clients/dto/target.dto';
 
 @singleton()
 export class TargetService {
@@ -7,6 +7,14 @@ export class TargetService {
 
   async createTarget(dto: CreateTargetDto) {
     return await this.targetClient.createTarget(dto);
+  }
+
+  async updateTarget(id: number, dto: TargetDto) {
+    return await this.targetClient.updateTarget(id, dto);
+  }
+
+  async deleteTarget(id: number) {
+    return await this.targetClient.deleteTarget(id);
   }
 
   async getTargets() {

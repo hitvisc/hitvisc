@@ -30,6 +30,11 @@
             </button>
           </router-link>
 
+          <projects-editor
+            ref="searchEditorRef"
+            @updated="onSearchUpdated"
+          />
+
           <div class="library-items">
             <projects-search-card
               v-for="project in projects"
@@ -49,6 +54,7 @@
 import axios from 'axios';
 import { SearchCardDto } from '~/app-modules/projects/clients/dto/search.dto';
 import { SearchService } from '~/app-modules/projects/services/search.service';
+import SearchEditor from '~/app-modules/projects/components/editor.vue';
 
 const projects: Ref<SearchCardDto[]> = ref([]);
 
@@ -69,12 +75,18 @@ async function fetchProjects() {
   }
 }
 
+const searchEditorRef = ref<InstanceType<typeof SearchEditor> | null>(null);
+
 function onEdit(_search: SearchCardDto) {
-  useToast().info(t('inWork.title'));
+  searchEditorRef.value?.open(_search);
 }
 
 async function onDelete(_search: SearchCardDto) {
   useToast().info(t('inWork.title'));
+  await fetchProjects();
+}
+
+async function onSearchUpdated() {
   await fetchProjects();
 }
 </script>
