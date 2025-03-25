@@ -66,7 +66,7 @@
 2.  Файлы описания мишени для CmDock:
 -  Описание мишени 3CLpro доступно в системе в качестве предустановленной мишени "Example target for CmDock";
 <!-- -  [example/hitvisc.target.cmdock.example.mol2](example/hitvisc.target.cmdock.example.mol2) – описание мишени 3CLpro в формате для молекулярного докинга;-->
--  [example/corona_3CLpro_v3.prm](example/corona_3CLpro_v3.prm), [example/corona_3CLpro_v3.as](example/corona_3CLpro_v3.as), [example/htvs.ptc](example/htvs.ptc) – тройка файлов, задающих протокол молекулярного докинга в формате CmDock;
+-  [example/corona_3CLpro_v3.prm](example/corona_3CLpro_v3.prm), [example/corona_3CLpro_v3.as](example/corona_3CLpro_v3.as), [example/corona_3CLpro_v3.ptc](example/corona_3CLpro_v3.ptc) – тройка файлов, задающих протокол молекулярного докинга в формате CmDock;
 3.  Файл библиотеки лигандов:
 -  [example/lib_sidock_20000_ligands.zip](example/lib_sidock_20000_ligands.zip) – исходный архив библиотеки лигандов;
 4.  Файлы результатов виртуального скрининга для AutoDock Vina:
