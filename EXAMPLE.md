@@ -58,7 +58,7 @@
 Входные файлы примеров и выходные файлы с результатами представлены в репозитории в папке [example](example). Содержание файлов следующее:
 1.  Файлы описания мишени для AutoDock Vina:
 -  [example/hitvisc.target.autodockvina.example.pdb](example/hitvisc.target.autodockvina.example.pdb) – описание мишени RORα в формате PDB (используется для загрузки файла при создании мишени. В качестве альтернативы, можно указать RCSB PDB 1S0X при создании мишени);
--  [example/hitvisc.target.autodockvina.example.refligand.pdbqt](example/hitvisc.target.autodockvina.example.refligand.pdbqt) – описание справочного лиганда мишени RORα в формате SDF;
+-  [example/hitvisc.target.autodockvina.example.refligand.sdf](example/hitvisc.target.autodockvina.example.refligand.sdf) – описание справочного лиганда мишени RORα в формате SDF;
 -  [example/hitvisc.docker_protocol.autodockvina.example.txt](example/hitvisc.docker_protocol.autodockvina.example.txt) – протокол молекулярного докинга;
 <!-- -  [example/hitvisc.target.autodockvina.example.pdbqt](example/hitvisc.target.autodockvina.example.pdbqt) – описание мишени RORα в формате для молекулярного докинга;
 -  [example/hitvisc.target.autodockvina.example.refligand.pdbqt](example/hitvisc.target.autodockvina.example.refligand.pdbqt) – описание справочного лиганда в формате для молекулярного докинга;
