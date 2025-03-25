@@ -98,10 +98,12 @@ if [ $REFLIGCOUNT -eq -1 ]; then
         CENTER="$(awk '{if($1=="HETATM") {COUNT++; X+=$7; Y+=$8; Z+=$9}} END {if(COUNT>0) printf "%.6f;%.6f;%.6f", X/COUNT, Y/COUNT, Z/COUNT}' ${LIGANDFILENAME})"
 
         # The model SDF for the ligand identified by ARG is in the RCSB PDB database at
-        # https://files.rcsb.org/ligands/download/ARG_model.sdf
+        # https://download.rcsb.org/batch/ccd/"$LIGAND_ID"_ideal.sdf
+        # (previously at https://files.rcsb.org/ligands/download/ARG_model.sdf)
         LIGAND_SDF_FILENAME="$TARGETDIR/"$PDBFILE"_ligand_"$LIGAND_ID"_"$LIGAND_CHAIN"_model.sdf"
         if [ ! -f "$LIGAND_SDF_FILENAME" ]; then
-          wget -O "$LIGAND_SDF_FILENAME" "https://files.rcsb.org/ligands/download/"$LIGAND_ID"_model.sdf" 2>/dev/null
+          wget -O "$LIGAND_SDF_FILENAME" "https://download.rcsb.org/batch/ccd/"$LIGAND_ID"_ideal.sdf" 2>/dev/null
+          #wget -O "$LIGAND_SDF_FILENAME" "https://files.rcsb.org/ligands/download/"$LIGAND_ID"_model.sdf" 2>/dev/null
         fi
         if [ ! -s "$LIGAND_SDF_FILENAME" ]; then LIGAND_SDF_FILENAME="NULL"; fi
         READYLIGANDS[$i]="$LIGAND_SDF_FILENAME:$CENTER:$LIGAND_CHAIN"
