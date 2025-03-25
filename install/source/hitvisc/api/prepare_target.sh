@@ -49,7 +49,7 @@ TMPFILE="tmp.${PDBFILE}.without_extra_molecules"
 TARGETFILE="$TARGETDIR/${PDBFILE}"
 TARGETNAME=$(basename "$TARGETFILE" .pdb)
 
-THRESHOLD=5     # Atoms count of a reference ligand
+THRESHOLD=7     # Minimal atoms count of a reference ligand
 ALLCHAINS=true  # Keep all chains (otherwise the first one)
 
 # Remove the anisotropic temperature factors. Remove water molecules. Separate HETATM with a space if needed.
@@ -97,16 +97,16 @@ if [ $REFLIGCOUNT -eq -1 ]; then
         # Calculate the coordinates of the geometric center.
         CENTER="$(awk '{if($1=="HETATM") {COUNT++; X+=$7; Y+=$8; Z+=$9}} END {if(COUNT>0) printf "%.6f;%.6f;%.6f", X/COUNT, Y/COUNT, Z/COUNT}' ${LIGANDFILENAME})"
 
-        # The model SDF for the ligand identified by "$LIGAND_ID" is in the RCSB PDB database at
-        # https://download.rcsb.org/batch/ccd/"$LIGAND_ID"_ideal.sdf
-        # (previously at https://files.rcsb.org/ligands/download/ARG_model.sdf)
-        LIGAND_SDF_FILENAME="$TARGETDIR/"$PDBFILE"_ligand_"$LIGAND_ID"_"$LIGAND_CHAIN"_model.sdf"
+        # The model SDF for the ligand identified by "$LIGAND_RCSBID" is in the RCSB PDB database at
+	# https://download.rcsb.org/batch/ccd/"$LIGAND_RCSBID"_ideal.sdf
+	# (previously at https://files.rcsb.org/ligands/download/"$LIGAND_RCSBID"_model.sdf)
+        LIGAND_SDF_FILENAME="$TARGETDIR/"$PDBFILE"_ligand_"$LIGAND_RCSBID"_"$LIGAND_CHAIN"_model.sdf"
         if [ ! -f "$LIGAND_SDF_FILENAME" ]; then
-          wget -O "$LIGAND_SDF_FILENAME" "https://download.rcsb.org/batch/ccd/"$LIGAND_ID"_ideal.sdf" 2>/dev/null
-          #wget -O "$LIGAND_SDF_FILENAME" "https://files.rcsb.org/ligands/download/"$LIGAND_ID"_model.sdf" 2>/dev/null
+          wget -O "$LIGAND_SDF_FILENAME" "https://download.rcsb.org/batch/ccd/"$LIGAND_RCSBID"_ideal.sdf" 2>/dev/null
+          #wget -O "$LIGAND_SDF_FILENAME" "https://files.rcsb.org/ligands/download/"$LIGAND_RCSBID"_model.sdf" 2>/dev/null
         fi
         if [ ! -s "$LIGAND_SDF_FILENAME" ]; then LIGAND_SDF_FILENAME="NULL"; fi
-        READYLIGANDS[$i]="$LIGAND_SDF_FILENAME:$CENTER:$LIGAND_CHAIN"
+        READYLIGANDS[$i]="$LIGAND_RCSBID:$LIGAND_SDF_FILENAME:$CENTER:$LIGAND_CHAIN"
         i=$i+1
       fi
     fi
@@ -129,7 +129,7 @@ if [ $REFLIGCOUNT -gt 0 ]; then
     LIGAND_SDF_FILENAME=$OUTFILENAME
     CENTER="NULL;NULL;NULL"
     LIGAND_CHAIN="NULL"
-    READYLIGANDS[$i]="$LIGAND_SDF_FILENAME:$CENTER:$LIGAND_CHAIN"
+    READYLIGANDS[$i]="$LIGNAME:$LIGAND_SDF_FILENAME:$CENTER:$LIGAND_CHAIN"
     i=$i+1
   done 
 fi

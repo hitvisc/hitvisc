@@ -89,7 +89,9 @@ if [ "$REFLIG_EXTRACT" == "Y" ]; then REFLIGCOUNT=-1; else REFLIGCOUNT=0; fi
 INFO_REF_LIGANDS=$(source "$DIR/prepare_target.sh" "$TMPDIR" "$TARGET_DATA_DIR" "$TMPPDBFILENAME" $REFLIGCOUNT)
 if [ $? -ne 0 ]; then log_msg_error "Failed to prepare target file ($TMPPDBFILENAME)"; return $CODEOTHERERR; fi
 
-# Parse the output: READY_TARGET_FILENAME LIGAND_1_FILENAME:X;Y;Z:A ... LIGAND_N_FILENAME:X;Y;Z:A
+log_msg_error "INFO_REF_LIGANDS: $INFO_REF_LIGANDS"
+
+# Parse the output: READY_TARGET_FILENAME LIGAND_1_ID:LIGAND_1_FILENAME:X;Y;Z:A ... LIGAND_N_ID:LIGAND_N_FILENAME:X;Y;Z:A
 ARR_REF_LIGANDS=($INFO_REF_LIGANDS)
 let NUM_REF_LIGANDS=${#ARR_REF_LIGANDS[@]}-1
 READY_TARGET_FILENAME=${ARR_REF_LIGANDS[0]}
@@ -116,15 +118,16 @@ if [[ $TARGET_ID -gt 0 ]]; then
   for i in $(seq 1 $N); do
     REFLIGSTR="${ARR_REF_LIGANDS[$i]}"
     IFS=':' read -ra REFLIG <<< "$REFLIGSTR"
-    P_REFLIG_FILEPATH="${REFLIG[0]}"
+    P_REFLIG_NAME="${REFLIG[0]}"
+    P_REFLIG_FILEPATH="${REFLIG[1]}"
     P_REFLIG_FILENAME=$(basename $P_REFLIG_FILEPATH)
-    P_REFLIG_NAME=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 3; echo '')_$(($(date +%s%N)/1000000))
-    P_REFLIG_COORDS="${REFLIG[1]}"
+    P_REFLIG_SYSTEMNAME=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 3; echo '')_$(($(date +%s%N)/1000000))
+    P_REFLIG_COORDS="${REFLIG[2]}"
     IFS=';' read -ra COORDS <<< "$P_REFLIG_COORDS"
     P_X="${COORDS[0]}"; P_Y="${COORDS[1]}"; P_Z="${COORDS[2]}" 
-    P_REFLIG_CHAIN="${REFLIG[2]}"
+    P_REFLIG_CHAIN="${REFLIG[3]}"
     
-    REFERENCE_LIGAND_ID=$(echo "SELECT registry.hitvisc_reference_ligand_add($TARGET_ID, '$P_REFLIG_NAME', $P_X, $P_Y, $P_Z, '$P_REFLIG_CHAIN');" | psql --dbname=hitvisc -qtA)
+    REFERENCE_LIGAND_ID=$(echo "SELECT registry.hitvisc_reference_ligand_add($TARGET_ID, '$P_REFLIG_SYSTEMNAME', $P_X, $P_Y, $P_Z, '$P_REFLIG_CHAIN');" | psql --dbname=hitvisc -qtA)
     if [[ $REFERENCE_LIGAND_ID -le 0 ]]; then
         log_msg_error "unable to insert reference ligand (cmd: SELECT registry.hitvisc_reference_ligand_add($TARGET_ID, '', $P_X, $P_Y, $P_Z, '$P_REFLIG_CHAIN');)"; return $CODEPSQLERR; fi
     echo "INSERT INTO registry.reference_ligand_file(id, reference_ligand_id, type, file_path, file_name) VALUES(NEXTVAL('registry.seq_reference_ligand_file_id'), $REFERENCE_LIGAND_ID, 'sdf', '$P_REFLIG_FILEPATH', '$P_REFLIG_FILENAME');" | psql --dbname=hitvisc -qtA
