@@ -97,7 +97,7 @@ if [ $REFLIGCOUNT -eq -1 ]; then
         # Calculate the coordinates of the geometric center.
         CENTER="$(awk '{if($1=="HETATM") {COUNT++; X+=$7; Y+=$8; Z+=$9}} END {if(COUNT>0) printf "%.6f;%.6f;%.6f", X/COUNT, Y/COUNT, Z/COUNT}' ${LIGANDFILENAME})"
 
-        # The model SDF for the ligand identified by ARG is in the RCSB PDB database at
+        # The model SDF for the ligand identified by "$LIGAND_ID" is in the RCSB PDB database at
         # https://download.rcsb.org/batch/ccd/"$LIGAND_ID"_ideal.sdf
         # (previously at https://files.rcsb.org/ligands/download/ARG_model.sdf)
         LIGAND_SDF_FILENAME="$TARGETDIR/"$PDBFILE"_ligand_"$LIGAND_ID"_"$LIGAND_CHAIN"_model.sdf"
