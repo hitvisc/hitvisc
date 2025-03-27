@@ -68,13 +68,14 @@ CREATE SEQUENCE registry.seq_target_file_id START WITH 1 INCREMENT BY 1 MINVALUE
 -- Перечень справочных лигандов
 CREATE TABLE registry.reference_ligand
 (
-    id        INT NOT NULL,
-    target_id INT NOT NULL,
-    name      VARCHAR(64) NOT NULL,
-    center_x  NUMERIC,
-    center_y  NUMERIC,
-    center_z  NUMERIC,
-    chain     VARCHAR(2) NOT NULL
+    id          INT NOT NULL,
+    target_id   INT NOT NULL,
+    rcsb_id     VARCHAR(16),
+    system_name VARCHAR(64) NOT NULL,
+    center_x    NUMERIC,
+    center_y    NUMERIC,
+    center_z    NUMERIC,
+    chain       VARCHAR(2) NOT NULL
 );
 
 CREATE UNIQUE INDEX idx_reference_ligand_pk ON registry.reference_ligand(id);
@@ -85,7 +86,8 @@ ALTER TABLE registry.reference_ligand ADD CONSTRAINT cs_reference_ligand_target_
 COMMENT ON TABLE registry.reference_ligand IS 'Справочный лиганд';
 COMMENT ON COLUMN registry.reference_ligand.id IS 'Идентификатор лиганда';
 COMMENT ON COLUMN registry.reference_ligand.target_id IS 'Идентификатор мишени';
-COMMENT ON COLUMN registry.reference_ligand.name IS 'Название лиганда';
+COMMENT ON COLUMN registry.reference_ligand.rcsb_id IS 'Идентификатор лиганда в базе данных RCSB PDB';
+COMMENT ON COLUMN registry.reference_ligand.system_name IS 'Системное имя лиганда';
 COMMENT ON COLUMN registry.reference_ligand.center_x IS 'X-координата центра';
 COMMENT ON COLUMN registry.reference_ligand.center_y IS 'Y-координата центра';
 COMMENT ON COLUMN registry.reference_ligand.center_z IS 'Z-координата центра';
@@ -156,7 +158,7 @@ COMMENT ON COLUMN registry.library.state IS 'Состояние библиоте
 -- Последовательность для нумерации библиотек лигандов
 CREATE SEQUENCE registry.seq_library_id START WITH 1 INCREMENT BY 1 MINVALUE 1 NO MAXVALUE;
 
-
+Идентификатор лиганда в базе данных RCSB PDB
 -- Перечень модулей моделирования докинга
 CREATE TABLE registry.docker
 (

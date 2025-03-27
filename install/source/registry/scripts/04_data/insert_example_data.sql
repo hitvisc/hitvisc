@@ -53,10 +53,10 @@ BEGIN
 	INSERT INTO registry.target_file(id, target_id, type, file_path, file_name) 
 		VALUES (NEXTVAL('registry.seq_target_file_id'), example_back_target_autodockvina_id, 'pdbqt', '/app/hitvisc/data/hitvisc.target.autodockvina.example.pdbqt', 'hitvisc.target.autodockvina.example.pdbqt');
 
-	INSERT INTO registry.reference_ligand(id, target_id, name, center_x, center_y, center_z, chain) 
-		VALUES(example_refligand_cmdock_id, example_back_target_cmdock_id, '3WL', -33.1626, -65.0742, 41.4343, 'A');
-	INSERT INTO registry.reference_ligand(id, target_id, name, center_x, center_y, center_z, chain) 
-		VALUES(example_refligand_autodockvina_id, example_back_target_autodockvina_id, '3WL', -7.45476, -40.4256, 10.6011, 'A');
+	INSERT INTO registry.reference_ligand(id, target_id, rcsb_id, system_name, center_x, center_y, center_z, chain) 
+		VALUES(example_refligand_cmdock_id, example_back_target_cmdock_id, '3WL', '3WL', -33.1626, -65.0742, 41.4343, 'A');
+	INSERT INTO registry.reference_ligand(id, target_id, rcsb_id, system_name, center_x, center_y, center_z, chain) 
+		VALUES(example_refligand_autodockvina_id, example_back_target_autodockvina_id, '3WL', '3WL', -7.45476, -40.4256, 10.6011, 'A');
 
 	INSERT INTO registry.reference_ligand_file(id, reference_ligand_id, type, file_path, file_name) 
 		VALUES(NEXTVAL('registry.seq_reference_ligand_file_id'), example_refligand_cmdock_id, 'sdf', '/app/hitvisc/data/hitvisc.target.cmdock.example.refligand.sdf', 'hitvisc.target.cmdock.example.refligand.sdf');

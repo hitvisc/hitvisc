@@ -373,7 +373,7 @@ BEGIN
 	RETURN l_id;
 END;
 $$;
-CREATE OR REPLACE FUNCTION registry.hitvisc_reference_ligand_add(p_target_id INT, p_name CHARACTER VARYING, 
+CREATE OR REPLACE FUNCTION registry.hitvisc_reference_ligand_add(p_target_id INT, p_rcsb_id CHARACTER VARYING, p_system_name CHARACTER VARYING, 
                                                                  p_x NUMERIC, p_y NUMERIC, p_z NUMERIC, p_chain CHARACTER VARYING)
     RETURNS INTEGER
     LANGUAGE PLPGSQL
@@ -382,11 +382,12 @@ $$
 -- Добавление записи о справочном лиганде в таблицу registry.reference_ligand
 -- Входные параметры:
 -- p_target_id           - Идентификатор мишени
--- p_name                - Имя лиганда
--- p_x           
--- p_y           
--- p_z
--- p_chain
+-- p_rcsb_id             - Идентификатор лиганда в базе данных RCSB PDB 
+-- p_system_name         - Системное имя лиганда
+-- p_x                   - Координата X центра связывания
+-- p_y                   - Координата Y центра связывания
+-- p_z                   - Координата Z центра связывания
+-- p_chain               - Идентификатор цепи мишени, ассоциированной с лигандом
 -- Выходные параметры:
 -- l_id                  - Идентификатор добавленного лиганда 
 DECLARE    
@@ -396,14 +397,14 @@ DECLARE
     l_does_reflig_exist INT := 0;         -- Флаг проверки существования справочного лиганда для такой мишени, с таким же именем и цепью
 BEGIN
     -- Проверка наличия файла с таким же полным именем или с таким же типом у этой же мишени
-    SELECT COUNT(*) INTO l_does_reflig_exist FROM registry.reference_ligand WHERE (target_id = p_target_id AND name = p_name AND chain = p_chain);
+    SELECT COUNT(*) INTO l_does_reflig_exist FROM registry.reference_ligand WHERE (target_id = p_target_id AND system_name = p_system_name AND chain = p_chain);
     -- Занесение записи о файле в таблицу, если такого файла ещё нет
     IF l_does_reflig_exist = 0 THEN
         -- Добавление справочного лиганда
 			SELECT NEXTVAL('registry.seq_reference_ligand_id') INTO l_id;
             -- Вставка записи в таблицу
-            INSERT INTO registry.reference_ligand(id, target_id, name, center_x, center_y, center_z, chain)
-            VALUES(l_id, p_target_id, p_name, p_x, p_y, p_z, p_chain);
+            INSERT INTO registry.reference_ligand(id, target_id, rcsb_id, system_name, center_x, center_y, center_z, chain)
+            VALUES(l_id, p_target_id, p_rcsb_id, p_system_name, p_x, p_y, p_z, p_chain);
             GET DIAGNOSTICS l_processed_rows := ROW_COUNT;
             l_result := l_processed_rows > 0;
     ELSE
