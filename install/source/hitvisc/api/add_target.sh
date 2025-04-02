@@ -118,7 +118,7 @@ if [[ $TARGET_ID -gt 0 ]]; then
   for i in $(seq 1 $N); do
     REFLIGSTR="${ARR_REF_LIGANDS[$i]}"
     IFS=':' read -ra REFLIG <<< "$REFLIGSTR"
-    P_REFLIG_NAME="${REFLIG[0]}"
+    P_REFLIG_RCSB_ID="${REFLIG[0]}"
     P_REFLIG_FILEPATH="${REFLIG[1]}"
     P_REFLIG_FILENAME=$(basename $P_REFLIG_FILEPATH)
     P_REFLIG_SYSTEMNAME=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 3; echo '')_$(($(date +%s%N)/1000000))
@@ -127,9 +127,9 @@ if [[ $TARGET_ID -gt 0 ]]; then
     P_X="${COORDS[0]}"; P_Y="${COORDS[1]}"; P_Z="${COORDS[2]}" 
     P_REFLIG_CHAIN="${REFLIG[3]}"
     
-    REFERENCE_LIGAND_ID=$(echo "SELECT registry.hitvisc_reference_ligand_add($TARGET_ID, '$P_REFLIG_SYSTEMNAME', $P_X, $P_Y, $P_Z, '$P_REFLIG_CHAIN');" | psql --dbname=hitvisc -qtA)
+    REFERENCE_LIGAND_ID=$(echo "SELECT registry.hitvisc_reference_ligand_add($TARGET_ID, '$P_REFLIG_RCSB_ID', '$P_REFLIG_SYSTEMNAME', $P_X, $P_Y, $P_Z, '$P_REFLIG_CHAIN');" | psql --dbname=hitvisc -qtA)
     if [[ $REFERENCE_LIGAND_ID -le 0 ]]; then
-        log_msg_error "unable to insert reference ligand (cmd: SELECT registry.hitvisc_reference_ligand_add($TARGET_ID, '', $P_X, $P_Y, $P_Z, '$P_REFLIG_CHAIN');)"; return $CODEPSQLERR; fi
+        log_msg_error "unable to insert reference ligand (cmd: SELECT registry.hitvisc_reference_ligand_add($TARGET_ID, '$P_REFLIG_RCSB_ID', '$P_REFLIG_SYSTEMNAME', $P_X, $P_Y, $P_Z, '$P_REFLIG_CHAIN');)"; return $CODEPSQLERR; fi
     echo "INSERT INTO registry.reference_ligand_file(id, reference_ligand_id, type, file_path, file_name) VALUES(NEXTVAL('registry.seq_reference_ligand_file_id'), $REFERENCE_LIGAND_ID, 'sdf', '$P_REFLIG_FILEPATH', '$P_REFLIG_FILENAME');" | psql --dbname=hitvisc -qtA
   done
  
