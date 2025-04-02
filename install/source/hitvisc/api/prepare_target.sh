@@ -49,7 +49,7 @@ TMPFILE="tmp.${PDBFILE}.without_extra_molecules"
 TARGETFILE="$TARGETDIR/${PDBFILE}"
 TARGETNAME=$(basename "$TARGETFILE" .pdb)
 
-THRESHOLD=7     # Minimal atoms count of a reference ligand
+THRESHOLD=10    # Minimal allowed atoms count of a reference ligand
 ALLCHAINS=true  # Keep all chains (otherwise the first one)
 
 # Remove the anisotropic temperature factors. Remove water molecules. Separate HETATM with a space if needed.
