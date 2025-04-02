@@ -85,7 +85,7 @@ if [ $REFLIGCOUNT -eq -1 ]; then
   i=0
   for LIGANDFILENAME in $TMPLIGANDFILES; do
     if [ ! -f "$LIGANDFILENAME" ]; then log_msg_error "Failed to get ligand file ($LIGANDFILENAME)"; return $CODEPDBERR; fi
-    LIGAND_ID=$(basename "$LIGANDFILENAME" | cut -d'_' -f2)
+    LIGAND_RCSB_ID=$(basename "$LIGANDFILENAME" | cut -d'_' -f2)
     LIGAND_CHAIN=$(basename "$LIGANDFILENAME" | cut -d'_' -f3)
     if [ "$LIGAND_CHAIN" == "$SELECTED_CHAIN" -o $ALLCHAINS ]; then
       # Continue conversion only if the atom count exceeds the threshold,
@@ -97,16 +97,16 @@ if [ $REFLIGCOUNT -eq -1 ]; then
         # Calculate the coordinates of the geometric center.
         CENTER="$(awk '{if($1=="HETATM") {COUNT++; X+=$7; Y+=$8; Z+=$9}} END {if(COUNT>0) printf "%.6f;%.6f;%.6f", X/COUNT, Y/COUNT, Z/COUNT}' ${LIGANDFILENAME})"
 
-        # The model SDF for the ligand identified by "$LIGAND_RCSBID" is in the RCSB PDB database at
-	# https://download.rcsb.org/batch/ccd/"$LIGAND_RCSBID"_ideal.sdf
-	# (previously at https://files.rcsb.org/ligands/download/"$LIGAND_RCSBID"_model.sdf)
-        LIGAND_SDF_FILENAME="$TARGETDIR/"$PDBFILE"_ligand_"$LIGAND_RCSBID"_"$LIGAND_CHAIN"_model.sdf"
+        # The model SDF for the ligand identified by "$LIGAND_RCSB_ID" is in the RCSB PDB database at
+	# https://download.rcsb.org/batch/ccd/"$LIGAND_RCSB_ID"_ideal.sdf
+	# (previously at https://files.rcsb.org/ligands/download/"$LIGAND_RCSB_ID"_model.sdf)
+        LIGAND_SDF_FILENAME="$TARGETDIR/"$PDBFILE"_ligand_"$LIGAND_RCSB_ID"_"$LIGAND_CHAIN".sdf"
         if [ ! -f "$LIGAND_SDF_FILENAME" ]; then
-          wget -O "$LIGAND_SDF_FILENAME" "https://download.rcsb.org/batch/ccd/"$LIGAND_RCSBID"_ideal.sdf" 2>/dev/null
-          #wget -O "$LIGAND_SDF_FILENAME" "https://files.rcsb.org/ligands/download/"$LIGAND_RCSBID"_model.sdf" 2>/dev/null
+          wget -O "$LIGAND_SDF_FILENAME" "https://download.rcsb.org/batch/ccd/"$LIGAND_RCSB_ID"_ideal.sdf" 2>/dev/null
+          #wget -O "$LIGAND_SDF_FILENAME" "https://files.rcsb.org/ligands/download/"$LIGAND_RCSB_ID"_model.sdf" 2>/dev/null
         fi
         if [ ! -s "$LIGAND_SDF_FILENAME" ]; then LIGAND_SDF_FILENAME="NULL"; fi
-        READYLIGANDS[$i]="$LIGAND_RCSBID:$LIGAND_SDF_FILENAME:$CENTER:$LIGAND_CHAIN"
+        READYLIGANDS[$i]="$LIGAND_RCSB_ID:$LIGAND_SDF_FILENAME:$CENTER:$LIGAND_CHAIN"
         i=$i+1
       fi
     fi
@@ -120,16 +120,16 @@ if [ $REFLIGCOUNT -gt 0 ]; then
   ligandfiles=$(ls $TMPDIR/reference_ligands/*.[sS][dD][fF])
   for ligandfile in $ligandfiles; do
     if [ ! -f "$ligandfile" ]; then log_msg_error "Failed to get temporary ligand file ($ligandfile)"; return $CODEPDBERR; fi
-    LIGNAME=$(head -1 "$ligandfile")
-    if [ "$LIGNAME" = "" ]; then log_msg_error "Failed to get ligand name from ligand file ($ligandfile)"; return $CODEPDBERR; fi
-    OUTFILENAME="$TARGETDIR/${TARGETNAME}_ligand_${LIGNAME}_model.sdf"
+    LIGAND_RCSB_ID=$(head -1 "$ligandfile")
+    if [ "$LIGAND_RCSB_ID" = "" ]; then log_msg_error "Failed to get ligand name from ligand file ($ligandfile)"; return $CODEPDBERR; fi
+    OUTFILENAME="$TARGETDIR/${TARGETNAME}_ligand_${LIGAND_RCSB_ID}_model.sdf"
     cp "$ligandfile" "$OUTFILENAME"
     if [ ! -f "$OUTFILENAME" ]; then log_msg_error "Failed to copy temporary ligand file ($ligandfile)"; return $CODEPDBERR; fi
     source convert_reference_ligand.sh "$OUTFILENAME"
     LIGAND_SDF_FILENAME=$OUTFILENAME
     CENTER="NULL;NULL;NULL"
     LIGAND_CHAIN="NULL"
-    READYLIGANDS[$i]="$LIGNAME:$LIGAND_SDF_FILENAME:$CENTER:$LIGAND_CHAIN"
+    READYLIGANDS[$i]="$LIGAND_RCSB_ID:$LIGAND_SDF_FILENAME:$CENTER:$LIGAND_CHAIN"
     i=$i+1
   done 
 fi
