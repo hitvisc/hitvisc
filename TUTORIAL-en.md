@@ -105,6 +105,8 @@ PORT: <web port number>
 ```
 (8080 by default). Web interface provides the ability to register a new account as well as login using a predefined account (adm.hitvisc@yandex.ru, password).
 
+> [!IMPORTANT]
+> For the system to work, you must allow incoming TCP traffic to ports 8080 and 9090.
 
 ## General system interface
 
