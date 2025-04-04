@@ -49,6 +49,36 @@ ____
 - [OpenBabel](https://openbabel.github.io/) (лицензия GPL-2.0) для вычисления химических дескрипторов, конвертации файлов мишени и лигандов в нужные форматы;
 - [Conda](https://github.com/conda/conda) (лицензия BSD-3) для установки и управления программными пакетами, создания и использования изолированного окружения.
 
+## Цитирование HiTViSc
 
+Если вы использовали систему HiTViSc в своей работе, то укажите, пожалуйста, ссылку на одну из следующих статей:
 
+> Natalia Nikitina, Evgeny Ivashko. HiTViSc: High-Throughput Virtual Screening as a Service // Parallel Computing Technologies. PaCT 2023. Lecture Notes in Computer Science. Vol. 14098. Springer, Cham, 2023. Pp. 83–92. DOI: 10.1007/978-3-031-41673-6_7
 
+> Е. Е. Ивашко, Н. Н. Никитина. Концепция сервиса виртуального скрининга лекарств на базе распределенных вычислений HiTViSc // Информационные технологии и вычислительные системы. № 3. 2023. C. 102-113. DOI: 10.14357/20718632230311
+
+Описание ссылок в формате BIBTEX:
+```
+@InProceedings{hitvisc2023pact,
+author="Nikitina, Natalia and Ivashko, Evgeny",
+editor="Malyshkin, Victor",
+title="HiTViSc: High-Throughput Virtual Screening as a Service",
+booktitle="Parallel Computing Technologies",
+year="2023",
+publisher="Springer Nature Switzerland",
+address="Cham",
+pages="83--92",
+isbn="978-3-031-41673-6"
+}
+```
+```
+@article{hitvisc2023,
+  title={Концепция сервиса виртуального скрининга лекарств на базе распределенных вычислений HiTViSc},
+  author={Ивашко, Евгений Евгеньевич and Никитина, Наталия Николаевна},
+  journal={Информационные технологии и вычислительные системы},
+  number={3},
+  pages={102--113},
+  year={2023},
+  publisher={Федеральный исследовательский центр "Информатика и управление" Российской академии наук}
+}
+```
