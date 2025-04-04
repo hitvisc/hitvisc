@@ -60,15 +60,16 @@ ____
 Описание ссылок в формате BIBTEX:
 ```
 @InProceedings{hitvisc2023pact,
-author="Nikitina, Natalia and Ivashko, Evgeny",
-editor="Malyshkin, Victor",
-title="HiTViSc: High-Throughput Virtual Screening as a Service",
-booktitle="Parallel Computing Technologies",
-year="2023",
-publisher="Springer Nature Switzerland",
-address="Cham",
-pages="83--92",
-isbn="978-3-031-41673-6"
+  author="Nikitina, Natalia and Ivashko, Evgeny",
+  editor="Malyshkin, Victor",
+  title="HiTViSc: High-Throughput Virtual Screening as a Service",
+  booktitle="Parallel Computing Technologies",
+  year="2023",
+  publisher="Springer Nature Switzerland",
+  address="Cham",
+  pages="83--92",
+  isbn="978-3-031-41673-6",
+  doi={https://doi.org/10.1007/978-3-031-41673-6_7}
 }
 ```
 ```
@@ -79,6 +80,7 @@ isbn="978-3-031-41673-6"
   number={3},
   pages={102--113},
   year={2023},
-  publisher={Федеральный исследовательский центр "Информатика и управление" Российской академии наук}
+  publisher={Федеральный исследовательский центр "Информатика и управление" Российской академии наук},
+  doi={https://doi.org/10.14357/20718632230311}
 }
 ```
