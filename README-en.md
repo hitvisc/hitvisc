@@ -52,7 +52,7 @@ The HiTViSc system relies on several third-party tools with open source:
 
 ## Citing HiTViSc
 
-If you have used HiTViSc system in your work, please, cite one of the following papers:
+If you have used HiTViSc system in your work, please cite one of the following papers:
 
 > Natalia Nikitina, Evgeny Ivashko. HiTViSc: High-Throughput Virtual Screening as a Service // Parallel Computing Technologies. PaCT 2023. Lecture Notes in Computer Science. Vol. 14098. Springer, Cham, 2023. Pp. 83–92. DOI: 10.1007/978-3-031-41673-6_7
 
