@@ -50,6 +50,39 @@ The HiTViSc system relies on several third-party tools with open source:
 - [OpenBabel](https://openbabel.github.io/) (GPL-2.0 license) to calculate chemical descriptors, convert the files of target and ligands into necessary formats;
 - [Conda](https://github.com/conda/conda) (BSD-3 license) to install and manage software packages, create and use an isolated environment.
 
+## Citing HiTViSc
 
+If you have used HiTViSc system in your work, please, cite one of the following papers:
 
+> Natalia Nikitina, Evgeny Ivashko. HiTViSc: High-Throughput Virtual Screening as a Service // Parallel Computing Technologies. PaCT 2023. Lecture Notes in Computer Science. Vol. 14098. Springer, Cham, 2023. Pp. 83–92. DOI: 10.1007/978-3-031-41673-6_7
 
+> Evgeny Ivashko, Natalia Nikitina. Koncepciya servisa virtual'nogo skrininga lekarstv na baze raspredelennyh vychislenij HiTViSc // Informacionnye  tekhnologii I I vichslitel’nye sistemy. No. 3. 2023. Pp. 102-113. DOI: 10.14357/20718632230311 (in Russian)
+
+BibTeX entries for the citations:
+```
+@InProceedings{hitvisc2023pact,
+  author="Nikitina, Natalia and Ivashko, Evgeny",
+  editor="Malyshkin, Victor",
+  title="HiTViSc: High-Throughput Virtual Screening as a Service",
+  booktitle="Parallel Computing Technologies",
+  year="2023",
+  publisher="Springer Nature Switzerland",
+  address="Cham",
+  pages="83--92",
+  isbn="978-3-031-41673-6",
+  doi={https://doi.org/10.1007/978-3-031-41673-6_7}
+}
+```
+```
+@article{hitvisc2023,
+  title={Koncepciya servisa virtual'nogo skrininga lekarstv na baze raspredelennyh vychislenij HiTViSc},
+  author={Ivashko, Evgeny and Nikitina, Natalia},
+  journal={Informacionnye tekhnologii i vichslitel’nye sistemy},
+  number={3},
+  pages={102--113},
+  year={2023},
+  publisher={Federal Research Center "Computer Science and Control" of the Russian academy of sciences},
+  doi={https://doi.org/10.14357/20718632230311},
+  note={in Russian}
+}
+```
