@@ -74,7 +74,7 @@ else
       y=1
       for testlig in $(head -$TOP $ENERGYFILE)
       do
-        if [ -z ${arr[${x},${y}]} ]; then
+        if [ -z "${arr[${x},${y}]}" ]; then
           TESTLIGNAME=$(echo $testlig | cut -d',' -f1)
           TEST_LIG_FILE="$HITS_DIR/$TESTLIGNAME.$EXT"
           TANIMOTO_COEFF=$(obabel $REF_LIG_FILE $TEST_LIG_FILE -e --errorlevel 1 -ofpt 2>/dev/null | awk -F' ' 'match($0, /Tanimoto from .+ = ([0-9.]+)/, a){print a[1]; exit 0}')
