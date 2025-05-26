@@ -42,6 +42,7 @@
       - libossp-uuid-dev
       - r-base-core
       - dos2unix
+      - gawk
       state: present
 
   # Create HiTViSc group and user
