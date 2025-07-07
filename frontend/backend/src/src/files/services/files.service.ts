@@ -1,10 +1,10 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { diskStorage } from 'multer';
-import { existsSync, mkdirSync, realpathSync } from 'fs';
+import { existsSync, mkdirSync } from 'fs';
 import { unlink, rename, copyFile } from 'node:fs/promises';
 import { FileReferenceEntity } from '../entities/file-reference.entity';
-import { join, resolve } from 'path';
+import { join } from 'path';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -74,11 +74,7 @@ export class FilesService {
         this.ensureTemporaryFileExtension(extension, options.extensions);
       }
     } catch (e) {
-      const normalizedPath = fs.realpathSync(path.resolve(FilesService.getStorageDirectory(), file.path));
-       if (!normalizedPath.startsWith(FilesService.getStorageDirectory())) {
-        throw new HttpException('Invalid file path', HttpStatus.FORBIDDEN);
-      }
-      await unlink(normalizedPath);
+      await unlink(file.path);
       const errorCode = e.getResponse()?.errorCode || null;
       if (errorCode === FileErrorCode.InvalidFormat)
         this.logger.error(
