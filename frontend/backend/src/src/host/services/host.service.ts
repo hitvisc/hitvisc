@@ -131,13 +131,11 @@ export class HostService {
     if (!scriptPath) {
       this.logger.error('update host type script path is not set');
     }
-    const command = scriptPath;
-
-    const args = [host.id.toString(), usageType];
+    const command = [scriptPath, host.id, usageType].join(' ');
 
     try {
       const { stdout, stderr } = await this.shellService.runShellCommand(
-        command, args
+        command,
       );
       if (stderr) {
         this.logger.error('update host type stderr:', stderr);
