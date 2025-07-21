@@ -67,6 +67,8 @@ ansible-playbook -K hitvisc-install.yml && ansible-playbook -K postgresql-instal
  && ansible-playbook -K hitvisc-boinc-install.yml && ansible-playbook -K registry-install.yml \
  && ansible-playbook -K third-party-install.yml && ansible-playbook -K frontend-install.yml
 ```
+> [!IMPORTANT]
+> В зависимости от настроек прав пользователя ansible на удаленном сервере, команда может потребовать ввод пароля. В таком случае можно исключить опцию -K.
 
 В результате успешного выполнения команд будут созданы все необходимые системные директории в дереве директорий ``/app/*``, созданы и наполнены базовым набором данных необходимые таблицы в базе данных.
 
