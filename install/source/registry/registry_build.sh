@@ -23,6 +23,7 @@
 # Run scripts for creating HiTViSc registry database
 # ---------------------------------------------------------------
 
+set -e
 # Read input parameters
 postgresql_environment=${1}
 postgresql_instance_name=${2}
