@@ -19,6 +19,7 @@
 ---
 - name: Rolling HiTViSc PostgreSQL RDBMS software
   hosts: TargetServers
+  any_errors_fatal: true
 
   tasks:
   # Clean system from previous releases
