@@ -19,6 +19,7 @@
 ---
 - name: Prepare third-party bioinformatics tools
   hosts: TargetServers
+  any_errors_fatal: true
 
   tasks:
   # Create a directory for third-party tools
