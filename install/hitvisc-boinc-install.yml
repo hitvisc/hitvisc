@@ -19,6 +19,7 @@
 ---
 - name: Prepare the BOINC project for HiTViSc 
   hosts: TargetServers
+  any_errors_fatal: true
 
   tasks:
   - name: Installing packages
