@@ -19,6 +19,7 @@
 ---
 - name: Rolling HiTViSc software
   hosts: TargetServers
+  any_errors_fatal: true
 
   tasks:
   - name: Installing packages
