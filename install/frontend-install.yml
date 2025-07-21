@@ -19,6 +19,7 @@
 ---
 - name: Deploy HiTViSc front-end
   hosts: TargetServers
+  any_errors_fatal: true
   become: yes
   become_user: "{{ hitvisc_user_name }}"
   tasks:
