@@ -67,6 +67,9 @@ ansible-playbook -K hitvisc-install.yml && ansible-playbook -K postgresql-instal
  && ansible-playbook -K hitvisc-boinc-install.yml && ansible-playbook -K registry-install.yml \
  && ansible-playbook -K third-party-install.yml && ansible-playbook -K frontend-install.yml
 ```
+> [!IMPORTANT]
+> Depending on the settings of user ansible at the remote server, the command may ask for password. In this case, one can omit option -K.
+
 
 As a result of successful execution of the commands, all necessary system directories will be created in the directory tree ``/app/*``, and the necessary tables in the database will be created and filled with a basic set of data.
 
