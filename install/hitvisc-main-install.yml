@@ -19,6 +19,7 @@
 ---
 - name: Prepare HiTViSc main scripts
   hosts: TargetServers
+  any_errors_fatal: true
 
   tasks: 
   # Create HiTViSc main directory
