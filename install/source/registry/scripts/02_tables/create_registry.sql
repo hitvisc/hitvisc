@@ -158,7 +158,6 @@ COMMENT ON COLUMN registry.library.state IS 'Состояние библиоте
 -- Последовательность для нумерации библиотек лигандов
 CREATE SEQUENCE registry.seq_library_id START WITH 1 INCREMENT BY 1 MINVALUE 1 NO MAXVALUE;
 
-Идентификатор лиганда в базе данных RCSB PDB
 -- Перечень модулей моделирования докинга
 CREATE TABLE registry.docker
 (
