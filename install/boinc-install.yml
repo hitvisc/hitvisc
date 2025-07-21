@@ -19,6 +19,7 @@
 ---
 - name: BOINC Server rolling
   hosts: TargetServers
+  any_errors_fatal: true
 
   tasks:
   - name: Installing packages
