@@ -44,7 +44,7 @@ Before installing the system, make sure that the following files have the curren
 
 The HiTViSc system relies on several third-party tools with open source:
 
-- [BOINC](https://boinc.berkeley.edu/) (GNU LGPL license) to execute computational tasks of virtual screening in a distributed computing system;
+- BOINC (GNU LGPL license) to execute computational tasks of virtual screening in a distributed computing system;
 - [AutoDock Vina](https://vina.scripps.edu/) (Apache license) and [CmDock](https://gitlab.com/Jukic/cmdock/) (GNU LGPL license) to perform molecular docking;
 - [MGLTools](http://mgltools.scripps.edu/) (MOZILLA Open Source license and several other licenses - see [details](http://mgltools.scripps.edu/downloads/license-agreements)) to prepare the files of target and ligands for virtual screening;
 - [OpenBabel](https://openbabel.github.io/) (GPL-2.0 license) to calculate chemical descriptors, convert the files of target and ligands into necessary formats;
