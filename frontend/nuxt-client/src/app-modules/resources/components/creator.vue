@@ -13,7 +13,7 @@
         1. {{ $t('resources.creator.1') }}
         <a
           class="link"
-          href="https://boinc.berkeley.edu/download.php"
+          href=""
           target="_blank"
           >{{ $t('resources.creator.boincClient') }}</a
         >
