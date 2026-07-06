@@ -294,7 +294,7 @@ The ligand libraries are displayed as flashcards. Each card contains the followi
 - A short description.
   
 Editing and deleting libraries are available for libraries created by the user.
-To add a new library of ligands, click the "Add" button in the main work window and fill out the appropriate form.
+To add a new library of ligands, click the "Add" button in the main work window and fill out the appropriate form uploading a library in SDF format.
 When filling out the form, you must provide the following information:
 - The name of the library (collection) of ligands,
 - Brief description of the ligand library,
