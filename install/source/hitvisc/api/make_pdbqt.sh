@@ -26,6 +26,8 @@
 # PACKAGE_SIZE
 # NPACKAGES
 
+LIGAND_TIMEOUT="60s"
+
 eval "$(/app/third-party/anaconda/bin/conda 'shell.bash' 'hook' 2>/dev/null)"
 conda activate hitvisc-bio
 
@@ -41,7 +43,12 @@ cd "${LIBRARY_DATA_DIR_LIST[TMP]}" || exit 1
 find . -maxdepth 1 -type f -name "*.mol2" -print0 | while IFS= read -r -d '' mol2; do
     mol2_clean="${mol2#./}"
     FILENAMEMOL2="${mol2_clean%.mol2}"
-    prepare_ligand4.py -l "$mol2_clean" -o "$FILENAMEMOL2.pdbqt" &>/dev/null
+    timeout "$LIGAND_TIMEOUT" prepare_ligand4.py -l "$mol2_clean" -o "$FILENAMEMOL2.pdbqt" &>/dev/null
+    EXIT_CODE=$?
+    if [ $EXIT_CODE -eq 124 ] || [ $EXIT_CODE -eq 137 ]; then
+        # Code 124: timeout. Code 137: SIGKILL.
+        [ -f "$FILENAMEMOL2.pdbqt" ] && rm "$FILENAMEMOL2.pdbqt"
+    fi
     rm "$mol2_clean"
 done
 
