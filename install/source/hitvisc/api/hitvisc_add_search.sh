@@ -19,15 +19,15 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
+source "$DIR/../api/hitvisc_api_init.sh"
+
 # Usage: 
 USAGE_TEMPLATE="hitvisc_add_search.sh TMPDIR FRONT_ENTITY_ID NAME USAGE_TYPE DESCRIPTION TARGET_ID LIBRARY_ID DOCKER_NAME DOCKER_PARAMETERS_INPUT DOCKER_PARAMETERS_FILES DOCKER_PARAMETERS SEARCH_PARAMETERS RESOURCE_TYPE"
 
 # Get the number of arguments from template:
 NARGS="$(awk '{print NF-1}' <<< "$USAGE_TEMPLATE")"
 if [ "$#" -ne $NARGS ]; then log_msg_error "Wrong number of arguments ($#)"; exit $CODEARGERR; fi
-
-DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
-source "$DIR/../api/hitvisc_api_init.sh"
 
 source "$DIR/add_search.sh" "$@"
 EXITCODE=$?
