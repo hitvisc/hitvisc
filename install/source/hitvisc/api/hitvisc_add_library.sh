@@ -19,15 +19,15 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
+source "$DIR/../api/hitvisc_api_init.sh"
+
 # Usage: 
 USAGE_TEMPLATE="hitvisc_add_library.sh TMPDIR FRONT_ENTITY_ID NAME DESCRIPTION AUTHORS SOURCE USAGE_TYPE FILE_LOADED FILENAME ORIGINAL_FILENAME EXTENSION FILE_HREF"
 
 # Get the number of arguments from template:
 NARGS="$(awk '{print NF-1}' <<< "$USAGE_TEMPLATE")"
 if [ "$#" -ne $NARGS ]; then log_msg_error "Wrong number of arguments ($#)"; exit $CODEARGERR; fi
-
-DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
-source "$DIR/../api/hitvisc_api_init.sh"
 
 source "$DIR/add_library.sh" "$@"
 EXITCODE=$?
