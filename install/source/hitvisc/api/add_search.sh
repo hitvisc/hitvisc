@@ -231,7 +231,22 @@ if [[ $SEARCH_PROTOCOL_ID -le 0 ]]; then
 
 ## Create a new search with the obtained parameters
 
-SEARCH_ID=$(echo "SELECT registry.hitvisc_search_add('$SEARCH_NAME', '$SEARCH_SYSTEM_NAME', '$SEARCH_DESC', '$SEARCH_USAGE_TYPE', $TARGET_ID, $LIBRARY_ID, $DOCKER_ID, $DOCKER_PROTOCOL_ID, $SEARCH_PROTOCOL_ID, '$RESOURCE_TYPE', '$SEARCH_PREFIX', '$SEARCH_STATE');" | psql --dbname=hitvisc -qtA)
+SEARCH_ID=$(psql --dbname=hitvisc -qtA \
+  -v name="$SEARCH_NAME" \
+  -v system_name="$SEARCH_SYSTEM_NAME" \
+  -v description="$SEARCH_DESC" \
+  -v usage_type="$SEARCH_USAGE_TYPE" \
+  -v target_id="$TARGET_ID" \
+  -v library_id="$LIBRARY_ID" \
+  -v docker_id="$DOCKER_ID" \
+  -v docker_protocol_id="$DOCKER_PROTOCOL_ID" \
+  -v search_protocol_id="$SEARCH_PROTOCOL_ID" \
+  -v host_usage_type="$RESOURCE_TYPE" \
+  -v prefix="$SEARCH_PREFIX" \
+  -v state="$SEARCH_STATE" << 'EOF'
+SELECT registry.hitvisc_search_add(:'name', :'system_name', :'description', :'usage_type', :'target_id', :'library_id', :'docker_id', :'docker_protocol_id', :'search_protocol_id', :'host_usage_type', :'prefix', :'state');
+EOF
+)
 
 if [[ $SEARCH_ID -gt 0 ]]; then
   PSQL_STATUS=$(echo "UPDATE registry.search SET state = 'U' WHERE id = $SEARCH_ID; UPDATE registry.target SET state = 'I' WHERE id = $TARGET_ID; UPDATE registry.library SET state = 'I' WHERE id = $LIBRARY_ID;" | psql --dbname=hitvisc -qtA)
