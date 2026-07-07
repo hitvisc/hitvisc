@@ -122,7 +122,17 @@ if [ -z "$TEST" ]; then
 
 LIBRARY_STATE='P' # initially the state 'preparing'
 
-LIBRARY_ID=$(echo "SELECT registry.hitvisc_library_add('$LIBRARY_NAME', '$LIBRARY_SYSTEM_NAME', '$LIBRARY_DESC', '$LIBRARY_AUTH', '$LIBRARY_SRC', '$LIBRARY_USAGE_TYPE', '$LIBRARY_STATE');" | psql --dbname=hitvisc -qtA)
+LIBRARY_ID=$(psql --dbname=hitvisc -qtA \
+  -v name="$LIBRARY_NAME" \
+  -v system_name="$LIBRARY_SYSTEM_NAME" \
+  -v description="$LIBRARY_DESC" \
+  -v authors="$LIBRARY_AUTH" \
+  -v source="$LIBRARY_SRC" \
+  -v usage_type="$LIBRARY_USAGE_TYPE" \
+  -v state="$LIBRARY_STATE" << 'EOF'
+SELECT registry.hitvisc_library_add(:'name', :'system_name', :'description', :'authors', :'source', :'usage_type', :'state');
+EOF
+)
 
 # Register packages info for CmDock and AutoDock Vina
 if [[ $LIBRARY_ID -gt 0 ]]; then
