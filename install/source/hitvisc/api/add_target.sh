@@ -21,14 +21,16 @@
 
 # Arguments: TMPDIR FRONT_ENTITY_ID NAME DESCRIPTION AUTHORS SOURCE USAGE_TYPE FILE_LOADED FILENAME ORIGINAL_FILENAME EXTENSION PDB_ID REFLIG_EXTRACT REFLIG_EXIST REFLIG_FILENAME REFLIG_ORIGINAL_FILENAME REFLIG_EXTENSION
 
+ARGS=("$@")
+
 # Временная папка для загрузки и обработки файлов, связанных с мишенью
-TMPDIR="$1"; if [ ! -d "$TMPDIR" ]; then   
+TMPDIR="${ARGS[0]}"; if [ ! -d "$TMPDIR" ]; then   
   log_msg_error "TMPDIR ($TMPDIR) does not exist"; return $CODEENVERR; fi
 
-FRONT_ENTITY_ID="$2"; if [[ ! $FRONT_ENTITY_ID -gt 0 ]]; then 
+FRONT_ENTITY_ID="${ARGS[1]}"; if [[ ! $FRONT_ENTITY_ID -gt 0 ]]; then 
   log_msg_error "invalid value of FRONT_ENTITY_ID ($FRONT_ENTITY_ID)"; return $CODEARGERR; fi
 
-TARGET_NAME="$3"; if [ ${#TARGET_NAME} -gt 256 ]; then
+TARGET_NAME="${ARGS[2]}"; if [ ${#TARGET_NAME} -gt 256 ]; then
   log_msg_error "TARGET_NAME too long ($TARGET_NAME)"; return $CODEARGERR; fi 
 
 TARGET_SYSTEM_NAME=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 3; echo '')_$(($(date +%s%N)/1000000))
@@ -38,35 +40,35 @@ if [ -d "$TARGET_DATA_DIR" ]; then log_msg_error "Directory TARGET_DATA_DIR alre
 mkdir -p "$TARGET_DATA_DIR"
 if [ ! -d "$TARGET_DATA_DIR" ]; then log_msg_error "Unable to create directory TARGET_DATA_DIR ($TARGET_DATA_DIR)"; return $CODEENVERR; fi
 
-TARGET_DESC="$4"; if [ ${#TARGET_DESC} -gt 1024 ]; then
+TARGET_DESC="${ARGS[3]}"; if [ ${#TARGET_DESC} -gt 1024 ]; then
   log_msg_error "TARGET_DESC too long ($TARGET_DESC)"; return $CODEARGERR; fi
 
-TARGET_AUTH="$5"; if [ ${#TARGET_AUTH} -gt 256 ]; then
+TARGET_AUTH="${ARGS[4]}"; if [ ${#TARGET_AUTH} -gt 256 ]; then
   log_msg_error "TARGET_AUTH too long ($TARGET_AUTH)"; return $CODEARGERR; fi
 
-TARGET_SRC="$6"; if [ ${#TARGET_SRC} -gt 256 ]; then
+TARGET_SRC="${ARGS[5]}"; if [ ${#TARGET_SRC} -gt 256 ]; then
   log_msg_error "TARGET_SRC too long ($TARGET_SRC)"; return $CODEARGERR; fi
 
-TARGET_USAGE_TYPE="$7"; if [[ ! $TARGET_USAGE_TYPE =~ ^[ORP]$ ]]; then 
+TARGET_USAGE_TYPE="${ARGS[6]}"; if [[ ! $TARGET_USAGE_TYPE =~ ^[ORP]$ ]]; then 
   log_msg_error "invalid value of TARGET_USAGE_TYPE ($TARGET_USAGE_TYPE)"; return $CODEARGERR; fi 
 
-PDB_FILE_LOADED="$8"; if [[ ! $PDB_FILE_LOADED =~ ^[YN]$ ]]; then 
+PDB_FILE_LOADED="${ARGS[7]}"; if [[ ! $PDB_FILE_LOADED =~ ^[YN]$ ]]; then 
   log_msg_error "invalid value of PDB_FILE_LOADED ($PDB_FILE_LOADED)"; return $CODEARGERR; fi
 
-PDB_FILENAME="$9"
-PDB_ORIGINAL_FILENAME="${10}"
-PDB_EXTENSION="${11}"
-PDB_ID="${12}"
+PDB_FILENAME="${ARGS[8]}"
+PDB_ORIGINAL_FILENAME="${ARGS[9]}"
+PDB_EXTENSION="${ARGS[10]}"
+PDB_ID="${ARGS[11]}"
 
-REFLIG_EXTRACT="${13}"; if [[ ! $REFLIG_EXTRACT =~ ^[YN]$ ]]; then 
+REFLIG_EXTRACT="${ARGS[12]}"; if [[ ! $REFLIG_EXTRACT =~ ^[YN]$ ]]; then 
   log_msg_error "invalid value of REFLIG_EXTRACT ($REFLIG_EXTRACT)"; return $CODEARGERR; fi
 
-REFLIG_EXIST="${14}"; if [[ ! $REFLIG_EXIST =~ ^[YN]$ ]]; then 
+REFLIG_EXIST="${ARGS[13]}"; if [[ ! $REFLIG_EXIST =~ ^[YN]$ ]]; then 
   log_msg_error "invalid value of REFLIG_EXIST ($REFLIG_EXIST)"; return $CODEARGERR; fi
 
-REFLIG_FILENAME="${15}" 
-REFLIG_ORIGINAL_FILENAME="${16}"
-REFLIG_EXTENSION="${17}"
+REFLIG_FILENAME="${ARGS[14]}" 
+REFLIG_ORIGINAL_FILENAME="${ARGS[15]}"
+REFLIG_EXTENSION="${ARGS[16]}"
 
 ## Process PDB file
 if [ "$PDB_FILE_LOADED" == "N" ]; then
