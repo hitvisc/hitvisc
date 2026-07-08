@@ -25,5 +25,7 @@ RECEPTOR="receptor.pdbqt"
 
 for LIGAND in *.pdbqt
 do
-  ./autodockvina --receptor $RECEPTOR --config $CONFIG --ligand $LIGAND --out ${LIGAND}_out.pdbqt >> docking_out
+  [ -e "$LIGAND" ] || continue
+  [ "$LIGAND" = "$RECEPTOR" ] && continue
+  ./autodockvina --receptor "$RECEPTOR" --config "$CONFIG" --ligand "$LIGAND" --out "${LIGAND}_out.pdbqt" >> docking_out
 done
