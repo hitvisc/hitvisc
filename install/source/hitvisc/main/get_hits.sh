@@ -43,8 +43,11 @@ do
     HITS_DIR="$hitvisc_data_dir/search/$SEARCH_SYSTEM_NAME/hits"
     if [ ! -d "$HITS_DIR" ]; then mkdir -p "$HITS_DIR"; fi
     if [ ! -d "$HITS_DIR" ]; then log_msg_error "Hits dir not found for search $SEARCH_SYSTEM_NAME"; break; fi
+	
     ENERGYFILE="$HITS_DIR/energies.dat"
     touch "$ENERGYFILE.tmp"
+	STATSFILE="$HITS_DIR/stats.csv"
+    touch "$STATSFILE.tmp"
 
     if [ "$HIT_CRIT" == "F" ]; then HIT_THR="$HIT_THR_EFF"; else HIT_THR="$HIT_THR_ENG"; fi
     if [[ "$DOCKER_NAME" != "cmdock" ]] && [[ "$DOCKER_NAME" != "autodockvina" ]]; then
@@ -73,6 +76,9 @@ do
 
               if [[ $ligand_num_atoms -gt 0 ]]; then LIG_EFF=$(printf '%.4f' "$(echo "$LIG_ENG/$ligand_num_atoms" | bc -l)")
               else LIG_EFF="NA"; fi
+
+			  ## Save ligand stats
+              echo "$LIGAND_BASENAME,$LIG_EFF,$LIG_ENG" >> "$STATSFILE.tmp"
       
               ## Filter hits
               if [[ "$HIT_CRIT" == "N" && "$(echo $LIG_ENG $HIT_THR | awk '{if ($1 != "NA" && $1 <= $2) print 1}')" -eq "1" ]] || [[ "$HIT_CRIT" == "F" && "$(echo $LIG_EFF $HIT_THR | awk '{if ($1 != "NA" && $1 <= $2) print 1}')" -eq "1" ]]; then
@@ -102,6 +108,9 @@ do
       LIGAND_STR=$(awk -v n=1 '/<Name>/ { for (i = 1; i <= n; i++) getline; ligand = $0 }; (NF == 10 && $4 != "H") { num_atoms++ }; /<SCORE.INTER>/ { for (i = 1; i <= n; i++) getline; if(num_atoms == 0) { eff = "NA" } else { eff = $0/num_atoms }; print ligand, $0, eff; num_atoms = 0 }' "$DOCKING_OUT")
       while read -r LIGAND_NAME LIG_ENG LIG_EFF #<<< $LIGAND_STR
       do
+        ## Save ligand stats
+        echo "$LIGAND_NAME,$LIG_EFF,$LIG_ENG" >> "$STATSFILE.tmp"
+	  
         ## Filter hits
         if [[ "$HIT_CRIT" == "N" && "$(echo $LIG_ENG $HIT_THR | awk '{if ($1 != "NA" && $1 <= $2) print 1}')" -eq "1" ]] || [[ "$HIT_CRIT" == "F" && "$(echo $LIG_EFF $HIT_THR | awk '{if ($1 != "NA" && $1 <= $2) print 1}')" -eq "1" ]]; then
           LIGAND_FILE="$OUT_DIR/${LIGAND_NAME}.sdf"
