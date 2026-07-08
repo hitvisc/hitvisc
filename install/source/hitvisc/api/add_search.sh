@@ -21,12 +21,14 @@
 
 # Arguments: TMPDIR FRONT_SEARCH_ID NAME USAGE_TYPE DESCRIPTION TARGET_ID LIBRARY_ID DOCKER_NAME DOCKER_PARAMETERS_INPUT "DOCKER_PARAMETERS_FILES" "DOCKER_PARAMETERS" "SEARCH_PARAMETERS" RESOURCE_TYPE
 
+ARGS=("$@")
+
 DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
 
 # Временная папка для загрузки и обработки файлов, связанных с поиском
-TMPDIR="$1"; if [ ! -d "$TMPDIR" ]; then log_msg_error "TMPDIR ($TMPDIR) does not exist"; return $CODEENVERR; fi
-FRONT_SEARCH_ID="$2"; if [[ ! $FRONT_SEARCH_ID -gt 0 ]]; then log_msg_error "invalid value of FRONT_SEARCH_ID ($FRONT_SEARCH_ID)"; return $CODEARGERR; fi
-SEARCH_NAME="$3"; if [ ${#SEARCH_NAME} -gt 256 ]; then log_msg_error "SEARCH_NAME too long ($SEARCH_NAME)"; return $CODEARGERR; fi
+TMPDIR="${ARGS[0]}"; if [ ! -d "$TMPDIR" ]; then log_msg_error "TMPDIR ($TMPDIR) does not exist"; return $CODEENVERR; fi
+FRONT_SEARCH_ID="${ARGS[1]}"; if [[ ! $FRONT_SEARCH_ID -gt 0 ]]; then log_msg_error "invalid value of FRONT_SEARCH_ID ($FRONT_SEARCH_ID)"; return $CODEARGERR; fi
+SEARCH_NAME="${ARGS[2]}"; if [ ${#SEARCH_NAME} -gt 256 ]; then log_msg_error "SEARCH_NAME too long ($SEARCH_NAME)"; return $CODEARGERR; fi
 SEARCH_SYSTEM_NAME=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 3; echo '')_$(($(date +%s%N)/1000000))
 
 SEARCH_DATA_DIR="$hitvisc_data_dir/search/$SEARCH_SYSTEM_NAME"
@@ -34,29 +36,29 @@ if [ -d "$SEARCH_DATA_DIR" ]; then log_msg_error "Directory SEARCH_DATA_DIR alre
 mkdir -p "$SEARCH_DATA_DIR"
 if [ ! -d "$SEARCH_DATA_DIR" ]; then log_msg_error "Unable to create directory SEARCH_DATA_DIR ($SEARCH_DATA_DIR)"; return $CODEENVERR; fi
 
-SEARCH_USAGE_TYPE="$4"; if [[ ! $SEARCH_USAGE_TYPE =~ ^[ORP]$ ]]; then 
+SEARCH_USAGE_TYPE="${ARGS[3]}"; if [[ ! $SEARCH_USAGE_TYPE =~ ^[ORP]$ ]]; then 
   log_msg_error "invalid value of SEARCH_USAGE_TYPE ($SEARCH_USAGE_TYPE)"; return $CODEARGERR; fi
 
-SEARCH_DESC="$5"; if [ ${#SEARCH_DESC} -gt 1024 ]; then log_msg_error "SEARCH_DESC too long ($SEARCH_DESC)"; return $CODEARGERR; fi
+SEARCH_DESC="${ARGS[4]}"; if [ ${#SEARCH_DESC} -gt 1024 ]; then log_msg_error "SEARCH_DESC too long ($SEARCH_DESC)"; return $CODEARGERR; fi
 
-FRONT_TARGET_ID="$6"
+FRONT_TARGET_ID="${ARGS[5]}"
 TARGET_ID=$(echo "SELECT back_entity_id FROM registry.entity_mapping WHERE front_entity_id = '$FRONT_TARGET_ID' AND entity_type = 'T';" | psql --dbname=hitvisc -qtA)
 if [[ ! $TARGET_ID -gt 0 ]]; then
   log_msg_error "unable to get back_target_id by front_target_id ($FRONT_TARGET_ID)"; return $CODEARGERR; fi
 
-FRONT_LIBRARY_ID="$7"
+FRONT_LIBRARY_ID="${ARGS[6]}"
 LIBRARY_ID=$(echo "SELECT back_entity_id FROM registry.entity_mapping WHERE front_entity_id = '$FRONT_LIBRARY_ID' AND entity_type = 'L';" | psql --dbname=hitvisc -qtA)
 if [[ ! $LIBRARY_ID -gt 0 ]]; then
   log_msg_error "unable to get back_library_id by front_library_id ($FRONT_LIBRARY_ID)"; return $CODEARGERR; fi
 
-DOCKER_NAME="$8"
+DOCKER_NAME="${ARGS[7]}"
 
-DOCKER_PARAMETERS_INPUT="$9"
-DOCKER_PARAMETERS_FILES="${10}"
-DOCKER_PARAMETERS="${11}"
-SEARCH_PARAMETERS="${12}"
+DOCKER_PARAMETERS_INPUT="${ARGS[8]}"
+DOCKER_PARAMETERS_FILES="${ARGS[9]}"
+DOCKER_PARAMETERS="${ARGS[10]}"
+SEARCH_PARAMETERS="${ARGS[11]}"
 
-RESOURCE_TYPE="${13}"; if [[ ! $RESOURCE_TYPE =~ ^[TRP]$ ]]; then 
+RESOURCE_TYPE="${ARGS[12]}"; if [[ ! $RESOURCE_TYPE =~ ^[TRP]$ ]]; then 
   log_msg_error "invalid value of RESOURCE_TYPE ($RESOURCE_TYPE)"; return $CODEARGERR; fi
 
 SEARCH_PREFIX=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 3; echo '')_$(($(date +%s%N)/1000000))
