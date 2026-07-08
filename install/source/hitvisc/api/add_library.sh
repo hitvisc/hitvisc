@@ -21,14 +21,16 @@
 
 # Arguments: TMPDIR FRONT_ENTITY_ID NAME DESCRIPTION AUTHORS SOURCE USAGE_TYPE FILE_LOADED FILENAME ORIGINAL_FILENAME EXTENSION FILE_HREF
 
+ARGS=("$@")
+
 # Временная папка для загрузки и обработки файлов библиотеки лигандов
-TMPDIR="$1"; if [ ! -d "$TMPDIR" ]; then 
+TMPDIR="${ARGS[0]}"; if [ ! -d "$TMPDIR" ]; then 
   log_msg_error "TMPDIR ($TMPDIR) does not exist"; return $CODEENVERR; fi
 
-FRONT_ENTITY_ID="$2"; if [[ ! $FRONT_ENTITY_ID -gt 0 ]]; then 
+FRONT_ENTITY_ID="${ARGS[1]}"; if [[ ! $FRONT_ENTITY_ID -gt 0 ]]; then 
   log_msg_error "invalid value of FRONT_ENTITY_ID ($FRONT_ENTITY_ID)"; return $CODEARGERR; fi
 
-LIBRARY_NAME="$3"; if [ ${#LIBRARY_NAME} -gt 256 ]; then
+LIBRARY_NAME="${ARGS[2]}"; if [ ${#LIBRARY_NAME} -gt 256 ]; then
   log_msg_error "LIBRARY_NAME too long ($LIBRARY_NAME)"; return $CODEARGERR; fi
 
 LIBRARY_SYSTEM_NAME=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 3; echo '')_$(($(date +%s%N)/1000000))
@@ -38,25 +40,25 @@ if [ -d "$LIBRARY_DATA_DIR" ]; then log_msg_error "Directory LIBRARY_DATA_DIR al
 mkdir -p "$LIBRARY_DATA_DIR"
 if [ ! -d "$LIBRARY_DATA_DIR" ]; then log_msg_error "Unable to create directory LIBRARY_DATA_DIR ($LIBRARY_DATA_DIR)"; return $CODEENVERR; fi
 
-LIBRARY_DESC="$4"; if [ ${#LIBRARY_DESC} -gt 1024 ]; then
+LIBRARY_DESC="${ARGS[3]}"; if [ ${#LIBRARY_DESC} -gt 1024 ]; then
   log_msg_error "LIBRARY_DESC too long ($LIBRARY_DESC)"; return $CODEARGERR; fi
 
-LIBRARY_AUTH="$5"; if [ ${#LIBRARY_AUTH} -gt 256 ]; then
+LIBRARY_AUTH="${ARGS[4]}"; if [ ${#LIBRARY_AUTH} -gt 256 ]; then
   log_msg_error "LIBRARY_AUTH too long ($LIBRARY_AUTH)"; return $CODEARGERR; fi
 
-LIBRARY_SRC="$6"; if [ ${#LIBRARY_SRC} -gt 256 ]; then
+LIBRARY_SRC="${ARGS[5]}"; if [ ${#LIBRARY_SRC} -gt 256 ]; then
   log_msg_error "LIBRARY_SRC too long ($LIBRARY_SRC)"; return $CODEARGERR; fi
 
-LIBRARY_USAGE_TYPE="$7"; if [[ ! $LIBRARY_USAGE_TYPE =~ ^[ORP]$ ]]; then
+LIBRARY_USAGE_TYPE="${ARGS[6]}"; if [[ ! $LIBRARY_USAGE_TYPE =~ ^[ORP]$ ]]; then
   log_msg_error "invalid value of LIBRARY_USAGE_TYPE ($LIBRARY_USAGE_TYPE)"; return $CODEARGERR; fi
 
-FILE_LOADED="$8"; if [[ ! $FILE_LOADED =~ ^[YN]$ ]]; then
+FILE_LOADED="${ARGS[7]}"; if [[ ! $FILE_LOADED =~ ^[YN]$ ]]; then
   log_msg_error "invalid value of FILE_LOADED ($FILE_LOADED)"; return $CODEARGERR; fi
 
-FILENAME="$9"
-ORIGINAL_FILENAME="${10}"
-EXTENSION="${11}"
-FILE_HREF="${12}"
+FILENAME="${ARGS[8]}"
+ORIGINAL_FILENAME="${ARGS[9]}"
+EXTENSION="${ARGS[10]}"
+FILE_HREF="${ARGS[11]}"
 
 if [ $FILE_LOADED == "Y" ] && [ $EXTENSION != "zip" ]; then log_msg_error "Invalid format of the library file!"; return $CODEARGERR; fi
 
