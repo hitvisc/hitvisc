@@ -115,12 +115,23 @@ do
           
         TEST=$(find "$HITS_DIR" -name "*.$EXT" -maxdepth 1 -type f -print -quit)
         if [ ! -z "$TEST" ]; then
+          STATSFILE="$HITS_DIR/stats.csv"
+          if [ -f "$STATSFILE.tmp" ]; then
+                  sort -n -t',' -k3,3 "$STATSFILE.tmp" > "$STATSFILE"
+                  rm "$STATSFILE.tmp"
+          else
+                  log_msg_error "File stats.csv.tmp not found ($STATSFILE.tmp)"
+          fi
+
           ENERGYFILE="$HITS_DIR/energies.dat"
-
-          if [ -f "$ENERGYFILE.tmp" ]; then sort -n -t',' -k3,3 "$ENERGYFILE.tmp" > "$ENERGYFILE"; rm "$ENERGYFILE.tmp"
-          else log_msg_error "File energies.dat.tmp not found ($ENERGYFILE.tmp)"; fi
-
-          find "$HITS_DIR" -maxdepth 1 -type f -name "*.$EXT" -print0 | xargs -0 zip -qju "$HITS_DIR_ALL/hitvisc_hits_all.zip" -@
+          if [ -f "$ENERGYFILE.tmp" ]; then
+                  sort -n -t',' -k3,3 "$ENERGYFILE.tmp" > "$ENERGYFILE"
+                  rm "$ENERGYFILE.tmp"
+          else
+                  log_msg_error "File energies.dat.tmp not found ($ENERGYFILE.tmp)"
+          fi
+          
+          find "$HITS_DIR" -maxdepth 1 -type f -name "*.$EXT" -print0 | xargs -0 zip -qju "$HITS_DIR_ALL/hitvisc_hits_all.zip" -@ && zip -qju "$HITS_DIR_ALL/hitvisc_hits_all.zip" "$STATSFILE"
 
           # Diverse hits and visualisation
           # TODO: detect TOP automatically
