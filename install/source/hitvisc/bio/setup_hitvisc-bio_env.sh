@@ -21,8 +21,7 @@
 
 eval "$(/app/third-party/anaconda/bin/conda 'shell.bash' 'hook' 2>/dev/null)"
 
-#conda create -y -n hitvisc-bio openbabel mgltools -c bioconda
-conda create -y -n hitvisc-bio -c conda-forge -c bioconda openbabel mgltools
+conda create -y -n hitvisc-bio -c conda-forge -c bioconda openbabel mgltools scipy gemmi rdkit meeko
 
 # Заменить python на python2 в prepare_receptor4.py и prepare_ligand4.py,
 # так как MGLTools использует Python 2.
