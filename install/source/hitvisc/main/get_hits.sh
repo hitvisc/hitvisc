@@ -63,7 +63,7 @@ do
           DOCKING_OUT="$OUT_DIR/${HITVISC_WU_NAME}_1"
           dos2unix "$DOCKING_OUT" &>/dev/null # Fixes encoding in-place
           LIGAND_STR=$(awk -v n=2 '/Ligand: / { ligand = $2 } /(kcal\/mol) | rmsd l.b.| rmsd u.b./ { for (i = 1; i <= n; i++) getline; if($2~/^[-+]?[0-9\.]+$/) { print ligand, $2 }}' "$DOCKING_OUT")
-          while read -r LIGAND_NAME LIG_ENG #<<< $LIGAND_STR
+          while read -r LIGAND_NAME LIG_ENG
           do
             LIGAND_FILE="$OUT_DIR/${LIGAND_NAME}_out.pdbqt"
             if [ -f "$LIGAND_FILE" ]; then
@@ -106,7 +106,7 @@ do
 
       DOCKING_OUT="$OUT_DIR/${HITVISC_WU_NAME}_0"
       LIGAND_STR=$(awk -v n=1 '/<Name>/ { for (i = 1; i <= n; i++) getline; ligand = $0 }; (NF == 10 && $4 != "H") { num_atoms++ }; /<SCORE.INTER>/ { for (i = 1; i <= n; i++) getline; if(num_atoms == 0) { eff = "NA" } else { eff = $0/num_atoms }; print ligand, $0, eff; num_atoms = 0 }' "$DOCKING_OUT")
-      while read -r LIGAND_NAME LIG_ENG LIG_EFF #<<< $LIGAND_STR
+      while read -r LIGAND_NAME LIG_ENG LIG_EFF
       do
         ## Save ligand stats
         echo "$LIGAND_NAME,$LIG_EFF,$LIG_ENG" >> "$STATSFILE.tmp"
