@@ -110,7 +110,18 @@ TARGETMOL2NAME=$(basename $TARGETMOL2FILE); TARGETPDBQTNAME=$(basename $TARGETPD
 TARGET_STATE='P'  # initially the state 'preparing'
 
 ## Add target with the given parameters
-TARGET_ID=$(echo "SELECT registry.hitvisc_target_add('$TARGET_NAME', '$TARGET_SYSTEM_NAME', '$TARGET_DESC', '$TARGET_AUTH', '$TARGET_SRC', '$TARGET_USAGE_TYPE', '$TARGET_STATE');" | psql --dbname=hitvisc -qtA)
+
+TARGET_ID=$(psql --dbname=hitvisc -qtA \
+  -v name="$TARGET_NAME" \
+  -v system_name="$TARGET_SYSTEM_NAME" \
+  -v description="$TARGET_DESC" \
+  -v authors="$TARGET_AUTH" \
+  -v source="$TARGET_SRC" \
+  -v usage_type="$TARGET_USAGE_TYPE" \
+  -v state="$TARGET_STATE" << 'EOF'
+SELECT registry.hitvisc_target_add(:'name', :'system_name', :'description', :'authors', :'source', :'usage_type', :'state');
+EOF
+)
 
 if [[ $TARGET_ID -gt 0 ]]; then
   TARGET_FILE_MOL2_ID=$(echo "SELECT registry.hitvisc_target_file_add($TARGET_ID, 'mol2', '$TARGETMOL2FILE', '$TARGETMOL2NAME');" | psql --dbname=hitvisc -qtA)
