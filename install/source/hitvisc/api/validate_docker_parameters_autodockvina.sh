@@ -25,8 +25,8 @@
   if ! [[ $SIZE_X =~ ^[+-]?[0-9]+\.?[0-9]*$ && $SIZE_Y =~ ^[+-]?[0-9]+\.?[0-9]*$ && $SIZE_Z =~ ^[+-]?[0-9]+\.?[0-9]*$ ]]; then
     log_msg_error "invalid value of SIZE_X SIZE_Y SIZE_Z ($SIZE_X $SIZE_Y $SIZE_Z)"; return $CODEARGERR; fi
 
-  # Exhaustiveness of search (1-8, default 8) - thoroughness of search, roughly proportional to time
-  if ! [[ "$EXHAUSTIVENESS" =~ ^[0-9]+$ && $EXHAUSTIVENESS -ge 1 && $EXHAUSTIVENESS -le 8 ]]; then
+  # Exhaustiveness of search (positive integer, default 8) - thoroughness of search, roughly proportional to time
+  if ! [[ "$EXHAUSTIVENESS" =~ ^[0-9]+$ && $EXHAUSTIVENESS -ge 1 && $EXHAUSTIVENESS -le 100 ]]; then
     log_msg_error "invalid value of EXHAUSTIVENESS ($EXHAUSTIVENESS)"; return $CODEARGERR; fi
 
   # Number of binding modes (1-10, default 9) - maximum number of binding modes to generate
